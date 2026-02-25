@@ -1,2 +1,0 @@
-UPDATE sys_config SET name = 'zx.init.web.jsp.port' WHERE idx = 0 AND name = 'zx.init.web.jsp.path';
-INSERT INTO sys_config (idx,name,val,zh_name,gmt_create,gmt_modified) VALUES (37,'logType','SBSXWJGL','文件过滤日志',NOW(),NOW());

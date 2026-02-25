@@ -1,2 +1,0 @@
-DELETE FROM `permission_group_permission` WHERE permission_id IN (250,251,252,253,254,255,270,271,272,275,276,277,290,291,292,295,296,297,300,301,302,305,306,307,310,311,312,511,512,513,514,516,517,518,570,571,572,573,574,575,660,661) AND permission_group_id = 3;
-DELETE FROM `permission_group_permission` WHERE permission_id IN (510) AND permission_group_id = 6;

@@ -1,1 +1,0 @@
-DELETE FROM sys_config WHERE name = 'zx.init.web.jsp.path';

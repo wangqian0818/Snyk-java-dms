@@ -1,1 +1,0 @@
-update sys_config set zh_name = '自定义协议检查策略日志' where id = 58;

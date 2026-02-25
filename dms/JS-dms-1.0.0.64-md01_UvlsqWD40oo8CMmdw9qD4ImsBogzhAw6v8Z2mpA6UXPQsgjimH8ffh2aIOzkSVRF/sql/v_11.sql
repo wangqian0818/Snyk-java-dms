@@ -1,2 +1,0 @@
-UPDATE `user` SET `password` = 'c34f355d85796bba3f39e4b09ba5c8ddc675d9f37b2d1272fc09ec68bd40c992' WHERE id = 6 AND name = 'appadmin';
-ALTER TABLE `alarm_info` ADD COLUMN `actual_capacity` VARCHAR(30) NULL COMMENT '实际容量' AFTER `content`;

@@ -1,1 +1,0 @@
-ALTER TABLE `mq_message` ADD COLUMN `channel_name` VARCHAR(255) NULL COMMENT '通道名称' AFTER `device_name`;
