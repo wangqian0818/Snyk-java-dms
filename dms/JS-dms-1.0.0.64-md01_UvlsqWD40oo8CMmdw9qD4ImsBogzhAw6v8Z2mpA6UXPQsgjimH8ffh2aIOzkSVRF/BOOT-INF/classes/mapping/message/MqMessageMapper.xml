@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.message.mapper.MqMessageMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.message.model.MqMessage">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="dispatch_id" jdbcType="VARCHAR" property="dispatchId" />
+    <result column="message_id" jdbcType="VARCHAR" property="messageId" />
+    <result column="module" jdbcType="VARCHAR" property="module" />
+    <result column="source_id" jdbcType="BIGINT" property="sourceId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="method" jdbcType="TINYINT" property="method" />
+    <result column="deal_state" jdbcType="TINYINT" property="dealState" />
+    <result column="send_type" jdbcType="VARCHAR" property="sendType" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="ha_name" jdbcType="VARCHAR" property="haName" />
+    <result column="app_name" jdbcType="VARCHAR" property="appName" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="channel_name" jdbcType="VARCHAR" property="channelName" />
+    <result column="strategy_name" jdbcType="VARCHAR" property="strategyName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zx.dms.database.message.model.MqMessageWithBLOBs">
+    <result column="message" jdbcType="LONGVARCHAR" property="message" />
+    <result column="response_message" jdbcType="LONGVARCHAR" property="responseMessage" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dispatch_id, message_id, module, source_id, user_name, method, deal_state, send_type, status, 
+    ha_name, app_name, device_name, channel_name, strategy_name, gmt_create, gmt_modified
+  </sql>
+  <sql id="Blob_Column_List">
+    message, response_message
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mq_message
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from mq_message
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.message.model.MqMessageWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mq_message (dispatch_id, message_id, module, source_id, user_name, method, send_type, status, 
+      ha_name, app_name, device_name, channel_name, strategy_name, gmt_create, gmt_modified, 
+      message, response_message)
+    values (#{dispatchId,jdbcType=VARCHAR}, #{messageId,jdbcType=VARCHAR}, #{module,jdbcType=VARCHAR}, 
+      #{sourceId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{method,jdbcType=TINYINT}, 
+      #{sendType,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{haName,jdbcType=VARCHAR}, 
+      #{appName,jdbcType=VARCHAR}, #{deviceName,jdbcType=VARCHAR}, #{channelName,jdbcType=VARCHAR}, 
+      #{strategyName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{message,jdbcType=LONGVARCHAR}, #{responseMessage,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.message.model.MqMessageWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mq_message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dispatchId != null">
+        dispatch_id,
+      </if>
+      <if test="messageId != null">
+        message_id,
+      </if>
+      <if test="module != null">
+        module,
+      </if>
+      <if test="sourceId != null">
+        source_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="method != null">
+        method,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="message != null">
+        message,
+      </if>
+      <if test="responseMessage != null">
+        response_message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dispatchId != null">
+        #{dispatchId,jdbcType=VARCHAR},
+      </if>
+      <if test="messageId != null">
+        #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="module != null">
+        #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceId != null">
+        #{sourceId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        #{method,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="message != null">
+        #{message,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="responseMessage != null">
+        #{responseMessage,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.message.model.MqMessageWithBLOBs">
+    update mq_message
+    <set>
+      <if test="messageId != null">
+        message_id = #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="module != null">
+        module = #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceId != null">
+        source_id = #{sourceId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        method = #{method,jdbcType=TINYINT},
+      </if>
+      <if test="dealState != null">
+        deal_state = #{dealState,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="message != null">
+        message = #{message,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="responseMessage != null">
+        response_message = #{responseMessage,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zx.dms.database.message.model.MqMessageWithBLOBs">
+    update mq_message
+    set message_id = #{messageId,jdbcType=VARCHAR},
+      module = #{module,jdbcType=VARCHAR},
+      source_id = #{sourceId,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=VARCHAR},
+      method = #{method,jdbcType=TINYINT},
+      deal_state = #{dealState,jdbcType=TINYINT},
+      status = #{status,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      message = #{message,jdbcType=LONGVARCHAR},
+      response_message = #{responseMessage,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.message.model.MqMessage">
+    update mq_message
+    set message_id = #{messageId,jdbcType=VARCHAR},
+      module = #{module,jdbcType=VARCHAR},
+      source_id = #{sourceId,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=VARCHAR},
+      method = #{method,jdbcType=TINYINT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByMessageId" resultMap="ResultMapWithBLOBs" useCache="false">
+  	select * from mq_message where message_id = #{messageId,jdbcType=VARCHAR}
+  </select>
+  <update id="updateWorkState">
+  update ${tableName}
+    set work_state = #{workState,jdbcType=TINYINT},
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByModule" resultMap="ResultMapWithBLOBs">
+  	select * from mq_message where module = #{module,jdbcType=VARCHAR} and source_id = #{sourceId,jdbcType=BIGINT}
+  </select>
+  <update id="updateTableData" parameterType="com.zx.dms.database.handler.model.MsgUpdateTableData">
+  	update ${tableName} 
+  	<set>
+	  	<if test="ifaceState != null">
+	  		iface_state = #{ifaceState,jdbcType=TINYINT},
+	  	</if>
+	  	<if test="ifaceWorkState != null">
+	  		iface_work_state = #{ifaceWorkState,jdbcType=TINYINT},
+	  	</if>
+	  	<if test="ipsWorkState != null">
+	  		ips_work_state = #{ipsWorkState,jdbcType=TINYINT},
+	  	</if>
+	  	<if test="workState != null">
+	  		work_state = #{workState,jdbcType=TINYINT},
+	  	</if>
+	  	<if test="ddos != null">
+        	ddos = #{ddos,jdbcType=BIT},
+      	</if>
+      	<if test="ddosWorkState != null">
+        	ddos_work_state = #{ddosWorkState,jdbcType=TINYINT},
+      	</if>
+      	<if test="waf != null">
+       		waf = #{waf,jdbcType=BIT},
+      	</if>
+      	<if test="wafWorkState != null">
+        	waf_work_state = #{wafWorkState,jdbcType=TINYINT},
+      	</if>
+      	<if test="virus != null">
+        	virus = #{virus,jdbcType=BIT},
+      	</if>
+      	<if test="virusWorkState != null">
+        	virus_work_state = #{virusWorkState,jdbcType=TINYINT},
+      	</if>
+      	<if test="deleting != null">
+	  		and deleting = #{deleting,jdbcType=TINYINT}
+	  	</if>
+  	</set>
+  	<where>
+  		<if test="sourceId != null">
+	  		and id = #{sourceId,jdbcType=BIGINT}
+	  	</if>
+  		<if test="dbIfaceState != null">
+	  		and iface_state = #{dbIfaceState,jdbcType=TINYINT}
+	  	</if>
+	  	<if test="dbIfaceWorkState != null">
+	  		and iface_work_state = #{dbIfaceWorkState,jdbcType=TINYINT}
+	  	</if>
+	  	<if test="dbIpsWorkState != null">
+	  		and ips_work_state = #{dbIpsWorkState,jdbcType=TINYINT}
+	  	</if>
+	  	<if test="dbWorkState != null">
+	  		and work_state = #{dbWorkState,jdbcType=TINYINT}
+	  	</if>
+	  	<if test="dbDeleting != null">
+	  		and deleting = #{dbDeleting,jdbcType=TINYINT}
+	  	</if>
+  	</where>
+  </update>
+  <delete id="deleteBySourceId">
+  	delete from ${tableName} where id = #{sourceId,jdbcType=BIGINT}
+  </delete>
+  <select id="getLength" resultType="java.lang.Long">
+    select count(0) from mq_message
+    <trim prefix="where">
+    	1 = 1
+        <if test="search != null and '' neq search">
+            and ${fieldName} like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="startDate != null and '' neq startDate ">
+			AND gmt_create <![CDATA[ >= ]]> #{startDate,jdbcType=VARCHAR}
+		</if>
+		<if test="endDate != null and '' neq endDate ">
+			AND gmt_create <![CDATA[ <= ]]> #{endDate,jdbcType=VARCHAR}
+		</if>
+		<if test="userName != null and '' neq userName ">
+			AND user_name = #{userName,jdbcType=VARCHAR} 
+		</if>
+		<if test="status != null and '' neq status ">
+			AND status = #{status,jdbcType=VARCHAR} 
+		</if>
+		<if test="sendType != null and '' neq sendType ">
+			AND send_type like CONCAT('%', #{sendType,jdbcType=VARCHAR}, '%') 
+		</if>
+  		<if test="deviceName != null and '' neq deviceName">
+  			and device_name = #{deviceName,jdbcType=VARCHAR} 
+  		</if>
+  		<if test="channelName != null and '' neq channelName">
+  			and channel_name = #{channelName,jdbcType=VARCHAR} 
+  		</if>
+		AND module != 'init_device' AND module != 'finish_conf'
+    </trim>
+  </select>
+  <select id="selectAll" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mq_message
+    <trim prefix="where">
+    	1 = 1
+        <if test="search != null and '' neq search">
+            and ${fieldName} like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="startDate != null and '' neq startDate ">
+			AND gmt_create <![CDATA[ >= ]]> #{startDate,jdbcType=VARCHAR}
+		</if>
+		<if test="endDate != null and '' neq endDate ">
+			AND gmt_create <![CDATA[ <= ]]> #{endDate,jdbcType=VARCHAR}
+		</if>
+		<if test="userName != null and '' neq userName ">
+			AND user_name = #{userName,jdbcType=VARCHAR} 
+		</if>
+		<if test="status != null and '' neq status ">
+			AND status = #{status,jdbcType=VARCHAR} 
+		</if>
+		<if test="sendType != null and '' neq sendType ">
+			AND send_type like CONCAT('%', #{sendType,jdbcType=VARCHAR}, '%')
+		</if>
+  		<if test="deviceName != null and '' neq deviceName">
+  			and device_name = #{deviceName,jdbcType=VARCHAR} 
+  		</if>
+  		<if test="channelName != null and '' neq channelName">
+  			and channel_name = #{channelName,jdbcType=VARCHAR} 
+  		</if>
+		AND module != 'init_device' AND module != 'finish_conf'
+    </trim>
+    order by gmt_create desc, id desc
+  </select>
+  <select id="selectName" resultType="java.lang.String">
+ 	select ${fieldName} from ${tableName} 
+ 	where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByTime" parameterType="java.lang.String">
+    delete from mq_message
+    where gmt_create <![CDATA[ < ]]> #{gmtCreate,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByTime" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mq_message
+    <trim prefix="where">
+    	1 = 1
+		<if test="gmtCreate != null and '' neq gmtCreate ">
+			AND gmt_create <![CDATA[ < ]]> #{gmtCreate,jdbcType=VARCHAR}
+		</if>
+    </trim>
+    order by gmt_create asc
+  </select>
+  <delete id="deleteLog">
+    delete from mq_message
+    <trim prefix="where">
+    	1 = 1
+        <if test="search != null and '' neq search">
+            and ${fieldName} like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="startDate != null and '' neq startDate ">
+			AND gmt_create <![CDATA[ >= ]]> #{startDate,jdbcType=VARCHAR}
+		</if>
+		<if test="endDate != null and '' neq endDate ">
+			AND gmt_create <![CDATA[ <= ]]> #{endDate,jdbcType=VARCHAR}
+		</if>
+		AND module != 'init_device' AND module != 'finish_conf'
+    </trim>
+  </delete>
+  <select id="getLastDispatch"  resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mq_message
+    where module = #{module} and source_id = #{sourceId} 
+      and send_type != '传输配置' and send_type != '流量控制删除' 
+    order by gmt_create desc
+    limit 1
+  </select>
+  <select id="getDispatchList"  resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mq_message
+    where dispatch_id = #{dispatchId} and send_type != '流量控制删除' 
+    order by gmt_create desc
+  </select>
+</mapper>

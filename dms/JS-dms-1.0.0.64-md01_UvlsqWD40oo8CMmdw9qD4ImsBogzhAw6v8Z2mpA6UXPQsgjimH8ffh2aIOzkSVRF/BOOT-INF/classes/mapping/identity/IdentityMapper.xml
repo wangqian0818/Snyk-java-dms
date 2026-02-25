@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.identity.mapper.IdentityMapper">
+	<insert id="add">
+		insert into identity(id,user_name,client_ip, host_name,port,result,key_pwd,cert_file_name,add_time)
+		values(#{id},#{userName},#{clientIp},#{hostName},#{port},#{result},#{keyPwd},#{certFileName},now())
+	</insert>
+	<select id="list" resultType="com.zx.dms.database.identity.model.Identity">
+		select * from `identity` where 1=1
+		<if test="userName != null and userName != '' ">
+			 and user_name = #{userName}
+		</if>
+		<if test="clientIp != null and clientIp != '' ">
+			and client_ip = #{clientIp}
+		</if>
+		<if test="search != null and search != '' ">
+			 and user_name like CONCAT('%',#{search},'%')
+		</if>
+		order by add_time DESC
+	</select>
+
+	<select id="selectUnique" resultType="com.zx.dms.database.identity.model.Identity">
+		select * from `identity`
+		where
+		user_name = #{userName} and client_ip = #{clientIp} and host_name=#{hostName}
+	</select>
+
+	<select id="get" resultType="com.zx.dms.database.identity.model.Identity">
+		select * from `identity` where id = #{id}
+	</select>
+	<update id="updateResult">
+		update `identity` set result = #{result},add_time=#{addTime} where id = #{id}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.zx.dms.database.identity.model.Identity">
+		update identity
+		set user_name = #{userName,jdbcType=VARCHAR},
+		client_ip = #{clientIp,jdbcType=VARCHAR},
+		host_name = #{hostName,jdbcType=VARCHAR},
+		port = #{port,jdbcType=VARCHAR},
+		result = #{result,jdbcType=VARCHAR},
+		key_pwd = #{keyPwd,jdbcType=VARCHAR},
+		cert_file_name = #{certFileName,jdbcType=VARCHAR},
+		add_time=#{addTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<delete id="delete">
+		delete from `identity` where id = #{id}
+	</delete>
+	
+	<delete id="deleteByHostName">
+		delete from identity where host_name = #{hostname,jdbcType=VARCHAR};
+	</delete>
+</mapper>

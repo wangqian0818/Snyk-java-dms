@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.trans.mapper.TransDataMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.trans.model.TransData">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="network_area_id" jdbcType="BIGINT" property="networkAreaId" />
+    <result column="network_area_name" jdbcType="VARCHAR" property="networkAreaName" />
+    <result column="transmit_type" jdbcType="VARCHAR" property="transmitType" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="port" jdbcType="INTEGER" property="port" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, type, name, network_area_id, network_area_name, transmit_type, 
+    ip, port, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from trans_data
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from trans_data
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.trans.model.TransData">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into trans_data (type, name, network_area_id, network_area_name, 
+      transmit_type, ip, port, gmt_create, gmt_modified
+      )
+    values (#{type,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{networkAreaId,jdbcType=BIGINT}, 
+      #{networkAreaName,jdbcType=VARCHAR}, #{transmitType,jdbcType=VARCHAR}, 
+      #{ip,jdbcType=VARCHAR}, #{port,jdbcType=INTEGER}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.trans.model.TransData">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into trans_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="networkAreaId != null">
+        network_area_id,
+      </if>
+      <if test="networkAreaName != null">
+        network_area_name,
+      </if>
+      <if test="transmitType != null">
+        transmit_type,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="port != null">
+        port,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="networkAreaId != null">
+        #{networkAreaId,jdbcType=BIGINT},
+      </if>
+      <if test="networkAreaName != null">
+        #{networkAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="transmitType != null">
+        #{transmitType,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null">
+        #{port,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.trans.model.TransData">
+    update trans_data
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="networkAreaId != null">
+        network_area_id = #{networkAreaId,jdbcType=BIGINT},
+      </if>
+      <if test="networkAreaName != null">
+        network_area_name = #{networkAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="transmitType != null">
+        transmit_type = #{transmitType,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null">
+        port = #{port,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.trans.model.TransData">
+    update trans_data
+    set type = #{type,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      network_area_id = #{networkAreaId,jdbcType=BIGINT},
+      network_area_name = #{networkAreaName,jdbcType=VARCHAR},
+      transmit_type = #{transmitType,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      port = #{port,jdbcType=INTEGER},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from trans_data
+  	<trim prefix="where" prefixOverrides="and|or">
+  		<if test="search != null and '' neq search">
+  			and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="type != null and '' neq type">
+  			and type = #{type,jdbcType=VARCHAR}
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_data
+  	<trim prefix="where" prefixOverrides="and|or">
+  		<if test="search != null and '' neq search">
+  			and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="type != null and '' neq type">
+  			and type = #{type,jdbcType=VARCHAR}
+  		</if>
+  	</trim>
+  	order by gmt_create desc, id desc
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_data where name = #{name,jdbcType=VARCHAR} and type = #{type,jdbcType=VARCHAR} 
+  </select>
+  <select id="selectByUnique" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_data where type = #{type,jdbcType=VARCHAR} and ip = #{ip,jdbcType=VARCHAR} and port = #{port,jdbcType=INTEGER} 
+  </select>
+</mapper>

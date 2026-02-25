@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.business.mapper.TransBusiDbMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.business.model.TransBusiDb">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="business_id" jdbcType="BIGINT" property="businessId" />
+    <result column="dispatch_id" jdbcType="VARCHAR" property="dispatchId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="rank" jdbcType="TINYINT" property="rank" />
+    <result column="socket_ip" jdbcType="VARCHAR" property="socketIp" />
+    <result column="socket_port" jdbcType="INTEGER" property="socketPort" />
+    <result column="db_type" jdbcType="VARCHAR" property="dbType" />
+    <result column="transmit_db_id" jdbcType="BIGINT" property="transmitDbId" />
+    <result column="transmit_db_name" jdbcType="VARCHAR" property="transmitDbName" />
+    <result column="channel_info_id" jdbcType="BIGINT" property="channelInfoId" />
+    <result column="channel_name" jdbcType="VARCHAR" property="channelName" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="device_sn" jdbcType="VARCHAR" property="deviceSn" />
+    <result column="device_type" jdbcType="TINYINT" property="deviceType" />
+    <result column="strategy_id" jdbcType="BIGINT" property="strategyId" />
+    <result column="strategy_name" jdbcType="VARCHAR" property="strategyName" />
+    <result column="business_time_id" jdbcType="BIGINT" property="businessTimeId" />
+    <result column="business_time_name" jdbcType="VARCHAR" property="businessTimeName" />
+    <result column="delay_sync" jdbcType="INTEGER" property="delaySync" />
+    <result column="max_flow" jdbcType="INTEGER" property="maxFlow" />
+    <result column="max_flow_unit" jdbcType="VARCHAR" property="maxFlowUnit" />
+    <result column="work_state" jdbcType="TINYINT" property="workState" />
+    <result column="approval_state" jdbcType="TINYINT" property="approvalState" />
+    <result column="link_state" jdbcType="TINYINT" property="linkState" />
+    <result column="transmit_state" jdbcType="TINYINT" property="transmitState" />
+    <result column="virus" jdbcType="BIT" property="virus" />
+    <result column="virus_work_state" jdbcType="TINYINT" property="virusWorkState" />
+    <result column="keywords" jdbcType="CLOB" property="keywords" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="deleting" jdbcType="TINYINT" property="deleting" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, type, location, business_id, dispatch_id, name, `rank`, socket_ip, socket_port, db_type, transmit_db_id, 
+    transmit_db_name, channel_info_id, channel_name, device_id, device_sn, device_type, strategy_id, strategy_name, 
+    business_time_id, business_time_name, delay_sync, max_flow, max_flow_unit, work_state, approval_state, link_state, 
+    transmit_state, virus, virus_work_state, keywords, create_user, deleting, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from trans_busi_db
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from trans_busi_db
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.business.model.TransBusiDb">
+    insert into trans_busi_db (id, type, location, business_id, dispatch_id, name, `rank`, socket_ip, socket_port, 
+      db_type, transmit_db_id, transmit_db_name, channel_info_id, channel_name, device_id, device_sn, device_type, 
+      strategy_id, strategy_name, business_time_id, business_time_name, delay_sync, max_flow, max_flow_unit, work_state, 
+      approval_state, link_state, transmit_state, virus, virus_work_state, keywords, create_user, deleting, gmt_create, 
+      gmt_modified)
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{businessId,jdbcType=BIGINT}, 
+      #{dispatchId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{rank,jdbcType=TINYINT}, #{socketIp,jdbcType=VARCHAR}, 
+      #{socketPort,jdbcType=INTEGER}, #{dbType,jdbcType=VARCHAR}, #{transmitDbId,jdbcType=BIGINT}, 
+      #{transmitDbName,jdbcType=VARCHAR}, #{channelInfoId,jdbcType=BIGINT}, #{channelName,jdbcType=VARCHAR}, 
+      #{deviceId,jdbcType=BIGINT}, #{deviceSn,jdbcType=VARCHAR}, #{deviceType,jdbcType=TINYINT}, #{strategyId,jdbcType=BIGINT}, 
+      #{strategyName,jdbcType=VARCHAR}, #{businessTimeId,jdbcType=BIGINT}, #{businessTimeName,jdbcType=VARCHAR}, 
+      #{delaySync,jdbcType=INTEGER}, #{maxFlow,jdbcType=INTEGER}, #{maxFlowUnit,jdbcType=VARCHAR}, #{workState,jdbcType=TINYINT}, 
+      #{approvalState,jdbcType=TINYINT}, #{linkState,jdbcType=TINYINT}, #{transmitState,jdbcType=TINYINT}, #{virus,jdbcType=BIT}, 
+      #{virusWorkState,jdbcType=TINYINT}, #{keywords,jdbcType=CLOB}, #{createUser,jdbcType=VARCHAR}, #{deleting,jdbcType=TINYINT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.business.model.TransBusiDb">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into trans_busi_db
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="businessId != null">
+        business_id,
+      </if>
+      <if test="dispatchId != null">
+        dispatch_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="rank != null">
+        `rank`,
+      </if>
+      <if test="dbType != null">
+        db_type,
+      </if>
+      <if test="transmitDbId != null">
+        transmit_db_id,
+      </if>
+      <if test="transmitDbName != null">
+        transmit_db_name,
+      </if>
+      <if test="channelInfoId != null">
+        channel_info_id,
+      </if>
+      <if test="channelName != null">
+        channel_name,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="deviceSn != null">
+        device_sn,
+      </if>
+      <if test="deviceType != null">
+        device_type,
+      </if>
+      <if test="strategyId != null">
+        strategy_id,
+      </if>
+      <if test="strategyName != null">
+        strategy_name,
+      </if>
+      <if test="businessTimeId != null">
+        business_time_id,
+      </if>
+      <if test="businessTimeName != null">
+        business_time_name,
+      </if>
+      <if test="delaySync != null">
+        delay_sync,
+      </if>
+      <if test="maxFlow != null">
+        max_flow,
+      </if>
+      <if test="maxFlowUnit != null">
+        max_flow_unit,
+      </if>
+      <if test="workState != null">
+        work_state,
+      </if>
+      <if test="approvalState != null">
+        approval_state,
+      </if>
+      <if test="linkState != null">
+        link_state,
+      </if>
+      <if test="transmitState != null">
+        transmit_state,
+      </if>
+      <if test="virus != null">
+        virus,
+      </if>
+      <if test="virusWorkState != null">
+        virus_work_state,
+      </if>
+      <if test="keywords != null">
+        keywords,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="deleting != null">
+        deleting,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null">
+        #{businessId,jdbcType=BIGINT},
+      </if>
+      <if test="dispatchId != null">
+        #{dispatchId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=TINYINT},
+      </if>
+      <if test="dbType != null">
+        #{dbType,jdbcType=VARCHAR},
+      </if>
+      <if test="transmitDbId != null">
+        #{transmitDbId,jdbcType=BIGINT},
+      </if>
+      <if test="transmitDbName != null">
+        #{transmitDbName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelInfoId != null">
+        #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="channelName != null">
+        #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceSn != null">
+        #{deviceSn,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null">
+        #{deviceType,jdbcType=TINYINT},
+      </if>
+      <if test="strategyId != null">
+        #{strategyId,jdbcType=BIGINT},
+      </if>
+      <if test="strategyName != null">
+        #{strategyName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessTimeId != null">
+        #{businessTimeId,jdbcType=BIGINT},
+      </if>
+      <if test="businessTimeName != null">
+        #{businessTimeName,jdbcType=VARCHAR},
+      </if>
+      <if test="delaySync != null">
+        #{delaySync,jdbcType=INTEGER},
+      </if>
+      <if test="maxFlow != null">
+        #{maxFlow,jdbcType=INTEGER},
+      </if>
+      <if test="maxFlowUnit != null">
+        #{maxFlowUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="workState != null">
+        #{workState,jdbcType=TINYINT},
+      </if>
+      <if test="approvalState != null">
+        #{approvalState,jdbcType=TINYINT},
+      </if>
+      <if test="linkState != null">
+        #{linkState,jdbcType=TINYINT},
+      </if>
+      <if test="transmitState != null">
+        #{transmitState,jdbcType=TINYINT},
+      </if>
+      <if test="virus != null">
+        #{virus,jdbcType=BIT},
+      </if>
+      <if test="virusWorkState != null">
+        #{virusWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="keywords != null">
+        #{keywords,jdbcType=CLOB},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="deleting != null">
+        #{deleting,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.business.model.TransBusiDb">
+    update trans_busi_db
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null">
+        business_id = #{businessId,jdbcType=BIGINT},
+      </if>
+      <if test="dispatchId != null">
+        dispatch_id = #{dispatchId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null">
+        `rank` = #{rank,jdbcType=TINYINT},
+      </if>
+      <if test="socketIp != null">
+        socket_ip = #{socketIp,jdbcType=VARCHAR},
+      </if>
+      <if test="socketPort != null">
+        socket_port = #{socketPort,jdbcType=INTEGER},
+      </if>
+      <if test="dbType != null">
+        db_type = #{dbType,jdbcType=VARCHAR},
+      </if>
+      <if test="transmitDbId != null">
+        transmit_db_id = #{transmitDbId,jdbcType=BIGINT},
+      </if>
+      <if test="transmitDbName != null">
+        transmit_db_name = #{transmitDbName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelInfoId != null">
+        channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="channelName != null">
+        channel_name = #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceSn != null">
+        device_sn = #{deviceSn,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null">
+        device_type = #{deviceType,jdbcType=TINYINT},
+      </if>
+      <if test="strategyId != null">
+        strategy_id = #{strategyId,jdbcType=BIGINT},
+      </if>
+      <if test="strategyName != null">
+        strategy_name = #{strategyName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessTimeId != null">
+        business_time_id = #{businessTimeId,jdbcType=BIGINT},
+      </if>
+      <if test="businessTimeName != null">
+        business_time_name = #{businessTimeName,jdbcType=VARCHAR},
+      </if>
+      <if test="delaySync != null">
+        delay_sync = #{delaySync,jdbcType=INTEGER},
+      </if>
+      <if test="maxFlow != null">
+        max_flow = #{maxFlow,jdbcType=INTEGER},
+      </if>
+      <if test="maxFlowUnit != null">
+        max_flow_unit = #{maxFlowUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="workState != null">
+        work_state = #{workState,jdbcType=TINYINT},
+      </if>
+      <if test="approvalState != null">
+        approval_state = #{approvalState,jdbcType=TINYINT},
+      </if>
+      <if test="linkState != null">
+        link_state = #{linkState,jdbcType=TINYINT},
+      </if>
+      <if test="transmitState != null">
+        transmit_state = #{transmitState,jdbcType=TINYINT},
+      </if>
+      <if test="virus != null">
+        virus = #{virus,jdbcType=BIT},
+      </if>
+      <if test="virusWorkState != null">
+        virus_work_state = #{virusWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="keywords != null">
+        keywords = #{keywords,jdbcType=CLOB},
+      </if>
+      <if test="deleting != null">
+        deleting = #{deleting,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.business.model.TransBusiDb">
+    update trans_busi_db
+    set type = #{type,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      business_id = #{businessId,jdbcType=BIGINT},
+      dispatch_id = #{dispatchId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      `rank` = #{rank,jdbcType=TINYINT},
+      socket_ip = #{socketIp,jdbcType=VARCHAR},
+      socket_port = #{socketPort,jdbcType=INTEGER},
+      db_type = #{dbType,jdbcType=VARCHAR},
+      transmit_db_id = #{transmitDbId,jdbcType=BIGINT},
+      transmit_db_name = #{transmitDbName,jdbcType=VARCHAR},
+      channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      channel_name = #{channelName,jdbcType=VARCHAR},
+      device_id = #{deviceId,jdbcType=BIGINT},
+      device_sn = #{deviceSn,jdbcType=VARCHAR},
+      device_type = #{deviceType,jdbcType=TINYINT},
+      strategy_id = #{strategyId,jdbcType=BIGINT},
+      strategy_name = #{strategyName,jdbcType=VARCHAR},
+      business_time_id = #{businessTimeId,jdbcType=BIGINT},
+      business_time_name = #{businessTimeName,jdbcType=VARCHAR},
+      delay_sync = #{delaySync,jdbcType=INTEGER},
+      max_flow = #{maxFlow,jdbcType=INTEGER},
+      max_flow_unit = #{maxFlowUnit,jdbcType=VARCHAR},
+      work_state = #{workState,jdbcType=TINYINT},
+      approval_state = #{approvalState,jdbcType=TINYINT},
+      link_state = #{linkState,jdbcType=TINYINT},
+      transmit_state = #{transmitState,jdbcType=TINYINT},
+      virus = #{virus,jdbcType=BIT},
+      virus_work_state = #{virusWorkState,jdbcType=TINYINT},
+      keywords = #{keywords,jdbcType=CLOB},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from trans_busi_db
+  	<trim prefix="where" prefixOverrides="and|or">
+  		<if test="search != null and '' neq search">
+  			and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<choose>
+  			<when test="type != null and '' neq type">
+  				and type = #{type,jdbcType=VARCHAR} 
+  			</when>
+  			<otherwise>
+  				and type != 'recSender' 
+  			</otherwise>
+  		</choose>
+  		<if test="rank != null">
+  			and `rank` <![CDATA[ <= ]]> #{rank,jdbcType=TINYINT} 
+  		</if>
+  		<if test="businessId != null">
+  			and (business_id = #{businessId,jdbcType=BIGINT} 
+  				or id = #{businessId,jdbcType=BIGINT}) 
+  		</if>
+  		<if test="channelInfoId != null">
+  			and channel_info_id = #{channelInfoId,jdbcType=BIGINT} 
+  		</if>
+  		<if test="deviceId != null">
+  			and device_id = #{deviceId,jdbcType=BIGINT} 
+  		</if>
+  		<if test="name != null and '' neq name">
+  			and name like CONCAT('%', #{name,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="dbType != null and '' neq dbType">
+  			and db_type = #{dbType,jdbcType=VARCHAR} 
+  		</if>
+  		<if test="workState != null">
+  			and work_state = #{workState,jdbcType=TINYINT}
+  		</if>
+  		<if test="approvalState != null">
+  			and approval_state = #{approvalState,jdbcType=TINYINT}
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_busi_db
+  	<trim prefix="where" prefixOverrides="and|or">
+  		<if test="search != null and '' neq search">
+  			and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<choose>
+  			<when test="type != null and '' neq type">
+  				and type = #{type,jdbcType=VARCHAR} 
+  			</when>
+  			<otherwise>
+  				and type != 'recSender' 
+  			</otherwise>
+  		</choose>
+  		<if test="rank != null">
+  			and `rank` <![CDATA[ <= ]]> #{rank,jdbcType=TINYINT} 
+  		</if>
+  		<if test="businessId != null">
+  			and (business_id = #{businessId,jdbcType=BIGINT} 
+  				or id = #{businessId,jdbcType=BIGINT}) 
+  		</if>
+  		<if test="channelInfoId != null">
+  			and channel_info_id = #{channelInfoId,jdbcType=BIGINT} 
+  		</if>
+  		<if test="deviceId != null">
+  			and device_id = #{deviceId,jdbcType=BIGINT} 
+  		</if>
+  		<if test="name != null and '' neq name">
+  			and name like CONCAT('%', #{name,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="dbType != null and '' neq dbType">
+  			and db_type = #{dbType,jdbcType=VARCHAR} 
+  		</if>
+  		<if test="workState != null">
+  			and work_state = #{workState,jdbcType=TINYINT}
+  		</if>
+  		<if test="approvalState != null">
+  			and approval_state = #{approvalState,jdbcType=TINYINT}
+  		</if>
+  	</trim>
+  	order by gmt_create desc, id desc
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_busi_db where name = #{name,jdbcType=VARCHAR} and type = #{type,jdbcType=VARCHAR} 
+  </select>
+  <select id="selectByBusinessId" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_busi_db where business_id = #{businessId,jdbcType=BIGINT} 
+ 	<if test="type != null and '' neq type">
+ 		and type = #{type,jdbcType=VARCHAR}
+ 	</if>
+  </select>
+  <delete id="deleteByBusinessId">
+    delete from trans_busi_db
+    where business_id = #{businessId,jdbcType=BIGINT} and type = #{type,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByRelevance" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_busi_db where 1 = 1 and type != 'recSender' 
+ 	<if test="transmitDbId != null">
+ 		and transmit_db_id = #{transmitDbId,jdbcType=BIGINT}
+ 	</if>
+ 	<if test="strategyId != null">
+ 		and strategy_id = #{strategyId,jdbcType=BIGINT}
+ 	</if>
+ 	<if test="businessTimeId != null">
+ 		and business_time_id = #{businessTimeId,jdbcType=BIGINT}
+ 	</if>
+  </select>
+  <select id="selectByChannelInfoId" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_busi_db where channel_info_id = #{channelInfoId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByChannelInfoId">
+    delete from trans_busi_db
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT}
+  </delete>
+  <select id="selectByWorkState" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from trans_busi_db
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT}
+    and type = #{type,jdbcType=VARCHAR}
+    and (work_state = 1 or work_state = 3)
+  </select>
+  <select id="selectByUserName" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from trans_busi_db where type != 'recSender'
+    and create_user = #{userName,jdbcType=VARCHAR}
+  </select>
+  <select id="selectApprovalAll" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from trans_busi_db where 1 = 1 
+   		<if test="type != null and '' neq type">
+ 			and type = #{type,jdbcType=VARCHAR} 
+ 		</if>
+  		<if test="approvalState != null">
+  			and approval_state = #{approvalState,jdbcType=TINYINT} 
+  		</if>
+  		and type != 'recSender' 
+  </select>
+</mapper>

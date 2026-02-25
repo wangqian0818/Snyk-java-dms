@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.business.mapper.DeviceTrafficMapper">
+	<select id="selectAll" resultType="com.zx.dms.database.business.model.DeviceTraffic">
+		select device, sum(upflow) as upFlow,  sum(downflow) as downFlow,  
+				sum(uppackage) as upPackage,  sum(downpackage) as downPackage, sum(hitcount) as hitcount
+		 from tb_cmp_flow_analyse_min 
+		<where>
+			<if test="startDate != null and startDate != ''">
+				and total_time <![CDATA[ >= ]]>#{startDate,jdbcType=VARCHAR}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				and total_time <![CDATA[ <= ]]>#{endDate,jdbcType=VARCHAR}
+			</if>
+			<if test="search != null and search != ''">
+				and device like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+			</if>
+		</where>
+		group by device
+		order by upFlow desc
+	</select>
+	<select id="getLength" resultType="java.lang.Long">
+		select count(0) from 
+		(select device from tb_cmp_flow_analyse_min 
+		<where>
+			<if test="startDate != null and startDate != ''">
+				and total_time <![CDATA[ >= ]]>#{startDate,jdbcType=VARCHAR}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				and total_time <![CDATA[ <= ]]>#{endDate,jdbcType=VARCHAR}
+			</if>
+			<if test="search != null and search != ''">
+				and device like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+			</if>
+		</where>
+		group by device)o
+	</select>
+	<select id="selectDeviceStatistic" resultType="com.zx.dms.database.business.model.FlowStatistic">
+		select total_time as `time`, ifname, sum(upflow+downflow) as totalFlow 
+		from tb_cmp_flow_analyse_min 
+		<where>
+			and device = #{device,jdbcType=VARCHAR} 
+			<if test="startDate != null and startDate != ''">
+				and total_time <![CDATA[ >= ]]>#{startDate,jdbcType=VARCHAR}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				and total_time <![CDATA[ <= ]]>#{endDate,jdbcType=VARCHAR}
+			</if>
+		</where>
+		 group by total_time, ifname
+	  	 order by total_time ASC
+	</select>
+	<select id="selectDeviceIfname" resultType="java.lang.String">
+		select distinct(ifname) from tb_cmp_flow_analyse_min
+		where device = #{device,jdbcType=VARCHAR}
+			<if test="startDate != null and startDate != ''">
+				and total_time <![CDATA[ >= ]]>#{startDate,jdbcType=VARCHAR}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				and total_time <![CDATA[ <= ]]>#{endDate,jdbcType=VARCHAR}
+			</if>
+			group by ifname
+	</select>
+</mapper>

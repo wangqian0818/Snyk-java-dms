@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.client.mapper.ClientUserMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.system.model.User">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="jsp_pwd" jdbcType="VARCHAR" property="jspPwd" />
+    <result column="is_default" jdbcType="BIT" property="isDefault" />
+    <result column="enabled" jdbcType="BIT" property="enabled" />
+    <result column="rank" jdbcType="TINYINT" property="rank" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+    <result column="gmt_login" jdbcType="TIMESTAMP" property="gmtLogin" />
+    <result column="cert_md5" jdbcType="VARCHAR" property="certMd5" />
+    <result column="cert_path" jdbcType="VARCHAR" property="certPath" />
+    <result column="cert_name" jdbcType="VARCHAR" property="certName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="gmt_change_pwd" jdbcType="TIMESTAMP" property="gmtChangePwd" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, nick_name, email, phone, password, jsp_pwd, is_default, enabled, `rank`, login_ip,
+    gmt_login, cert_md5, cert_path, cert_name, gmt_create, gmt_modified, gmt_change_pwd
+  </sql>
+  <select id="selectByPrimaryKey"  resultMap="BaseResultMap">
+      select
+      u.*
+      FROM user u
+      INNER JOIN user_permission_group upg ON u.id = upg.user_id
+      INNER JOIN permission_group pg ON upg.permission_group_id = pg.id
+      where pg.type=#{clientUserType,jdbcType=BIT}
+      and u.id=#{id,jdbcType=BIGINT}
+  </select>
+
+
+  <select id="selectByName"  resultMap="BaseResultMap">
+      select
+      u.*
+      FROM user u
+      INNER JOIN user_permission_group upg ON u.id = upg.user_id
+      INNER JOIN permission_group pg ON upg.permission_group_id = pg.id
+      where pg.type=#{clientUserType,jdbcType=BIT}
+      and u.name = #{name,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByNameAndPassword" resultMap="BaseResultMap">
+      select
+      u.*
+      FROM user u
+      INNER JOIN user_permission_group upg ON u.id = upg.user_id
+      INNER JOIN permission_group pg ON upg.permission_group_id = pg.id
+      where pg.type=#{clientUserType,jdbcType=BIT}
+      and u.name = #{name,jdbcType=VARCHAR} and u.password=#{password,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="changeEnable" parameterType="java.lang.String" resultMap="BaseResultMap">
+    update user
+    set enabled = abs(enabled - 1)
+    where name = #{name,jdbcType=VARCHAR};
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="selectClientUsers"  resultMap="BaseResultMap">
+    select
+    u.*
+    FROM user u
+    INNER JOIN user_permission_group upg ON u.id = upg.user_id
+    INNER JOIN permission_group pg ON upg.permission_group_id = pg.id
+    where pg.type=#{clientUserType,jdbcType=BIT}
+    <if test="search != null and search != ''">
+      and u.name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="enabled != null">
+      and u.enabled=#{enabled, jdbcType=BIT}
+    </if>
+  </select>
+
+  <select id="countClientUser">
+    select count(1)
+    FROM user u
+    INNER JOIN user_permission_group upg ON u.id = upg.user_id
+    INNER JOIN permission_group pg ON upg.permission_group_id = pg.id
+    where pg.type=#{clientUserType,jdbcType=BIT}
+    <if test="search != null and search != ''">
+      and u.name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+    </if>
+      <if test="approvalUserName != null and approvalUserName != ''">
+          and u.name != #{approvalUserName,jdbcType=VARCHAR}
+      </if>
+  </select>
+
+
+</mapper>

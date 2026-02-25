@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.system.mapper.PermissionGroupMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.system.model.PermissionGroup">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="is_default" jdbcType="BIT" property="isDefault" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <resultMap id="PermissionResultMap" type="com.zx.dms.database.system.model.Permission">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="menu_id" jdbcType="BIGINT" property="menuId" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, is_default, type, parent_id, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from permission_group
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from permission_group
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.system.model.PermissionGroup">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into permission_group (name, is_default, type, parent_id, 
+      gmt_create, gmt_modified)
+    values (#{name,jdbcType=VARCHAR}, #{isDefault,jdbcType=BIT}, #{type,jdbcType=TINYINT}, 
+      #{parentId,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.system.model.PermissionGroup">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into permission_group
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="isDefault != null">
+        is_default,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null">
+        #{isDefault,jdbcType=BIT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.system.model.PermissionGroup">
+    update permission_group
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null">
+        is_default = #{isDefault,jdbcType=BIT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.system.model.PermissionGroup">
+    update permission_group
+    set name = #{name,jdbcType=VARCHAR},
+      is_default = #{isDefault,jdbcType=BIT},
+      type = #{type,jdbcType=TINYINT},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getPermissionGroupIdByUserName" parameterType="java.lang.String" resultType="java.lang.Long">
+  	SELECT
+		q.permission_group_id as id
+	FROM
+		user p
+	LEFT JOIN user_permission_group q ON p.id = q.user_id
+	INNER JOIN permission_group pg ON q.permission_group_id = pg.id
+	WHERE
+		p.name = #{userName,jdbcType=VARCHAR} 
+		<if test="type != null">
+			and pg.type = #{type,jdbcType=TINYINT}
+		</if>
+	limit 1 
+  </select>
+  <select id="getPermissionsByPermissionGroupId" parameterType="java.lang.Long" resultMap="PermissionResultMap">
+  	SELECT
+		p.id, p.url, p.method, p.description,p.parent_menus,p.menu, p.sequence, p.index, p.menu_id , q.readonly 
+	FROM
+		(select pi.id,pi.url, pi.method, pi.description,m.parent_menus,m.menu, m.sequence, m.index, pi.menu_id 
+			from permission pi LEFT JOIN menu m on pi.menu_id = m.id
+		) p 
+	INNER JOIN ( select permission_id, readonly from permission_group_permission qq WHERE qq.permission_group_id = #{groupId,jdbcType=BIGINT})  q ON p.id = q.permission_id order by p.sequence asc
+  </select>
+  <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from permission_group
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="selectPermissionGroupByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	SELECT
+		pg.name, pg.id, pg.type
+	FROM
+		permission_group AS pg
+	LEFT JOIN user_permission_group AS upg ON pg.id = upg.permission_group_id
+	WHERE
+		upg.user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from permission_group
+    where 1=1 and id != 5 
+  	<if test="_parameter.search != null and '' neq _parameter.search">
+  		and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  	</if> 
+  </select>
+  <select id="getLength" parameterType="java.lang.String" resultType="java.lang.Long">
+  	select count(1) from permission_group
+  	where 1=1 and id != 5 
+  	<if test="_parameter.search != null and '' neq _parameter.search">
+  		and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  	</if> 
+  </select>
+  <select id="selectAllDefault" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+    from permission_group
+    where is_default = 1 
+  </select>
+  <select id="selectAllNotDefault" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+    from permission_group
+    where is_default != 1 
+  </select>
+
+  <select id="selectByType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from permission_group
+    where type=#{type, jdbcType=TINYINT}
+  </select>
+  <select id="selectAllGroup" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from permission_group 
+  </select>
+</mapper>

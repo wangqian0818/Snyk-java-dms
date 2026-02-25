@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.device.mapper.ChannelRouterMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.device.model.ChannelRouter">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="device_id" jdbcType="BIGINT" property="deviceId" />
+    <result column="channel_info_id" jdbcType="BIGINT" property="channelInfoId" />
+    <result column="destination_ip" jdbcType="VARCHAR" property="destinationIp" />
+    <result column="subnet_mask" jdbcType="VARCHAR" property="subnetMask" />
+    <result column="gateway" jdbcType="VARCHAR" property="gateway" />
+    <result column="out_iface_id" jdbcType="BIGINT" property="outIfaceId" />
+    <result column="router_table_id" jdbcType="INTEGER" property="routerTableId" />
+    <result column="work_state" jdbcType="TINYINT" property="workState" />
+    <result column="deleting" jdbcType="TINYINT" property="deleting" />
+    <result column="work_area" jdbcType="VARCHAR" property="workArea" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, device_id, channel_info_id, destination_ip, gateway, out_iface_id, 
+    router_table_id, work_state, deleting, work_area, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from channel_router
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from channel_router
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.device.model.ChannelRouter">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_router (device_id, channel_info_id, destination_ip, 
+      gateway, out_iface_id, 
+      router_table_id, work_state, work_area, gmt_create, 
+      gmt_modified)
+    values (#{deviceId,jdbcType=BIGINT}, #{channelInfoId,jdbcType=BIGINT}, #{destinationIp,jdbcType=VARCHAR}, 
+      #{gateway,jdbcType=VARCHAR}, #{outIfaceId,jdbcType=VARCHAR}, 
+      #{routerTableId,jdbcType=INTEGER}, #{workState,jdbcType=TINYINT}, #{workArea,jdbcType=VARCHAR},
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertAll">
+    insert into channel_router (device_id, channel_info_id, destination_ip, 
+      gateway, out_iface_id, 
+      router_table_id, work_state, work_area, gmt_create, 
+      gmt_modified)
+    values 
+    <foreach collection="records" item="record" separator=",">
+      (#{record.deviceId,jdbcType=BIGINT}, #{record.channelInfoId,jdbcType=BIGINT}, #{record.destinationIp,jdbcType=VARCHAR}, 
+      #{record.gateway,jdbcType=VARCHAR}, #{record.outIfaceId,jdbcType=VARCHAR}, 
+      #{record.routerTableId,jdbcType=INTEGER}, #{record.workState,jdbcType=TINYINT}, #{record.workArea,jdbcType=VARCHAR},
+      #{record.gmtCreate,jdbcType=TIMESTAMP}, #{record.gmtModified,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.device.model.ChannelRouter">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_router
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="channelInfoId != null">
+        channel_info_id,
+      </if>
+      <if test="destinationIp != null">
+        destination_ip,
+      </if>
+      <if test="gateway != null">
+        gateway,
+      </if>
+      <if test="outIfaceId != null">
+        out_iface_id,
+      </if>
+      <if test="routerTableId != null">
+        router_table_id,
+      </if>
+      <if test="workState != null">
+        work_state,
+      </if>
+      <if test="workArea != null">
+        work_area,
+      </if>
+      <if test="deleting != null">
+        deleting,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="channelInfoId != null">
+        #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="destinationIp != null">
+        #{destinationIp,jdbcType=VARCHAR},
+      </if>
+      <if test="gateway != null">
+        #{gateway,jdbcType=VARCHAR},
+      </if>
+      <if test="outIfaceId != null">
+        #{outIfaceId,jdbcType=VARCHAR},
+      </if>
+      <if test="routerTableId != null">
+        #{routerTableId,jdbcType=INTEGER},
+      </if>
+      <if test="workState != null">
+        #{workState,jdbcType=TINYINT},
+      </if>
+      <if test="workArea != null">
+        #{workArea,jdbcType=VARCHAR},
+      </if>
+      <if test="deleting != null">
+        #{deleting,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.device.model.ChannelRouter">
+    update channel_router
+    <set>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="channelInfoId != null">
+        channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="destinationIp != null">
+        destination_ip = #{destinationIp,jdbcType=VARCHAR},
+      </if>
+      <if test="gateway != null">
+        gateway = #{gateway,jdbcType=VARCHAR},
+      </if>
+      <if test="outIfaceId != null">
+        out_iface_id = #{outIfaceId,jdbcType=VARCHAR},
+      </if>
+      <if test="routerTableId != null">
+        router_table_id = #{routerTableId,jdbcType=INTEGER},
+      </if>
+      <if test="workState != null">
+        work_state = #{workState,jdbcType=TINYINT},
+      </if>
+      <if test="workArea != null">
+        work_area = #{workArea,jdbcType=VARCHAR},
+      </if>
+      <if test="deleting != null">
+        deleting = #{deleting,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.device.model.ChannelRouter">
+    update channel_router
+    set device_id = #{deviceId,jdbcType=BIGINT},
+      channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      destination_ip = #{destinationIp,jdbcType=VARCHAR},
+      gateway = #{gateway,jdbcType=VARCHAR},
+      out_iface_id = #{outIfaceId,jdbcType=BIGINT},
+      router_table_id = #{routerTableId,jdbcType=INTEGER},
+      work_state = #{workState,jdbcType=TINYINT},
+      deleting = #{deleting,jdbcType=TINYINT},
+      work_area = #{workArea,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from channel_router
+  	<trim prefix="where">
+  		1 = 1
+  		<if test="search != null and '' neq search">
+  			and destination_ip like CONCAT('%', #{search,jdbcType=VARCHAR}, '%') 
+  		</if>
+  		<if test="deviceId != null">
+  			and device_id = #{deviceId,jdbcType=BIGINT} 
+  		</if>
+  		<if test="channelInfoId != null">
+  			and channel_info_id = #{channelInfoId,jdbcType=BIGINT} 
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from channel_router
+  	<trim prefix="where">
+  		1 = 1
+  		<if test="search != null and '' neq search">
+  			and destination_ip like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="deviceId != null">
+  			and device_id = #{deviceId,jdbcType=BIGINT} 
+  		</if>
+  		<if test="channelInfoId != null">
+  			and channel_info_id = #{channelInfoId,jdbcType=BIGINT} 
+  		</if>
+  	</trim>
+  	order by gmt_create desc, id desc
+  </select>
+  <select id="selectByChannelInfoId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from channel_router
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT}
+  </select>
+  <select id="selectUnique" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+    from channel_router
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT}
+    and destination_ip = #{destinationIp,jdbcType=VARCHAR}
+    <if test="workArea != null and '' neq workArea">
+  		and work_area = #{workArea,jdbcType=VARCHAR} 
+  	</if>
+  	limit 1 
+  </select>
+  <delete id="deleteByChannelInfoId" parameterType="java.lang.Long">
+    delete from channel_router
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT}
+  </delete>
+</mapper>

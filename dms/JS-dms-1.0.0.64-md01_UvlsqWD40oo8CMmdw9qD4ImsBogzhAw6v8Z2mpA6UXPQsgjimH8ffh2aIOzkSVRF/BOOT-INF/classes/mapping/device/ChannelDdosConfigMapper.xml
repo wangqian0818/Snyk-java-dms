@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.device.mapper.ChannelDdosConfigMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.device.model.ChannelDdosConfig">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="channel_info_id" jdbcType="BIGINT" property="channelInfoId" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="syn_cookie" jdbcType="BIT" property="synCookie" />
+    <result column="udp_flood_enable" jdbcType="BIT" property="udpFloodEnable" />
+    <result column="blocking_threshold_of_udp_sip" jdbcType="INTEGER" property="blockingThresholdOfUdpSip" />
+    <result column="blocking_time_of_udp_sip" jdbcType="INTEGER" property="blockingTimeOfUdpSip" />
+    <result column="drop_threshold_of_udp_dip" jdbcType="INTEGER" property="dropThresholdOfUdpDip" />
+    <result column="icmp_flood_enable" jdbcType="BIT" property="icmpFloodEnable" />
+    <result column="blocking_threshold_of_icmp_sip" jdbcType="INTEGER" property="blockingThresholdOfIcmpSip" />
+    <result column="blocking_time_of_icmp_sip" jdbcType="INTEGER" property="blockingTimeOfIcmpSip" />
+    <result column="drop_threshold_of_icmp_dip" jdbcType="INTEGER" property="dropThresholdOfIcmpDip" />
+    <result column="syn_flood_enable" jdbcType="BIT" property="synFloodEnable" />
+    <result column="blocking_threshold_of_syn_sip" jdbcType="INTEGER" property="blockingThresholdOfSynSip" />
+    <result column="blocking_time_of_syn_sip" jdbcType="INTEGER" property="blockingTimeOfSynSip" />
+    <result column="drop_threshold_of_syn_dip" jdbcType="INTEGER" property="dropThresholdOfSynDip" />
+    <result column="ack_flood_enable" jdbcType="BIT" property="ackFloodEnable" />
+    <result column="blocking_threshold_of_ack_sip" jdbcType="INTEGER" property="blockingThresholdOfAckSip" />
+    <result column="blocking_time_of_ack_sip" jdbcType="INTEGER" property="blockingTimeOfAckSip" />
+    <result column="drop_threshold_of_ack_dip" jdbcType="INTEGER" property="dropThresholdOfAckDip" />
+    <result column="rst_flood_enable" jdbcType="BIT" property="rstFloodEnable" />
+    <result column="blocking_threshold_of_rst_sip" jdbcType="INTEGER" property="blockingThresholdOfRstSip" />
+    <result column="blocking_time_of_rst_sip" jdbcType="INTEGER" property="blockingTimeOfRstSip" />
+    <result column="drop_threshold_of_rst_dip" jdbcType="INTEGER" property="dropThresholdOfRstDip" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, channel_info_id, device_name, syn_cookie, 
+    udp_flood_enable, blocking_threshold_of_udp_sip, blocking_time_of_udp_sip, drop_threshold_of_udp_dip, 
+    icmp_flood_enable, blocking_threshold_of_icmp_sip, blocking_time_of_icmp_sip, drop_threshold_of_icmp_dip, 
+    syn_flood_enable, blocking_threshold_of_syn_sip, blocking_time_of_syn_sip, drop_threshold_of_syn_dip, 
+    ack_flood_enable, blocking_threshold_of_ack_sip, blocking_time_of_ack_sip, drop_threshold_of_ack_dip, 
+    rst_flood_enable, blocking_threshold_of_rst_sip, blocking_time_of_rst_sip, drop_threshold_of_rst_dip, 
+    gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from channel_ddos_config
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from channel_ddos_config
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.device.model.ChannelDdosConfig">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_ddos_config (channel_info_id, device_name, syn_cookie, 
+      udp_flood_enable, blocking_threshold_of_udp_sip, blocking_time_of_udp_sip, drop_threshold_of_udp_dip, 
+      icmp_flood_enable, blocking_threshold_of_icmp_sip, blocking_time_of_icmp_sip, drop_threshold_of_icmp_dip, 
+      syn_flood_enable, blocking_threshold_of_syn_sip, blocking_time_of_syn_sip, drop_threshold_of_syn_dip, 
+      ack_flood_enable, blocking_threshold_of_ack_sip, blocking_time_of_ack_sip, drop_threshold_of_ack_dip, 
+      rst_flood_enable, blocking_threshold_of_rst_sip, blocking_time_of_rst_sip, drop_threshold_of_rst_dip, 
+      gmt_create, gmt_modified)
+    values (#{channelInfoId,jdbcType=BIGINT}, #{deviceName,jdbcType=VARCHAR}, #{synCookie,jdbcType=BIT}, 
+      #{udpFloodEnable,jdbcType=BIT}, #{blockingThresholdOfUdpSip,jdbcType=INTEGER}, 
+      #{blockingTimeOfUdpSip,jdbcType=INTEGER}, #{dropThresholdOfUdpDip,jdbcType=INTEGER}, 
+      #{icmpFloodEnable,jdbcType=BIT}, #{blockingThresholdOfIcmpSip,jdbcType=INTEGER}, 
+      #{blockingTimeOfIcmpSip,jdbcType=INTEGER}, #{dropThresholdOfIcmpDip,jdbcType=INTEGER}, 
+      #{synFloodEnable,jdbcType=BIT}, #{blockingThresholdOfSynSip,jdbcType=INTEGER}, 
+      #{blockingTimeOfSynSip,jdbcType=INTEGER}, #{dropThresholdOfSynDip,jdbcType=INTEGER},  
+      #{ackFloodEnable,jdbcType=BIT}, #{blockingThresholdOfAckSip,jdbcType=INTEGER}, 
+      #{blockingTimeOfAckSip,jdbcType=INTEGER}, #{dropThresholdOfAckDip,jdbcType=INTEGER},  
+      #{rstFloodEnable,jdbcType=BIT}, #{blockingThresholdOfRstSip,jdbcType=INTEGER}, 
+      #{blockingTimeOfRstSip,jdbcType=INTEGER}, #{dropThresholdOfRstDip,jdbcType=INTEGER}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.device.model.ChannelDdosConfig">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_ddos_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="channelInfoId != null">
+        channel_info_id,
+      </if>
+      <if test="deviceName != null">
+        device_name,
+      </if>
+      <if test="synCookie != null">
+        syn_cookie,
+      </if>
+      <if test="udpFloodEnable != null">
+        udp_flood_enable,
+      </if>
+      <if test="blockingThresholdOfUdpSip != null">
+        blocking_threshold_of_udp_sip,
+      </if>
+      <if test="blockingTimeOfUdpSip != null">
+        blocking_time_of_udp_sip,
+      </if>
+      <if test="dropThresholdOfUdpDip != null">
+        drop_threshold_of_udp_dip,
+      </if>
+      <if test="icmpFloodEnable != null">
+        icmp_flood_enable,
+      </if>
+      <if test="blockingThresholdOfIcmpSip != null">
+        blocking_threshold_of_icmp_sip,
+      </if>
+      <if test="blockingTimeOfIcmpSip != null">
+        blocking_time_of_icmp_sip,
+      </if>
+      <if test="dropThresholdOfIcmpDip != null">
+        drop_threshold_of_icmp_dip,
+      </if>
+      <if test="synFloodEnable != null">
+        syn_flood_enable,
+      </if>
+      <if test="blockingThresholdOfSynSip != null">
+        blocking_threshold_of_syn_sip,
+      </if>
+      <if test="blockingTimeOfSynSip != null">
+        blocking_time_of_syn_sip,
+      </if>
+      <if test="dropThresholdOfSynDip != null">
+        drop_threshold_of_syn_dip,
+      </if>
+      <if test="ackFloodEnable != null">
+        ack_flood_enable,
+      </if>
+      <if test="blockingThresholdOfAckSip != null">
+        blocking_threshold_of_ack_sip,
+      </if>
+      <if test="blockingTimeOfAckSip != null">
+        blocking_time_of_ack_sip,
+      </if>
+      <if test="dropThresholdOfAckDip != null">
+        drop_threshold_of_ack_dip,
+      </if>
+      <if test="rstFloodEnable != null">
+        rst_flood_enable,
+      </if>
+      <if test="blockingThresholdOfRstSip != null">
+        blocking_threshold_of_rst_sip,
+      </if>
+      <if test="blockingTimeOfRstSip != null">
+        blocking_time_of_rst_sip,
+      </if>
+      <if test="dropThresholdOfRstDip != null">
+        drop_threshold_of_rst_dip,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="channelInfoId != null">
+        #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceName != null">
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="synCookie != null">
+        #{synCookie,jdbcType=BIT},
+      </if>
+      <if test="udpFloodEnable != null">
+        #{udpFloodEnable,jdbcType=BIT},
+      </if>
+      <if test="blockingThresholdOfUdpSip != null">
+        #{blockingThresholdOfUdpSip,jdbcType=VARCHAR},
+      </if>
+      <if test="blockingTimeOfUdpSip != null">
+        #{blockingTimeOfUdpSip,jdbcType=INTEGER},
+      </if>
+      <if test="dropThresholdOfUdpDip != null">
+        #{dropThresholdOfUdpDip,jdbcType=INTEGER},
+      </if>
+      <if test="icmpFloodEnable != null">
+        #{icmpFloodEnable,jdbcType=BIT},
+      </if>
+      <if test="blockingThresholdOfIcmpSip != null">
+        #{blockingThresholdOfIcmpSip,jdbcType=INTEGER},
+      </if>
+      <if test="blockingTimeOfIcmpSip != null">
+        #{blockingTimeOfIcmpSip,jdbcType=VARCHAR},
+      </if>
+      <if test="dropThresholdOfIcmpDip != null">
+        #{dropThresholdOfIcmpDip,jdbcType=TINYINT},
+      </if>
+      <if test="synFloodEnable != null">
+        #{synFloodEnable,jdbcType=BIT},
+      </if>
+      <if test="blockingThresholdOfSynSip != null">
+        #{blockingThresholdOfSynSip,jdbcType=VARCHAR},
+      </if>
+      <if test="blockingTimeOfSynSip != null">
+        #{blockingTimeOfSynSip,jdbcType=INTEGER},
+      </if>
+      <if test="dropThresholdOfSynDip != null">
+        #{dropThresholdOfSynDip,jdbcType=INTEGER},
+      </if>
+      <if test="ackFloodEnable != null">
+        #{ackFloodEnable,jdbcType=BIT},
+      </if>
+      <if test="blockingThresholdOfAckSip != null">
+        #{blockingThresholdOfAckSip,jdbcType=VARCHAR},
+      </if>
+      <if test="blockingTimeOfAckSip != null">
+        #{blockingTimeOfAckSip,jdbcType=INTEGER},
+      </if>
+      <if test="dropThresholdOfAckDip != null">
+        #{dropThresholdOfAckDip,jdbcType=INTEGER},
+      </if>
+      <if test="rstFloodEnable != null">
+        #{rstFloodEnable,jdbcType=BIT},
+      </if>
+      <if test="blockingThresholdOfRstSip != null">
+        #{blockingThresholdOfRstSip,jdbcType=VARCHAR},
+      </if>
+      <if test="blockingTimeOfRstSip != null">
+        #{blockingTimeOfRstSip,jdbcType=INTEGER},
+      </if>
+      <if test="dropThresholdOfRstDip != null">
+        #{dropThresholdOfRstDip,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.device.model.ChannelDdosConfig">
+    update channel_ddos_config
+    <set>
+      <if test="channelInfoId != null">
+        channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceName != null">
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="synCookie != null">
+        syn_cookie = #{synCookie,jdbcType=BIT},
+      </if>
+      <if test="udpFloodEnable != null">
+        udp_flood_enable = #{udpFloodEnable,jdbcType=BIT},
+      </if>
+      <if test="blockingThresholdOfUdpSip != null">
+        blocking_threshold_of_udp_sip = #{blockingThresholdOfUdpSip,jdbcType=VARCHAR},
+      </if>
+      <if test="blockingTimeOfUdpSip != null">
+        blocking_time_of_udp_sip = #{blockingTimeOfUdpSip,jdbcType=INTEGER},
+      </if>
+      <if test="dropThresholdOfUdpDip != null">
+        drop_threshold_of_udp_dip = #{dropThresholdOfUdpDip,jdbcType=INTEGER},
+      </if>
+      <if test="icmpFloodEnable != null">
+        icmp_flood_enable = #{icmpFloodEnable,jdbcType=BIT},
+      </if>
+      <if test="blockingThresholdOfIcmpSip != null">
+        blocking_threshold_of_icmp_sip = #{blockingThresholdOfIcmpSip,jdbcType=INTEGER},
+      </if>
+      <if test="blockingTimeOfIcmpSip != null">
+        blocking_time_of_icmp_sip = #{blockingTimeOfIcmpSip,jdbcType=VARCHAR},
+      </if>
+      <if test="dropThresholdOfIcmpDip != null">
+        drop_threshold_of_icmp_dip = #{dropThresholdOfIcmpDip,jdbcType=TINYINT},
+      </if>
+      <if test="synFloodEnable != null">
+        syn_flood_enable = #{synFloodEnable,jdbcType=BIT},
+      </if>
+      <if test="blockingThresholdOfSynSip != null">
+        blocking_threshold_of_syn_sip = #{blockingThresholdOfSynSip,jdbcType=VARCHAR},
+      </if>
+      <if test="blockingTimeOfSynSip != null">
+        blocking_time_of_syn_sip = #{blockingTimeOfSynSip,jdbcType=INTEGER},
+      </if>
+      <if test="dropThresholdOfSynDip != null">
+        drop_threshold_of_syn_dip = #{dropThresholdOfSynDip,jdbcType=INTEGER},
+      </if>
+      <if test="ackFloodEnable != null">
+        ack_flood_enable = #{ackFloodEnable,jdbcType=BIT},
+      </if>
+      <if test="blockingThresholdOfAckSip != null">
+        blocking_threshold_of_ack_sip = #{blockingThresholdOfAckSip,jdbcType=VARCHAR},
+      </if>
+      <if test="blockingTimeOfAckSip != null">
+        blocking_time_of_ack_sip = #{blockingTimeOfAckSip,jdbcType=INTEGER},
+      </if>
+      <if test="dropThresholdOfAckDip != null">
+        drop_threshold_of_ack_dip = #{dropThresholdOfAckDip,jdbcType=INTEGER},
+      </if>
+      <if test="rstFloodEnable != null">
+        rst_flood_enable = #{rstFloodEnable,jdbcType=BIT},
+      </if>
+      <if test="blockingThresholdOfRstSip != null">
+        blocking_threshold_of_rst_sip = #{blockingThresholdOfRstSip,jdbcType=VARCHAR},
+      </if>
+      <if test="blockingTimeOfRstSip != null">
+        blocking_time_of_rst_sip = #{blockingTimeOfRstSip,jdbcType=INTEGER},
+      </if>
+      <if test="dropThresholdOfRstDip != null">
+        drop_threshold_of_rst_dip = #{dropThresholdOfRstDip,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.device.model.ChannelDdosConfig">
+    update channel_ddos_config
+    set channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      syn_cookie = #{synCookie,jdbcType=BIT},
+      udp_flood_enable = #{udpFloodEnable,jdbcType=BIT},
+      blocking_threshold_of_udp_sip = #{blockingThresholdOfUdpSip,jdbcType=VARCHAR},
+      blocking_time_of_udp_sip = #{blockingTimeOfUdpSip,jdbcType=INTEGER},
+      drop_threshold_of_udp_dip = #{dropThresholdOfUdpDip,jdbcType=INTEGER},
+      icmp_flood_enable = #{icmpFloodEnable,jdbcType=BIT},
+      blocking_threshold_of_icmp_sip = #{blockingThresholdOfIcmpSip,jdbcType=INTEGER},
+      blocking_time_of_icmp_sip = #{blockingTimeOfIcmpSip,jdbcType=VARCHAR},
+      drop_threshold_of_icmp_dip = #{dropThresholdOfIcmpDip,jdbcType=TINYINT},
+      syn_flood_enable = #{synFloodEnable,jdbcType=BIT},
+      blocking_threshold_of_syn_sip = #{blockingThresholdOfSynSip,jdbcType=VARCHAR},
+      blocking_time_of_syn_sip = #{blockingTimeOfSynSip,jdbcType=INTEGER},
+      drop_threshold_of_syn_dip = #{dropThresholdOfSynDip,jdbcType=INTEGER},
+      ack_flood_enable = #{ackFloodEnable,jdbcType=BIT},
+      blocking_threshold_of_ack_sip = #{blockingThresholdOfAckSip,jdbcType=VARCHAR},
+      blocking_time_of_ack_sip = #{blockingTimeOfAckSip,jdbcType=INTEGER},
+      drop_threshold_of_ack_dip = #{dropThresholdOfAckDip,jdbcType=INTEGER},
+      rst_flood_enable = #{rstFloodEnable,jdbcType=BIT},
+      blocking_threshold_of_rst_sip = #{blockingThresholdOfRstSip,jdbcType=VARCHAR},
+      blocking_time_of_rst_sip = #{blockingTimeOfRstSip,jdbcType=INTEGER},
+      drop_threshold_of_rst_dip = #{dropThresholdOfRstDip,jdbcType=INTEGER},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from channel_ddos_config
+  	order by gmt_create desc, id desc
+  </select>
+  <select id="selectByChannelInfoId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from channel_ddos_config
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByChannelInfoId" parameterType="java.lang.Long">
+    delete from channel_ddos_config
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT}
+  </delete>
+</mapper>

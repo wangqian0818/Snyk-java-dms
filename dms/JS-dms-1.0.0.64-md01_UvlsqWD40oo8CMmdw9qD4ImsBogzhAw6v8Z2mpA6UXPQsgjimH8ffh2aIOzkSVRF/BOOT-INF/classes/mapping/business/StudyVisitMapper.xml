@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.business.mapper.StudyVisitMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.business.model.StudyVisit">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="business_visit_id" jdbcType="BIGINT" property="businessVisitId" />
+    <result column="business_visit_name" jdbcType="VARCHAR" property="businessVisitName" />
+    <result column="business_device_basic_id" jdbcType="BIGINT" property="businessDeviceBasicId" />
+    <result column="channel_info_id" jdbcType="BIGINT" property="channelInfoId" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="gmt_start" jdbcType="TIMESTAMP" property="gmtStart" />
+    <result column="gmt_end" jdbcType="TIMESTAMP" property="gmtEnd" />
+    <result column="work_state" jdbcType="TINYINT" property="workState" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, business_visit_id, business_visit_name, business_device_basic_id, 
+    channel_info_id, device_name, 
+    gmt_start, gmt_end, work_state, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from study_visit
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from study_visit
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.business.model.StudyVisit">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into study_visit (business_visit_id, business_visit_name, 
+      business_device_basic_id, channel_info_id, 
+      device_name, gmt_start, gmt_end, work_state, gmt_create, gmt_modified)
+    values (#{businessVisitId,jdbcType=BIGINT}, #{businessVisitName,jdbcType=VARCHAR}, 
+      #{businessDeviceBasicId,jdbcType=BIGINT}, 
+      #{channelInfoId,jdbcType=BIGINT}, #{deviceName,jdbcType=VARCHAR}, 
+      #{gmtStart,jdbcType=TIMESTAMP}, #{gmtEnd,jdbcType=TIMESTAMP}, 
+      #{workState,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.business.model.StudyVisit">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into study_visit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="businessVisitId != null">
+        business_visit_id,
+      </if>
+      <if test="businessVisitName != null">
+        business_visit_name,
+      </if>
+      <if test="businessDeviceBasicId != null">
+        business_device_basic_id,
+      </if>
+      <if test="channelInfoId != null">
+        channel_info_id,
+      </if>
+      <if test="deviceName != null">
+        device_name,
+      </if>
+      <if test="gmtStart != null">
+        gmt_start,
+      </if>
+      <if test="gmtEnd != null">
+        gmt_end,
+      </if>
+      <if test="workState != null">
+        work_state,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="businessVisitId != null">
+        #{businessVisitId,jdbcType=BIGINT},
+      </if>
+      <if test="businessVisitName != null">
+        #{businessVisitName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessDeviceBasicId != null">
+        #{businessDeviceBasicId,jdbcType=BIGINT},
+      </if>
+      <if test="channelInfoId != null">
+        #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceName != null">
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtStart != null">
+        #{gmtStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtEnd != null">
+        #{gmtEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="workState != null">
+        #{workState,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.business.model.StudyVisit">
+    update study_visit
+    <set>
+      <if test="businessVisitId != null">
+        business_visit_id = #{businessVisitId,jdbcType=BIGINT},
+      </if>
+      <if test="businessVisitName != null">
+        business_visit_name = #{businessVisitName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessDeviceBasicId != null">
+        business_device_basic_id = #{businessDeviceBasicId,jdbcType=BIGINT},
+      </if>
+      <if test="channelInfoId != null">
+        channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceName != null">
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtStart != null">
+        gmt_start = #{gmtStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtEnd != null">
+        gmt_end = #{gmtEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="workState != null">
+        work_state = #{workState,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.business.model.StudyVisit">
+    update study_visit
+    set business_visit_id = #{businessVisitId,jdbcType=BIGINT},
+      business_visit_name = #{businessVisitName,jdbcType=VARCHAR},
+      business_device_basic_id = #{businessDeviceBasicId,jdbcType=BIGINT},
+      channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      gmt_start = #{gmtStart,jdbcType=TIMESTAMP},
+      gmt_end = #{gmtEnd,jdbcType=TIMESTAMP},
+      work_state = #{workState,jdbcType=TINYINT},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByBusinessVisitId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from study_visit
+    where business_visit_id = #{businessVisitId,jdbcType=BIGINT} 
+    order by gmt_start desc
+  </select>
+  <select id="getLengthByBusinessVisitId" resultType="java.lang.Long">
+    select count(0)
+    from study_visit
+    where business_visit_id = #{businessVisitId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from study_visit
+  </select>
+  <delete id="deleteByBorderDeviceBasicId" parameterType="java.lang.Long">
+    delete from study_visit
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT}
+  </delete>
+  <update id="updateByBusinessDeviceBasicId" parameterType="com.zx.dms.database.business.model.StudyVisit">
+    update study_visit
+    set work_state = #{workState,jdbcType=TINYINT},
+    where business_device_basic_id = #{businessDeviceBasicId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByBusinessDeviceBasicId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from study_visit
+    where business_device_basic_id = #{businessDeviceBasicId,jdbcType=BIGINT} 
+    order by gmt_start desc limit 1
+  </select>
+  <select id="selectByBorderDeviceBasicId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from study_visit
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT} 
+  </select>
+</mapper>

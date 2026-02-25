@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.control.mapper.BaselineInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.control.model.BaselineInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="blsec_ip" jdbcType="VARCHAR" property="blsecIp" />
+    <result column="channel_id" jdbcType="BIGINT" property="channelId" />
+    <result column="channel_name" jdbcType="VARCHAR" property="channelName" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="filename" jdbcType="VARCHAR" property="filename" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="total" jdbcType="INTEGER" property="total" />
+    <result column="success" jdbcType="INTEGER" property="success" />
+    <result column="fail" jdbcType="INTEGER" property="fail" />
+    <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, type, blsec_ip, channel_id, channel_name, device_name, ip, filename, result, score, total, success, fail, 
+    record_time, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from baseline_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from baseline_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.control.model.BaselineInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into baseline_info (type, blsec_ip, channel_id, channel_name, device_name, ip, filename, result, score, 
+      total, success, fail, record_time, gmt_create, gmt_modified)
+    values (#{type,jdbcType=VARCHAR}, #{blsecIp,jdbcType=VARCHAR}, #{channelId,jdbcType=BIGINT}, 
+      #{channelName,jdbcType=VARCHAR}, #{deviceName,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{filename,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, 
+      #{total,jdbcType=INTEGER}, #{success,jdbcType=INTEGER}, #{fail,jdbcType=INTEGER}, 
+      #{recordTime,jdbcType=TIMESTAMP}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.control.model.BaselineInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into baseline_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="blsecIp != null">
+        blsec_ip,
+      </if>
+      <if test="channelId != null">
+        channel_id,
+      </if>
+      <if test="channelName != null">
+        channel_name,
+      </if>
+      <if test="deviceName != null">
+        device_name,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="filename != null">
+        filename,
+      </if>
+      <if test="result != null">
+        result,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="total != null">
+        total,
+      </if>
+      <if test="success != null">
+        success,
+      </if>
+      <if test="fail != null">
+        fail,
+      </if>
+      <if test="recordTime != null">
+        record_time,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="blsecIp != null">
+        #{blsecIp,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null">
+        #{channelId,jdbcType=BIGINT},
+      </if>
+      <if test="channelName != null">
+        #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceName != null">
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null">
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="total != null">
+        #{total,jdbcType=INTEGER},
+      </if>
+      <if test="success != null">
+        #{success,jdbcType=INTEGER},
+      </if>
+      <if test="fail != null">
+        #{fail,jdbcType=INTEGER},
+      </if>
+      <if test="recordTime != null">
+        #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.control.model.BaselineInfo">
+    update baseline_info
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="blsecIp != null">
+        blsec_ip = #{blsecIp,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null">
+        channel_id = #{channelId,jdbcType=BIGINT},
+      </if>
+      <if test="channelName != null">
+        channel_name = #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceName != null">
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null">
+        filename = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        result = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="total != null">
+        total = #{total,jdbcType=INTEGER},
+      </if>
+      <if test="success != null">
+        success = #{success,jdbcType=INTEGER},
+      </if>
+      <if test="fail != null">
+        fail = #{fail,jdbcType=INTEGER},
+      </if>
+      <if test="recordTime != null">
+        record_time = #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.control.model.BaselineInfo">
+    update baseline_info
+    set type = #{type,jdbcType=VARCHAR},
+      blsec_ip = #{blsecIp,jdbcType=VARCHAR},
+      channel_id = #{channelId,jdbcType=BIGINT},
+      channel_name = #{channelName,jdbcType=VARCHAR},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      filename = #{filename,jdbcType=VARCHAR},
+      result = #{result,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER},
+      total = #{total,jdbcType=INTEGER},
+      success = #{success,jdbcType=INTEGER},
+      fail = #{fail,jdbcType=INTEGER},
+      record_time = #{recordTime,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from baseline_info 
+  	<trim prefix="where 1=1">
+		<if test="type != null and '' neq type">
+			and type = #{type,jdbcType=VARCHAR} 
+		</if>
+  		<if test="channelId != null">
+  			and channel_id = #{channelId,jdbcType=BIGINT} 
+  		</if>
+  		<if test="ip != null and '' neq ip">
+  			and ip = #{ip,jdbcType=VARCHAR} 
+  		</if>
+  		<if test="result != null and '' neq result">
+  			and result = #{result,jdbcType=VARCHAR} 
+  		</if>
+		<if test="startDate != null and '' neq startDate ">
+			AND record_time <![CDATA[ >= ]]> #{startDate,jdbcType=VARCHAR}
+		</if>
+		<if test="endDate != null and '' neq endDate ">
+			AND record_time <![CDATA[ <= ]]> #{endDate,jdbcType=VARCHAR}
+		</if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from baseline_info
+  	<trim prefix="where 1=1">
+		<if test="type != null and '' neq type">
+			and type = #{type,jdbcType=VARCHAR} 
+		</if>
+  		<if test="channelId != null">
+  			and channel_id = #{channelId,jdbcType=BIGINT} 
+  		</if>
+  		<if test="ip != null and '' neq ip">
+  			and ip = #{ip,jdbcType=VARCHAR} 
+  		</if>
+  		<if test="result != null and '' neq result">
+  			and result = #{result,jdbcType=VARCHAR} 
+  		</if>
+		<if test="startDate != null and '' neq startDate ">
+			AND record_time <![CDATA[ >= ]]> #{startDate,jdbcType=VARCHAR}
+		</if>
+		<if test="endDate != null and '' neq endDate ">
+			AND record_time <![CDATA[ <= ]]> #{endDate,jdbcType=VARCHAR}
+		</if>
+  	</trim>
+  	order by gmt_create desc, id desc
+  </select>
+  <update id="setHistoryByChannelIdAndIp">
+    update baseline_info
+    set type = 'history' 
+    <trim prefix="where 1=1">
+  		<if test="channelId != null">
+  			and channel_id = #{channelId,jdbcType=BIGINT} 
+  		</if>
+  		<if test="ip != null and '' neq ip">
+  			and ip = #{ip,jdbcType=VARCHAR} 
+  		</if>
+  	</trim>
+  </update>
+</mapper>

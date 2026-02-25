@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.entity.mapper.UserEntityAccessDeviceMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.entity.model.UserEntityAccessDevice">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="entity_access_device_id" jdbcType="BIGINT" property="entityAccessDeviceId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="approve_user_id" jdbcType="BIGINT" property="approveUserId" />
+    <result column="active_status" jdbcType="BIT" property="activeStatus" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+    <result column="gmt_login" jdbcType="TIMESTAMP" property="gmtLogin" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, entity_access_device_id, user_id,  approve_user_id, active_status, gmt_create, gmt_modified, login_ip, gmt_login
+  </sql>
+
+  <select id="selectByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_entity_access_device
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+
+
+
+  <select id="selectUnique"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_entity_access_device
+    where user_id = #{userId,jdbcType=BIGINT} AND entity_access_device_id=#{entityId,jdbcType=BIGINT}
+  </select>
+
+  <select id="countByUser"  resultType="int">
+    select count(*)
+    from user_entity_access_device userEntity
+    INNER JOIN entity_access_device entity ON userEntity.entity_access_device_id=entity.id
+    where userEntity.user_id = #{userId,jdbcType=BIGINT}
+  </select>
+
+  <insert id="insert" parameterType="com.zx.dms.database.entity.model.UserEntityAccessDevice">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_entity_access_device (entity_access_device_id, user_id, approve_user_id, active_status,
+                                          gmt_create, gmt_modified, login_ip, gmt_login)
+    values (#{entityAccessDeviceId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{approveUserId,jdbcType=BIGINT}, #{activeStatus,jdbcType=BIT},
+            #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP},#{loginIp,jdbcType=VARCHAR}, #{gmtLogin,jdbcType=TIMESTAMP}
+          )
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.entity.model.UserEntityAccessDevice">
+    UPDATE user_entity_access_device
+    SET
+      entity_access_device_id = #{entityAccessDeviceId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      approve_user_id = #{approveUserId,jdbcType=BIGINT},
+      active_status = #{activeStatus,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      login_ip = #{loginIp,jdbcType=VARCHAR},
+      gmt_login = #{gmtLogin,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
+  <delete id="deleteByUser" parameterType="java.lang.Long">
+    delete from user_entity_access_device
+    where  user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+
+  <delete id="deleteByEntity" parameterType="java.lang.Long">
+    delete from user_entity_access_device
+    where  entity_access_device_id = #{entityId,jdbcType=BIGINT}
+  </delete>
+
+  <delete id="deleteByUserAndEntity">
+    delete from user_entity_access_device
+    where  entity_access_device_id = #{entityId,jdbcType=BIGINT} and user_id=#{userId,jdbcType=BIGINT}
+  </delete>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from user_entity_access_device
+  </select>
+  <select id="selectByEntityId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_entity_access_device 
+    where entity_access_device_id = #{entityId,jdbcType=BIGINT}
+  </select>
+</mapper>

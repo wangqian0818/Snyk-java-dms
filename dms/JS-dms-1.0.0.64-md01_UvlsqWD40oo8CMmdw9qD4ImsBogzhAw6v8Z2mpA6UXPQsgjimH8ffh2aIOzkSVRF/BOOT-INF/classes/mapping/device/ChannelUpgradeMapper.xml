@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.device.mapper.ChannelUpgradeMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.device.model.ChannelUpgrade">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="file_uuid" jdbcType="VARCHAR" property="fileUuid" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="md5" jdbcType="VARCHAR" property="md5" />
+    <result column="module" jdbcType="VARCHAR" property="module" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, file_uuid, type, md5, module, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from channel_upgrade
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from channel_upgrade
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.device.model.ChannelUpgrade">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_upgrade (name, file_uuid, type, 
+      md5, module, gmt_create, gmt_modified
+      )
+    values (#{name,jdbcType=VARCHAR}, #{fileUuid,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{md5,jdbcType=VARCHAR}, #{module,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP},
+      #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.device.model.ChannelUpgrade">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_upgrade
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="fileUuid != null">
+        file_uuid,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="md5 != null">
+        md5,
+      </if>
+      <if test="module != null">
+        module,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUuid != null">
+        #{fileUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="md5 != null">
+        #{md5,jdbcType=VARCHAR},
+      </if>
+      <if test="module != null">
+        #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.device.model.ChannelUpgrade">
+    update channel_upgrade
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUuid != null">
+        file_uuid = #{fileUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="md5 != null">
+        md5 = #{md5,jdbcType=VARCHAR},
+      </if>
+      <if test="module != null">
+        module = #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.device.model.ChannelUpgrade">
+    update channel_upgrade
+    set name = #{name,jdbcType=VARCHAR},
+      file_uuid = #{fileUuid,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      md5 = #{md5,jdbcType=VARCHAR},
+      module = #{module,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+    select count(0) from channel_upgrade
+    <trim prefix="where">
+    	1 = 1
+        <if test="module != null and '' neq module">
+          and
+          module=#{module,jdbcType=VARCHAR}
+        </if>
+        <if test="search != null and '' neq search">
+            and 
+            (name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%') or
+            md5 like CONCAT('%', #{search,jdbcType=VARCHAR}, '%') )
+        </if>
+    </trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from channel_upgrade
+    <trim prefix="where">
+    	1 = 1
+        <if test="module != null and '' neq module">
+            and
+            module=#{module,jdbcType=VARCHAR}
+        </if>
+        <if test="search != null and '' neq search">
+            and 
+            (name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%') or
+            md5 like CONCAT('%', #{search,jdbcType=VARCHAR}, '%') )
+        </if>
+    </trim>
+    order by gmt_create desc, id desc
+  </select>
+  <select id="selectByUuidAndMd5" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from channel_upgrade
+    where file_uuid = #{fileUuid,jdbcType=VARCHAR} 
+    and md5 = #{md5,jdbcType=VARCHAR} 
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from channel_upgrade where name = #{name,jdbcType=VARCHAR}
+  </select>
+</mapper>

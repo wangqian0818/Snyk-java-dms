@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.device.mapper.DeviceInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.device.model.DeviceInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="sn" jdbcType="VARCHAR" property="sn" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="network_area_id" jdbcType="BIGINT" property="networkAreaId" />
+    <result column="network_area_name" jdbcType="VARCHAR" property="networkAreaName" />
+    <result column="device_type" jdbcType="TINYINT" property="deviceType" />
+    <result column="device_flag" jdbcType="VARCHAR" property="deviceFlag" />
+    <result column="product_model" jdbcType="VARCHAR" property="productModel" />
+    <result column="device_version" jdbcType="VARCHAR" property="deviceVersion" />
+    <result column="manufacturing_date" jdbcType="VARCHAR" property="manufacturingDate" />
+    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sn, name, network_area_id, network_area_name, device_type, device_flag, product_model, device_version, 
+    manufacturing_date, introduction, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from device_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from device_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.device.model.DeviceInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into device_info (sn, name, network_area_id, network_area_name, device_type, device_flag, product_model, 
+      device_version, manufacturing_date, introduction, gmt_create, gmt_modified)
+    values (#{sn,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{networkAreaId,jdbcType=BIGINT}, 
+      #{networkAreaName,jdbcType=VARCHAR}, #{deviceType,jdbcType=TINYINT}, #{deviceFlag,jdbcType=VARCHAR}, 
+      #{productModel,jdbcType=VARCHAR}, #{deviceVersion,jdbcType=VARCHAR}, #{manufacturingDate,jdbcType=VARCHAR}, 
+      #{introduction,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.device.model.DeviceInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into device_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sn != null">
+        sn,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="networkAreaId != null">
+        network_area_id,
+      </if>
+      <if test="networkAreaName != null">
+        network_area_name,
+      </if>
+      <if test="deviceType != null">
+        device_type,
+      </if>
+      <if test="deviceFlag != null">
+        device_flag,
+      </if>
+      <if test="productModel != null">
+        product_model,
+      </if>
+      <if test="deviceVersion != null">
+        device_version,
+      </if>
+      <if test="manufacturingDate != null">
+        manufacturing_date,
+      </if>
+      <if test="introduction != null">
+        introduction,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sn != null">
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="networkAreaId != null">
+        #{networkAreaId,jdbcType=BIGINT},
+      </if>
+      <if test="networkAreaName != null">
+        #{networkAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null">
+        #{deviceType,jdbcType=TINYINT},
+      </if>
+      <if test="deviceFlag != null">
+        #{deviceFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="productModel != null">
+        #{productModel,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceVersion != null">
+        #{deviceVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturingDate != null">
+        #{manufacturingDate,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null">
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.device.model.DeviceInfo">
+    update device_info
+    <set>
+      <if test="sn != null">
+        sn = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="networkAreaId != null">
+        network_area_id = #{networkAreaId,jdbcType=BIGINT},
+      </if>
+      <if test="networkAreaName != null">
+        network_area_name = #{networkAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null">
+        device_type = #{deviceType,jdbcType=TINYINT},
+      </if>
+      <if test="deviceFlag != null">
+        device_flag = #{deviceFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="productModel != null">
+        product_model = #{productModel,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceVersion != null">
+        device_version = #{deviceVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturingDate != null">
+        manufacturing_date = #{manufacturingDate,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null">
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.device.model.DeviceInfo">
+    update device_info
+    set sn = #{sn,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      network_area_id = #{networkAreaId,jdbcType=BIGINT},
+      network_area_name = #{networkAreaName,jdbcType=VARCHAR},
+      device_type = #{deviceType,jdbcType=TINYINT},
+      device_flag = #{deviceFlag,jdbcType=VARCHAR},
+      product_model = #{productModel,jdbcType=VARCHAR},
+      device_version = #{deviceVersion,jdbcType=VARCHAR},
+      manufacturing_date = #{manufacturingDate,jdbcType=VARCHAR},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from device_info
+  	<trim prefix="where">
+  		<if test="search != null and '' neq search">
+  			name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from device_info
+  	<trim prefix="where">
+  		<if test="search != null and '' neq search">
+  			name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  	</trim>
+  	order by gmt_create desc, id desc
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from device_info where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="selectBySn" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from device_info where sn = #{sn,jdbcType=VARCHAR}
+  </select>
+  <select id="selectUnique" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from device_info order by id limit 1
+  </select>
+</mapper>

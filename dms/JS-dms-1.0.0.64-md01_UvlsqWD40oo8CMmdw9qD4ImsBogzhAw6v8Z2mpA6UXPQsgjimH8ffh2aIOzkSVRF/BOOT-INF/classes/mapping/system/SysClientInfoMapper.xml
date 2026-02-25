@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.system.mapper.SysClientInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.system.model.SysClientInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="sn" jdbcType="VARCHAR" property="sn" />
+    <result column="manage_ip" jdbcType="VARCHAR" property="manageIp" />
+    <result column="business_ip" jdbcType="VARCHAR" property="businessIp" />
+    <result column="port" jdbcType="VARCHAR" property="port" />
+    <result column="dms_ip" jdbcType="VARCHAR" property="dmsIp" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="os_name" jdbcType="VARCHAR" property="osName" />
+    <result column="os_version" jdbcType="VARCHAR" property="osVersion" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_state" jdbcType="TINYINT" property="updateState" />
+    <result column="recover_state" jdbcType="TINYINT" property="recoverState" />
+    <result column="restore_state" jdbcType="TINYINT" property="restoreState" />
+    <result column="restore_uuid" jdbcType="VARCHAR" property="restoreUuid" />
+    <result column="gmt_recover" jdbcType="TIMESTAMP" property="gmtRecover" />
+    <result column="gmt_restore" jdbcType="TIMESTAMP" property="gmtRestore" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="channel_id" jdbcType="BIGINT" property="channelId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sn, manage_ip, business_ip,  port, dms_ip,version, os_name, os_version,
+    update_state, update_time, recover_state, restore_state, restore_uuid, gmt_recover, gmt_restore, gmt_create, gmt_modified, channel_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_client_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_client_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.system.model.SysClientInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_client_info
+         (sn, manage_ip, business_ip,  port, dms_ip, version, os_name, os_version,
+         update_state, update_time, recover_state, restore_state, restore_uuid, gmt_recover, gmt_restore, gmt_create, gmt_modified, channel_id)
+    values
+         (#{sn,jdbcType=VARCHAR},#{manageIp,jdbcType=VARCHAR}, #{businessIp,jdbcType=VARCHAR}, 
+          #{port,jdbcType=VARCHAR}, #{dmsIp,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
+          #{osName,jdbcType=VARCHAR}, #{osVersion,jdbcType=VARCHAR}, #{updateState,jdbcType=TINYINT},
+          #{updateTime,jdbcType=TIMESTAMP}, #{recoverState,jdbcType=TINYINT}, #{restoreState,jdbcType=TINYINT}, 
+          #{restoreUuid,jdbcType=VARCHAR}, #{gmtRecover,jdbcType=TIMESTAMP}, #{gmtRestore,jdbcType=TIMESTAMP}, 
+          #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{channelId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.system.model.SysClientInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_client_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="sn != null">
+        sn,
+      </if>
+      <if test="manageIp != null">
+        manage_ip,
+      </if>
+      <if test="businessIp != null">
+        business_ip,
+      </if>
+      <if test="port != null">
+        port,
+      </if>
+      <if test="dmsIp != null">
+        dms_ip,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="osName != null">
+        os_name,
+      </if>
+      <if test="osVersion != null">
+        os_version,
+      </if>
+      <if test="updateState != null">
+        update_state,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="recoverState != null">
+        recover_state,
+      </if>
+      <if test="restoreState != null">
+        restore_state,
+      </if>
+      <if test="restoreUuid != null">
+        restore_uuid,
+      </if>
+      <if test="gmtRecover != null">
+        gmt_recover,
+      </if>
+      <if test="gmtRestore != null">
+        gmt_restore,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="channelId != null">
+        channel_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="sn != null">
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="manageIp != null">
+        #{manageIp,jdbcType=VARCHAR},
+      </if>
+      <if test="businessIp != null">
+        #{businessIp,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null">
+        #{port,jdbcType=VARCHAR},
+      </if>
+      <if test="dmsIp != null">
+        #{dmsIp,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="osName != null">
+        #{osName,jdbcType=VARCHAR},
+      </if>
+      <if test="osVersion != null">
+        #{osVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="updateState != null">
+        #{updateState,jdbcType=TINYINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recoverState != null">
+        #{recoverState,jdbcType=TINYINT},
+      </if>
+      <if test="restoreState != null">
+        #{restoreState,jdbcType=TINYINT},
+      </if>
+      <if test="restoreUuid != null">
+        #{restoreUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtRecover != null">
+        #{gmtRecover,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtRestore != null">
+        #{gmtRestore,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channelId != null">
+        #{channelId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.system.model.SysClientInfo">
+    update sys_client_info
+    <set>
+      <if test="sn != null">
+        sn = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="manageIp != null">
+        manage_ip = #{manageIp,jdbcType=VARCHAR},
+      </if>
+      <if test="businessIp != null">
+        business_ip = #{businessIp,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null">
+        port = #{port,jdbcType=VARCHAR},
+      </if>
+      <if test="dmsIp != null">
+        dms_ip = #{dmsIp,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="osName != null">
+        os_name = #{osName,jdbcType=VARCHAR},
+      </if>
+      <if test="osVersion != null">
+        os_version = #{osVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="updateState != null">
+        update_state = #{updateState,jdbcType=TINYINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recoverState != null">
+        recover_state = #{recoverState,jdbcType=TINYINT},
+      </if>
+      <if test="restoreState != null">
+        restore_state = #{restoreState,jdbcType=TINYINT},
+      </if>
+      <if test="restoreUuid != null">
+        restore_uuid = #{restoreUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtRecover != null">
+        gmt_recover = #{gmtRecover,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtRestore != null">
+        gmt_restore = #{gmtRestore,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channelId != null">
+        channel_id = #{channelId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.system.model.SysClientInfo">
+    update sys_client_info
+    SET
+      sn = #{sn,jdbcType=VARCHAR},
+      manage_ip = #{manageIp,jdbcType=VARCHAR},
+      business_ip = #{businessIp,jdbcType=VARCHAR},
+      port = #{port,jdbcType=VARCHAR},
+      dms_ip = #{dmsIp,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      os_name = #{osName,jdbcType=VARCHAR},
+      os_version = #{osVersion,jdbcType=VARCHAR},
+      update_state = #{updateState,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      recover_state = #{recoverState,jdbcType=TINYINT},
+      restore_state = #{restoreState,jdbcType=TINYINT},
+      restore_uuid = #{restoreUuid,jdbcType=VARCHAR},
+      gmt_recover = #{gmtRecover,jdbcType=TIMESTAMP},
+      gmt_restore = #{gmtRestore,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      channel_id = #{channelId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+	select <include refid="Base_Column_List" />	  
+	from sys_client_info
+	<trim prefix="where">
+		<if test="ip != null and '' neq ip">
+			ip like CONCAT(#{ip,jdbcType=VARCHAR}, '%')
+		</if>
+	</trim>
+	order by gmt_create ASC, id ASC
+  </select>
+
+  <select id="getLength" resultType="java.lang.Long">
+    select count(0)
+    from sys_client_info
+    <trim prefix="where">
+      <if test="ip != null and '' neq ip">
+        ip like CONCAT(#{ip,jdbcType=VARCHAR}, '%')
+      </if>
+    </trim>
+  </select>
+
+  <select id="selectBySn" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from sys_client_info
+    where sn=#{sn,jdbcType=VARCHAR}
+  </select>
+
+
+  <update id="updateRestoreState">
+    update sys_client_info
+    set
+    restore_state = #{restoreState,jdbcType=TINYINT},
+    restore_uuid = #{restoreUuid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <delete id="clearAll">
+    truncate table sys_client_info;
+  </delete>
+</mapper>

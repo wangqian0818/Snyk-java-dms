@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.system.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.system.model.User">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="org_structure_id" jdbcType="BIGINT" property="orgStructureId" />
+    <result column="org_structure_name" jdbcType="VARCHAR" property="orgStructureName" />
+    <result column="responsibility" jdbcType="VARCHAR" property="responsibility" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="jsp_pwd" jdbcType="VARCHAR" property="jspPwd" />
+    <result column="is_default" jdbcType="BIT" property="isDefault" />
+    <result column="enabled" jdbcType="BIT" property="enabled" />
+    <result column="rank" jdbcType="TINYINT" property="rank" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+    <result column="gmt_login" jdbcType="TIMESTAMP" property="gmtLogin" />
+    <result column="cert_md5" jdbcType="VARCHAR" property="certMd5" />
+    <result column="cert_path" jdbcType="VARCHAR" property="certPath" />
+    <result column="cert_name" jdbcType="VARCHAR" property="certName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="gmt_change_pwd" jdbcType="TIMESTAMP" property="gmtChangePwd" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, nick_name, org_structure_id, org_structure_name, responsibility, email, phone, password, jsp_pwd, is_default, enabled, `rank`, login_ip,
+    gmt_login, cert_md5, cert_path, cert_name, gmt_create, gmt_modified, gmt_change_pwd
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.system.model.User">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user (name, nick_name, org_structure_id, org_structure_name, responsibility, email, 
+      phone, password, jsp_pwd, is_default,
+      enabled, `rank`, login_ip, 
+      gmt_login, cert_md5, cert_path, 
+      cert_name, gmt_create, gmt_modified, gmt_change_pwd
+      )
+    values (#{name,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{orgStructureId,jdbcType=VARCHAR}, 
+      #{orgStructureName,jdbcType=VARCHAR}, #{responsibility,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{jspPwd,jdbcType=VARCHAR}, #{isDefault,jdbcType=BIT},
+      #{enabled,jdbcType=BIT}, #{rank,jdbcType=TINYINT}, #{loginIp,jdbcType=VARCHAR}, 
+      #{gmtLogin,jdbcType=TIMESTAMP}, #{certMd5,jdbcType=VARCHAR}, #{certPath,jdbcType=VARCHAR}, 
+      #{certName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP},
+      #{gmtChangePwd,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.system.model.User">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
+      <if test="orgStructureId != null">
+        org_structure_id,
+      </if>
+      <if test="orgStructureName != null">
+        org_structure_name,
+      </if>
+      <if test="responsibility != null">
+        responsibility,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="jspPwd != null">
+        jsp_pwd,
+      </if>
+      <if test="isDefault != null">
+        is_default,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="rank != null">
+        `rank`,
+      </if>
+      <if test="loginIp != null">
+        login_ip,
+      </if>
+      <if test="gmtLogin != null">
+        gmt_login,
+      </if>
+      <if test="certMd5 != null">
+        cert_md5,
+      </if>
+      <if test="certPath != null">
+        cert_path,
+      </if>
+      <if test="certName != null">
+        cert_name,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="gmtChangePwd != null">
+        gmt_change_pwd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgStructureId != null">
+        #{orgStructureId,jdbcType=BIGINT},
+      </if>
+      <if test="orgStructureName != null">
+        #{orgStructureName,jdbcType=VARCHAR},
+      </if>
+      <if test="responsibility != null">
+        #{responsibility,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="jspPwd != null">
+        #{jspPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null">
+        #{isDefault,jdbcType=BIT},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=BIT},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=TINYINT},
+      </if>
+      <if test="loginIp != null">
+        #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtLogin != null">
+        #{gmtLogin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="certMd5 != null">
+        #{certMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="certPath != null">
+        #{certPath,jdbcType=VARCHAR},
+      </if>
+      <if test="certName != null">
+        #{certName,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtChangePwd != null">
+        #{gmtChangePwd,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.system.model.User">
+    update user
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgStructureId != null">
+        org_structure_id = #{orgStructureId,jdbcType=BIGINT},
+      </if>
+      <if test="orgStructureName != null">
+        org_structure_name = #{orgStructureName,jdbcType=VARCHAR},
+      </if>
+      <if test="responsibility != null">
+        responsibility = #{responsibility,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="jspPwd != null">
+        jsp_pwd=#{jspPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null">
+        is_default = #{isDefault,jdbcType=BIT},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=BIT},
+      </if>
+      <if test="rank != null">
+        `rank` = #{rank,jdbcType=TINYINT},
+      </if>
+      <if test="loginIp != null">
+        login_ip = #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtLogin != null">
+        gmt_login = #{gmtLogin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="certMd5 != null">
+        cert_md5 = #{certMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="certPath != null">
+        cert_path = #{certPath,jdbcType=VARCHAR},
+      </if>
+      <if test="certName != null">
+        cert_name = #{certName,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtChangePwd != null">
+        gmt_change_pwd = #{gmtChangePwd,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.system.model.User">
+    update user
+    set name = #{name,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      org_structure_id = #{orgStructureId,jdbcType=BIGINT},
+      org_structure_name = #{orgStructureName,jdbcType=VARCHAR},
+      responsibility = #{responsibility,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      jsp_pwd=#{jspPwd,jdbcType=VARCHAR},
+      is_default = #{isDefault,jdbcType=BIT},
+      enabled = #{enabled,jdbcType=BIT},
+      `rank` = #{rank,jdbcType=TINYINT},
+      login_ip = #{loginIp,jdbcType=VARCHAR},
+      gmt_login = #{gmtLogin,jdbcType=TIMESTAMP},
+      cert_md5 = #{certMd5,jdbcType=VARCHAR},
+      cert_path = #{certPath,jdbcType=VARCHAR},
+      cert_name = #{certName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      gmt_change_pwd = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List"/>
+  	from user
+  	where name = #{name,jdbcType=VARCHAR} 
+  	limit 1
+  </select>
+  <select id="selectAllUser" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/>
+    from user
+  </select>
+  <select id="selectByNameAndPassword" resultMap="BaseResultMap">
+  	select
+      u.*
+      FROM user u
+      INNER JOIN user_permission_group upg ON u.id = upg.user_id
+      INNER JOIN permission_group pg ON upg.permission_group_id = pg.id 
+  	where u.name=#{name,jdbcType=VARCHAR} and u.password=#{password,jdbcType=VARCHAR} 
+  	  <if test="type != null">
+	    and pg.type = #{type,jdbcType=TINYINT}
+	  </if>
+	limit 1 
+  </select>
+  <select id="selectAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    	u.*
+	FROM user u LEFT JOIN user_permission_group upg ON u.id = upg.user_id
+	where 1=1 and (upg.permission_group_id != 5 or upg.permission_group_id is null) 
+	 	<if test="_parameter.search != null and '' neq _parameter.search">
+		  		and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+		</if>
+		<if test="_parameter.userName != null and'' neq _parameter.userName">
+		  		and name != #{userName,jdbcType=VARCHAR}
+		</if>
+	    <if test="rank != null">
+		  		and (`rank` <![CDATA[ <= ]]> #{rank,jdbcType=TINYINT} OR `rank` IS NULL) 
+		</if>
+  </select>
+  <select id="getLength" parameterType="java.lang.String" resultType="java.lang.Long">
+  	select count(1) 
+  	FROM user u LEFT JOIN user_permission_group upg 
+  	ON u.id = upg.user_id
+	where 1=1 and (upg.permission_group_id != 5 or upg.permission_group_id is null) 
+	 	<if test="_parameter.search != null and '' neq _parameter.search">
+		  		and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+		</if>
+		<if test="_parameter.userName != null and'' neq _parameter.userName">
+		  		and name != #{userName,jdbcType=VARCHAR}
+		</if>
+		<if test="rank != null">
+		  		and (`rank` <![CDATA[ <= ]]> #{rank,jdbcType=TINYINT} OR `rank` IS NULL) 
+		</if>
+  </select>
+  <update id="resetPassword" >
+    update user
+    	set password = #{password,jdbcType=VARCHAR},
+      		gmt_modified = #{currentDate,jdbcType=TIMESTAMP},
+      		gmt_change_pwd = #{currentDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="changeEnable" parameterType="java.lang.String" resultMap="BaseResultMap">
+    update user
+    set enabled = abs(enabled - 1)
+    where name = #{name,jdbcType=VARCHAR};
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByGroupId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    	u.*
+	FROM user u LEFT JOIN user_permission_group upg ON u.id = upg.user_id
+	where upg.permission_group_id = #{permissionGroupId,jdbcType=BIGINT}
+  </select>
+  <select id="selectByGroupType" resultMap="BaseResultMap">
+    SELECT 
+    	u.*
+	FROM user u LEFT JOIN user_permission_group upg ON u.id = upg.user_id 
+	    LEFT JOIN permission_group pg ON upg.permission_group_id = pg.id 
+	WHERE pg.type = #{type,jdbcType=TINYINT}
+  </select>
+
+
+  <select id="selectAllByPermissionGroupType"  resultMap="BaseResultMap">
+    select 
+    	u.*
+      FROM user u
+      INNER JOIN user_permission_group upg ON u.id = upg.user_id
+      INNER JOIN permission_group pg ON upg.permission_group_id = pg.id
+      where 1=1
+      <if test="search != null and search != ''">
+        and (u.name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+        or u.nick_name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%'))
+      </if>
+      <if test="type != null and type != ''">
+        and pg.type = #{type,jdbcType=TINYINT}
+      </if>
+      <if test="ip != null and ip != ''">
+        and u.id in(
+          select user_id from user_entity_access_device where entity_access_device_id in
+            (
+              select id from entity_access_device where ip=#{ip,jdbcType=VARCHAR}
+            )
+        )
+      </if>
+  </select>
+  <select id="getLengthByPermissionGroupType"  resultType="java.lang.Long">
+  	select count(1)
+      FROM user u
+      INNER JOIN user_permission_group upg ON u.id = upg.user_id
+      INNER JOIN permission_group pg ON upg.permission_group_id = pg.id
+      where 1=1
+      <if test="search != null and search != ''">
+          and u.name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="type != null and type != ''">
+          and pg.type = #{type,jdbcType=TINYINT}
+      </if>
+      <if test="ip != null and ip != ''">
+        and u.id in(
+        select user_id from user_entity_access_device where entity_access_device_id in
+        (
+        select id from entity_access_device where ip=#{ip,jdbcType=VARCHAR}
+        )
+        )
+      </if>
+  </select>
+  <select id="selectByOrgId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from user 
+    where org_structure_id = #{orgStructureId,jdbcType=BIGINT}
+  </select>
+  <select id="selectByNameUnType" resultMap="BaseResultMap">
+      select
+      u.*
+      FROM user u
+      INNER JOIN user_permission_group upg ON u.id = upg.user_id
+      INNER JOIN permission_group pg ON upg.permission_group_id = pg.id
+      where pg.type != #{userType,jdbcType=TINYINT}
+      and u.name = #{name,jdbcType=VARCHAR}
+  </select>
+</mapper>

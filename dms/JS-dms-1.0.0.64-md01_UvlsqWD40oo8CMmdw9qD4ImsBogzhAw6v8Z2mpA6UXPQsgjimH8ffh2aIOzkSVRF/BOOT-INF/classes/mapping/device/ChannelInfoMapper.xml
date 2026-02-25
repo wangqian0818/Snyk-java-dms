@@ -1,0 +1,715 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.device.mapper.ChannelInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.device.model.ChannelInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="device_id" jdbcType="BIGINT" property="deviceId" />
+    <result column="network_area_id" jdbcType="BIGINT" property="networkAreaId" />
+    <result column="network_area_name" jdbcType="VARCHAR" property="networkAreaName" />
+    <result column="channel_type" jdbcType="TINYINT" property="channelType" />
+    <result column="device_sub_type" jdbcType="TINYINT" property="deviceSubType" />
+    <result column="sn" jdbcType="VARCHAR" property="sn" />
+    <result column="device_node_name" jdbcType="VARCHAR" property="deviceNodeName" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="device_flag" jdbcType="VARCHAR" property="deviceFlag" />
+    <result column="slot_id" jdbcType="VARCHAR" property="slotId" />
+    <result column="slot_ip" jdbcType="VARCHAR" property="slotIp" />
+    <result column="running_state" jdbcType="TINYINT" property="runningState" />
+    <result column="device_log" jdbcType="BIT" property="deviceLog" />
+    <result column="device_log_work_state" jdbcType="TINYINT" property="deviceLogWorkState" />
+    <result column="device_remote_log" jdbcType="BIT" property="deviceRemoteLog" />
+    <result column="device_remote_log_work_state" jdbcType="TINYINT" property="deviceRemoteLogWorkState" />
+    <result column="ping" jdbcType="BIT" property="ping" />
+    <result column="ping_work_state" jdbcType="TINYINT" property="pingWorkState" />
+    <result column="ssh" jdbcType="BIT" property="ssh" />
+    <result column="ssh_work_state" jdbcType="TINYINT" property="sshWorkState" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="mac" jdbcType="VARCHAR" property="mac" />
+    <result column="ip_mac_work_state" jdbcType="TINYINT" property="ipMacWorkState" />
+    <result column="ddos" jdbcType="BIT" property="ddos" />
+    <result column="ddos_work_state" jdbcType="TINYINT" property="ddosWorkState" />
+    <result column="waf" jdbcType="BIT" property="waf" />
+    <result column="waf_work_state" jdbcType="TINYINT" property="wafWorkState" />
+    <result column="virus" jdbcType="BIT" property="virus" />
+    <result column="virus_work_state" jdbcType="TINYINT" property="virusWorkState" />
+	<result column="work_area" jdbcType="VARCHAR" property="workArea" />
+	<result column="fastpath" jdbcType="BIT" property="fastpath" />
+	<result column="fastpath_work_state" jdbcType="TINYINT" property="fastpathWorkState" />
+	<result column="snmp" jdbcType="BIT" property="snmp" />
+	<result column="snmp_work_state" jdbcType="TINYINT" property="snmpWorkState" />
+	<result column="scan" jdbcType="BIT" property="scan" />
+	<result column="scan_work_state" jdbcType="TINYINT" property="scanWorkState" />
+	<result column="iface_id" jdbcType="VARCHAR" property="ifaceId" />
+    <result column="access_flow_log" jdbcType="BIT" property="accessFlowLog" />
+    <result column="access_flow_log_work_state" jdbcType="TINYINT" property="accessFlowLogWorkState" />
+    <result column="intrusion_detection" jdbcType="BIT" property="intrusionDetection" />
+    <result column="intrusion_detection_work_state" jdbcType="TINYINT" property="intrusionDetectionWorkState" />
+    <result column="intrusion_priority" jdbcType="TINYINT" property="intrusionPriority" />
+	<result column="white_ips" jdbcType="VARCHAR" property="whiteIps" />
+	<result column="intrusion_port" jdbcType="LONGVARCHAR" property="intrusionPort" />
+	<result column="pcap_log_enable" jdbcType="BIT" property="pcapLogEnable" />
+	<result column="pcap_log_size" jdbcType="INTEGER" property="pcapLogSize" />
+    <result column="baseline_check" jdbcType="BIT" property="baselineCheck" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, device_id, network_area_id, network_area_name, channel_type, device_sub_type, sn, 
+    device_node_name, location, device_flag, slot_id, slot_ip, running_state, device_log, 
+    device_log_work_state, device_remote_log, device_remote_log_work_state, ping, ping_work_state, 
+    ssh, ssh_work_state, ip, mac, ip_mac_work_state, ddos, ddos_work_state, waf, waf_work_state, 
+    virus, virus_work_state, work_area, fastpath, fastpath_work_state, snmp, snmp_work_state, 
+    scan, scan_work_state, iface_id, access_flow_log, access_flow_log_work_state, 
+    intrusion_detection, intrusion_detection_work_state, intrusion_priority, white_ips, intrusion_port, 
+    pcap_log_enable, pcap_log_size, baseline_check, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from channel_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from channel_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.device.model.ChannelInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_info (name, device_id, network_area_id, network_area_name, 
+      channel_type, device_sub_type, sn, device_node_name, location, device_flag, slot_id, slot_ip, running_state, 
+      device_log, device_log_work_state, device_remote_log, 
+      device_remote_log_work_state, ping, ping_work_state, 
+      ssh, ssh_work_state, ip, 
+      mac, ip_mac_work_state, ddos, 
+      ddos_work_state, waf, waf_work_state, 
+      virus, virus_work_state, work_area, fastpath, fastpath_work_state, 
+      snmp, snmp_work_state, scan, scan_work_state, iface_id, 
+      access_flow_log, access_flow_log_work_state, 
+      intrusion_detection, intrusion_detection_work_state, intrusion_priority, intrusion_port, 
+      pcap_log_enable, pcap_log_size, baseline_check, gmt_create, gmt_modified)
+    values (#{name,jdbcType=VARCHAR}, #{deviceId,jdbcType=BIGINT}, #{networkAreaId,jdbcType=BIGINT}, #{networkAreaName,jdbcType=VARCHAR}, 
+      #{channelType,jdbcType=TINYINT}, #{deviceSubType,jdbcType=TINYINT}, #{sn,jdbcType=VARCHAR}, 
+      #{deviceNodeName,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{deviceFlag,jdbcType=VARCHAR}, 
+      #{slotId,jdbcType=VARCHAR}, #{slotIp,jdbcType=VARCHAR}, #{runningState,jdbcType=TINYINT}, 
+      #{deviceLog,jdbcType=BIT}, #{deviceLogWorkState,jdbcType=TINYINT}, #{deviceRemoteLog,jdbcType=BIT}, 
+      #{deviceRemoteLogWorkState,jdbcType=TINYINT}, #{ping,jdbcType=BIT}, #{pingWorkState,jdbcType=TINYINT}, 
+      #{ssh,jdbcType=BIT}, #{sshWorkState,jdbcType=TINYINT}, #{ip,jdbcType=VARCHAR}, 
+      #{mac,jdbcType=VARCHAR}, #{ipMacWorkState,jdbcType=TINYINT}, #{ddos,jdbcType=BIT}, 
+      #{ddosWorkState,jdbcType=TINYINT}, #{waf,jdbcType=BIT}, #{wafWorkState,jdbcType=TINYINT}, 
+      #{virus,jdbcType=BIT}, #{virusWorkState,jdbcType=TINYINT}, #{workArea,jdbcType=VARCHAR}, #{fastpath,jdbcType=BIT}, 
+      #{fastpathWorkState,jdbcType=TINYINT}, #{snmp,jdbcType=BIT}, #{snmpWorkState,jdbcType=TINYINT}, 
+      #{scan,jdbcType=BIT}, #{scanWorkState,jdbcType=TINYINT}, #{ifaceId,jdbcType=VARCHAR}, 
+      #{accessFlowLog,jdbcType=BIT}, #{accessFlowLogWorkState,jdbcType=TINYINT}, 
+      #{intrusionDetection,jdbcType=BIT}, #{intrusionDetectionWorkState,jdbcType=TINYINT}, 
+      #{intrusionPriority,jdbcType=TINYINT}, #{intrusionPort,jdbcType=LONGVARCHAR}, 
+      #{pcapLogEnable,jdbcType=BIT}, #{pcapLogSize,jdbcType=INTEGER}, #{baselineCheck,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.device.model.ChannelInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="networkAreaId != null">
+        network_area_id,
+      </if>
+      <if test="networkAreaName != null">
+        network_area_name,
+      </if>
+      <if test="channelType != null">
+        channel_type,
+      </if>
+      <if test="deviceSubType != null">
+        device_sub_type,
+      </if>
+      <if test="sn != null">
+        sn,
+      </if>
+      <if test="deviceNodeName != null">
+        device_node_name,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="deviceFlag != null">
+        device_flag,
+      </if>
+      <if test="slotId != null">
+        slot_id,
+      </if>
+      <if test="slotIp != null">
+        slot_ip,
+      </if>
+      <if test="runningState != null">
+        running_state,
+      </if>
+      <if test="deviceLog != null">
+        device_log,
+      </if>
+      <if test="deviceLogWorkState != null">
+        device_log_work_state,
+      </if>
+      <if test="deviceRemoteLog != null">
+        device_remote_log,
+      </if>
+      <if test="deviceRemoteLogWorkState != null">
+        device_remote_log_work_state,
+      </if>
+      <if test="ping != null">
+        ping,
+      </if>
+      <if test="pingWorkState != null">
+        ping_work_state,
+      </if>
+      <if test="ssh != null">
+        ssh,
+      </if>
+      <if test="sshWorkState != null">
+        ssh_work_state,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="mac != null">
+        mac,
+      </if>
+      <if test="ipMacWorkState != null">
+        ip_mac_work_state,
+      </if>
+      <if test="ddos != null">
+        ddos,
+      </if>
+      <if test="ddosWorkState != null">
+        ddos_work_state,
+      </if>
+      <if test="waf != null">
+        waf,
+      </if>
+      <if test="wafWorkState != null">
+        waf_work_state,
+      </if>
+      <if test="virus != null">
+        virus,
+      </if>
+      <if test="virusWorkState != null">
+        virus_work_state,
+      </if>
+      <if test="workArea != null">
+        work_area,
+      </if>
+      <if test="fastpath != null">
+        fastpath,
+      </if>
+      <if test="fastpathWorkState != null">
+        fastpath_work_state,
+      </if>
+       <if test="snmp != null">
+        snmp,
+      </if>
+      <if test="snmpWorkState != null">
+        snmp_work_state,
+      </if>
+       <if test="scan != null">
+        scan,
+      </if>
+      <if test="scanWorkState != null">
+        scan_work_state,
+      </if>
+      <if test="ifaceId != null">
+        iface_id,
+      </if>
+      <if test="accessFlowLog != null">
+        access_flow_log,
+      </if>
+      <if test="accessFlowLogWorkState != null">
+        access_flow_log_work_state,
+      </if>
+      <if test="intrusionDetection != null">
+        intrusion_detection,
+      </if>
+      <if test="intrusionDetectionWorkState != null">
+        intrusion_detection_work_state,
+      </if>
+      <if test="intrusionPriority != null">
+        intrusion_priority,
+      </if>
+      <if test="pcapLogEnable != null">
+        pcap_log_enable,
+      </if>
+      <if test="pcapLogSize != null">
+        pcap_log_size,
+      </if>
+      <if test="baselineCheck != null">
+        baseline_check,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="networkAreaId != null">
+        #{networkAreaId,jdbcType=BIGINT},
+      </if>
+      <if test="networkAreaName != null">
+        #{networkAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelType != null">
+        #{channelType,jdbcType=TINYINT},
+      </if>
+      <if test="deviceSubType != null">
+        #{deviceSubType,jdbcType=TINYINT},
+      </if>
+      <if test="sn != null">
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceNodeName != null">
+        #{deviceNodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceFlag != null">
+        #{deviceFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="slotId != null">
+        #{slotId,jdbcType=VARCHAR},
+      </if>
+      <if test="slotIp != null">
+        #{slotIp,jdbcType=VARCHAR},
+      </if>
+      <if test="runningState != null">
+        #{runningState,jdbcType=TINYINT},
+      </if>
+      <if test="deviceLog != null">
+        #{deviceLog,jdbcType=BIT},
+      </if>
+      <if test="deviceLogWorkState != null">
+        #{deviceLogWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="deviceRemoteLog != null">
+        #{deviceRemoteLog,jdbcType=BIT},
+      </if>
+      <if test="deviceRemoteLogWorkState != null">
+        #{deviceRemoteLogWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="ping != null">
+        #{ping,jdbcType=BIT},
+      </if>
+      <if test="pingWorkState != null">
+        #{pingWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="ssh != null">
+        #{ssh,jdbcType=BIT},
+      </if>
+      <if test="sshWorkState != null">
+        #{sshWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null">
+        #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="ipMacWorkState != null">
+        #{ipMacWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="ddos != null">
+        #{ddos,jdbcType=BIT},
+      </if>
+      <if test="ddosWorkState != null">
+        #{ddosWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="waf != null">
+        #{waf,jdbcType=BIT},
+      </if>
+      <if test="wafWorkState != null">
+        #{wafWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="virus != null">
+        #{virus,jdbcType=BIT},
+      </if>
+      <if test="virusWorkState != null">
+        #{virusWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="workArea != null">
+        #{workArea,jdbcType=TINYINT},
+      </if>
+      <if test="fastpath != null">
+        #{fastpath,jdbcType=BIT},
+      </if>
+      <if test="fastpathWorkState != null">
+        #{fastpathWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="snmp != null">
+        #{snmp,jdbcType=BIT},
+      </if>
+      <if test="snmpWorkState != null">
+        #{snmpWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="scan != null">
+        #{scan,jdbcType=BIT},
+      </if>
+      <if test="scanWorkState != null">
+        #{scanWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="ifaceId != null">
+        #{ifaceId,jdbcType=VARCHAR},
+      </if>
+      <if test="accessFlowLog != null">
+        #{accessFlowLog,jdbcType=BIT},
+      </if>
+      <if test="accessFlowLogWorkState != null">
+        #{accessFlowLogWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="intrusionDetection != null">
+        #{intrusionDetection,jdbcType=BIT},
+      </if>
+      <if test="intrusionDetectionWorkState != null">
+        #{intrusionDetectionWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="intrusionPriority != null">
+        #{intrusionPriority,jdbcType=TINYINT},
+      </if>
+      <if test="pcapLogEnable != null">
+        #{pcapLogEnable,jdbcType=BIT},
+      </if>
+      <if test="pcapLogSize != null">
+        #{pcapLogSize,jdbcType=INTEGER},
+      </if>
+      <if test="baselineCheck != null">
+        #{baselineCheck,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.device.model.ChannelInfo">
+    update channel_info
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="networkAreaId != null">
+        network_area_id = #{networkAreaId,jdbcType=BIGINT},
+      </if>
+      <if test="networkAreaName != null">
+        network_area_name = #{networkAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelType != null">
+        channel_type = #{channelType,jdbcType=TINYINT},
+      </if>
+      <if test="deviceSubType != null">
+        device_sub_type = #{deviceSubType,jdbcType=TINYINT},
+      </if>
+      <if test="sn != null">
+        sn = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceNodeName != null">
+        device_node_name = #{deviceNodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceFlag != null">
+        device_flag = #{deviceFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="slotId != null">
+        slot_id = #{slotId,jdbcType=VARCHAR},
+      </if>
+      <if test="slotIp != null">
+        slot_ip = #{slotIp,jdbcType=VARCHAR},
+      </if>
+      <if test="runningState != null">
+        running_state = #{runningState,jdbcType=TINYINT},
+      </if>
+      <if test="deviceLog != null">
+        device_log = #{deviceLog,jdbcType=BIT},
+      </if>
+      <if test="deviceLogWorkState != null">
+        device_log_work_state = #{deviceLogWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="deviceRemoteLog != null">
+        device_remote_log = #{deviceRemoteLog,jdbcType=BIT},
+      </if>
+      <if test="deviceRemoteLogWorkState != null">
+        device_remote_log_work_state = #{deviceRemoteLogWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="ping != null">
+        ping = #{ping,jdbcType=BIT},
+      </if>
+      <if test="pingWorkState != null">
+        ping_work_state = #{pingWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="ssh != null">
+        ssh = #{ssh,jdbcType=BIT},
+      </if>
+      <if test="sshWorkState != null">
+        ssh_work_state = #{sshWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null">
+        mac = #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="ipMacWorkState != null">
+        ip_mac_work_state = #{ipMacWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="ddos != null">
+        ddos = #{ddos,jdbcType=BIT},
+      </if>
+      <if test="ddosWorkState != null">
+        ddos_work_state = #{ddosWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="waf != null">
+        waf = #{waf,jdbcType=BIT},
+      </if>
+      <if test="wafWorkState != null">
+        waf_work_state = #{wafWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="virus != null">
+        virus = #{virus,jdbcType=BIT},
+      </if>
+      <if test="virusWorkState != null">
+        virus_work_state = #{virusWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="workArea != null">
+        work_area = #{workArea,jdbcType=TINYINT},
+      </if>
+      <if test="fastpath != null">
+        fastpath = #{fastpath,jdbcType=BIT},
+      </if>
+      <if test="fastpathWorkState != null">
+        fastpath_work_state = #{fastpathWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="snmp != null">
+        snmp = #{snmp,jdbcType=BIT},
+      </if>
+      <if test="snmpWorkState != null">
+        snmp_work_state = #{snmpWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="scan != null">
+        scan = #{scan,jdbcType=BIT},
+      </if>
+      <if test="scanWorkState != null">
+        scan_work_state = #{scanWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="ifaceId != null">
+        iface_id = #{ifaceId,jdbcType=VARCHAR},
+      </if>
+      <if test="accessFlowLog != null">
+        access_flow_log = #{accessFlowLog,jdbcType=BIT},
+      </if>
+      <if test="accessFlowLogWorkState != null">
+        access_flow_log_work_state = #{accessFlowLogWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="intrusionDetection != null">
+        intrusion_detection = #{intrusionDetection,jdbcType=BIT},
+      </if>
+      <if test="intrusionDetectionWorkState != null">
+        intrusion_detection_work_state = #{intrusionDetectionWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="intrusionPriority != null">
+        intrusion_priority = #{intrusionPriority,jdbcType=TINYINT},
+      </if>
+      <if test="whiteIps != null">
+        white_ips = #{whiteIps,jdbcType=VARCHAR},
+      </if>
+      <if test="intrusionPort != null">
+        intrusion_port = #{intrusionPort,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pcapLogEnable != null">
+        pcap_log_enable = #{pcapLogEnable,jdbcType=BIT},
+      </if>
+      <if test="pcapLogSize != null">
+        pcap_log_size = #{pcapLogSize,jdbcType=INTEGER},
+      </if>
+      <if test="baselineCheck != null">
+        baseline_check = #{baselineCheck,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.device.model.ChannelInfo">
+    update channel_info
+    set name = #{name,jdbcType=VARCHAR},
+      device_id = #{deviceId,jdbcType=BIGINT},
+      network_area_id = #{networkAreaId,jdbcType=BIGINT},
+      network_area_name = #{networkAreaName,jdbcType=VARCHAR},
+      channel_type = #{channelType,jdbcType=TINYINT},
+      device_sub_type = #{deviceSubType,jdbcType=TINYINT},
+      sn = #{sn,jdbcType=VARCHAR},
+      device_node_name = #{deviceNodeName,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      device_flag = #{deviceFlag,jdbcType=VARCHAR},
+      slot_id = #{slotId,jdbcType=VARCHAR},
+      slot_ip = #{slotIp,jdbcType=VARCHAR},
+      running_state = #{runningState,jdbcType=TINYINT},
+      device_log = #{deviceLog,jdbcType=BIT},
+      device_log_work_state = #{deviceLogWorkState,jdbcType=TINYINT},
+      device_remote_log = #{deviceRemoteLog,jdbcType=BIT},
+      device_remote_log_work_state = #{deviceRemoteLogWorkState,jdbcType=TINYINT},
+      ping = #{ping,jdbcType=BIT},
+      ping_work_state = #{pingWorkState,jdbcType=TINYINT},
+      ssh = #{ssh,jdbcType=BIT},
+      ssh_work_state = #{sshWorkState,jdbcType=TINYINT},
+      ip = #{ip,jdbcType=VARCHAR},
+      mac = #{mac,jdbcType=VARCHAR},
+      ip_mac_work_state = #{ipMacWorkState,jdbcType=TINYINT},
+      ddos = #{ddos,jdbcType=BIT},
+      ddos_work_state = #{ddosWorkState,jdbcType=TINYINT},
+      waf = #{waf,jdbcType=BIT},
+      waf_work_state = #{wafWorkState,jdbcType=TINYINT},
+      virus = #{virus,jdbcType=BIT},
+      virus_work_state = #{virusWorkState,jdbcType=TINYINT},
+      work_area = #{workArea,jdbcType=TINYINT},
+      fastpath = #{fastpath,jdbcType=BIT},
+      fastpath_work_state = #{fastpathWorkState,jdbcType=TINYINT},
+      snmp = #{snmp,jdbcType=BIT},
+      snmp_work_state = #{snmpWorkState,jdbcType=TINYINT},
+      scan = #{scan,jdbcType=BIT},
+      scan_work_state = #{scanWorkState,jdbcType=TINYINT},
+      iface_id = #{ifaceId,jdbcType=VARCHAR},
+      access_flow_log = #{accessFlowLog,jdbcType=BIT},
+      access_flow_log_work_state = #{accessFlowLogWorkState,jdbcType=TINYINT},
+      intrusion_detection = #{intrusionDetection,jdbcType=BIT},
+      intrusion_detection_work_state = #{intrusionDetectionWorkState,jdbcType=TINYINT},
+      intrusion_priority = #{intrusionPriority,jdbcType=TINYINT},
+      pcap_log_enable = #{pcapLogEnable,jdbcType=BIT},
+      pcap_log_size = #{pcapLogSize,jdbcType=INTEGER},
+      baseline_check = #{baselineCheck,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from channel_info
+  	<trim prefix="where" prefixOverrides="and|or">
+  		<if test="search != null and '' neq search">
+  			and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%') 
+  		</if>
+        <if test="deviceId != null">
+            and device_id = #{deviceId,jdbcType=TINYINT} 
+        </if>
+        <if test="id != null">
+            and id = #{id,jdbcType=BIGINT} 
+        </if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from channel_info
+  	<trim prefix="where" prefixOverrides="and|or">
+        <if test="channelType != null">
+            and channel_type = #{channelType,jdbcType=TINYINT}
+        </if>
+        <if test="deviceSubType != null">
+            and device_sub_type = #{deviceSubType,jdbcType=TINYINT}
+        </if>
+  		<if test="search != null and '' neq search">
+  			and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+        <if test="deviceId != null">
+            and device_id = #{deviceId,jdbcType=TINYINT} 
+        </if>
+        <if test="id != null">
+            and id = #{id,jdbcType=BIGINT} 
+        </if>
+  	</trim>
+  	order by gmt_create desc, id desc
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from channel_info where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="selectBySnAndName" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from channel_info where sn= #{sn,jdbcType=VARCHAR} and name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByLikeName" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from channel_info where name like CONCAT('%',#{name,jdbcType=VARCHAR},'%') 
+  </select>
+  <select id="selectBySn" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from channel_info where sn = #{sn,jdbcType=VARCHAR}
+  </select>
+   <select id="loadDeviceSn" resultType="java.lang.String">
+  	select distinct sn from init_device
+  </select>
+  <select id="selRunningState" resultType="java.lang.String">
+  	select running_state from channel_info 
+  	where sn = #{sn} and name = #{name,jdbcType=VARCHAR} 
+  </select>
+  <update id="setDeviceRunState">
+  	update channel_info set running_state = #{runningState} 
+  	where sn = #{sn} and name = #{name,jdbcType=VARCHAR} 
+  </update>
+
+  <select id="selectUnique" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from channel_info order by id limit 1
+  </select>
+
+  <select id="changeBaselineCheck" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    update channel_info
+    set baseline_check = abs(baseline_check - 1)
+    where id = #{id,jdbcType=BIGINT};
+    select
+    <include refid="Base_Column_List" />
+    from channel_info
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByNetworkId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from channel_info 
+    where network_area_id = #{networkAreaId,jdbcType=BIGINT} 
+  </select>
+  <update id="setIntrusionPriority" parameterType="com.zx.dms.database.device.model.ChannelInfo">
+    update channel_info
+    set intrusion_detection = #{intrusionDetection,jdbcType=BIT},
+      intrusion_detection_work_state = #{intrusionDetectionWorkState,jdbcType=TINYINT},
+      intrusion_priority = #{intrusionPriority,jdbcType=TINYINT}, 
+      white_ips = #{whiteIps,jdbcType=VARCHAR}, 
+      intrusion_port = #{intrusionPort,jdbcType=LONGVARCHAR}, 
+      pcap_log_enable = #{pcapLogEnable,jdbcType=BIT}, 
+      pcap_log_size = #{pcapLogSize,jdbcType=INTEGER}  
+    where id = #{id,jdbcType=BIGINT} 
+  </update>
+  <select id="selectByDeviceSn" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from channel_info where sn = #{sn,jdbcType=VARCHAR}
+  </select>
+</mapper>

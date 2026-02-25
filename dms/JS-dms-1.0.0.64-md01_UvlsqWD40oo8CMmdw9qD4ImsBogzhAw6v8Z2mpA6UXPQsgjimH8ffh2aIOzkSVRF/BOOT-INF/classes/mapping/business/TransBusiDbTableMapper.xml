@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.business.mapper.TransBusiDbTableMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.business.model.TransBusiDbTable">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="business_id" jdbcType="BIGINT" property="businessId" />
+    <result column="source_table_name" jdbcType="VARCHAR" property="sourceTableName" />
+    <result column="source_primary_field" jdbcType="VARCHAR" property="sourcePrimaryField" />
+    <result column="source_increas_field" jdbcType="VARCHAR" property="sourceIncreasField" />
+    <result column="dest_table_name" jdbcType="VARCHAR" property="destTableName" />
+    <result column="dest_primary_field" jdbcType="VARCHAR" property="destPrimaryField" />
+    <result column="dest_increas_field" jdbcType="VARCHAR" property="destIncreasField" />
+    <result column="field_list" jdbcType="CLOB" property="fieldList" />
+    <result column="filter_field" jdbcType="CLOB" property="filterField" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, business_id, source_table_name, source_primary_field, source_increas_field, dest_table_name, 
+    dest_primary_field, dest_increas_field, field_list, filter_field, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from trans_busi_db_table
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from trans_busi_db_table
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.business.model.TransBusiDbTable">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into trans_busi_db_table (business_id, source_table_name, source_primary_field, source_increas_field, 
+      dest_table_name, dest_primary_field, dest_increas_field, field_list, filter_field, gmt_create, gmt_modified
+      )
+    values (#{businessId,jdbcType=BIGINT}, #{sourceTableName,jdbcType=VARCHAR}, #{sourcePrimaryField,jdbcType=VARCHAR}, 
+      #{sourceIncreasField,jdbcType=VARCHAR}, #{destTableName,jdbcType=VARCHAR}, #{destPrimaryField,jdbcType=VARCHAR}, 
+      #{destIncreasField,jdbcType=VARCHAR}, #{fieldList,jdbcType=CLOB}, #{filterField,jdbcType=CLOB}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.business.model.TransBusiDbTable">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into trans_busi_db_table
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="businessId != null">
+        business_id,
+      </if>
+      <if test="sourceTableName != null">
+        source_table_name,
+      </if>
+      <if test="sourcePrimaryField != null">
+        source_primary_field,
+      </if>
+      <if test="sourceIncreasField != null">
+        source_increas_field,
+      </if>
+      <if test="destTableName != null">
+        dest_table_name,
+      </if>
+      <if test="destPrimaryField != null">
+        dest_primary_field,
+      </if>
+      <if test="destIncreasField != null">
+        dest_increas_field,
+      </if>
+      <if test="fieldList != null">
+        field_list,
+      </if>
+      <if test="filterField != null">
+        filter_field,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="businessId != null">
+        #{businessId,jdbcType=BIGINT},
+      </if>
+      <if test="sourceTableName != null">
+        #{sourceTableName,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcePrimaryField != null">
+        #{sourcePrimaryField,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceIncreasField != null">
+        #{sourceIncreasField,jdbcType=VARCHAR},
+      </if>
+      <if test="destTableName != null">
+        #{destTableName,jdbcType=VARCHAR},
+      </if>
+      <if test="destPrimaryField != null">
+        #{destPrimaryField,jdbcType=VARCHAR},
+      </if>
+      <if test="destIncreasField != null">
+        #{destIncreasField,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldList != null">
+        #{fieldList,jdbcType=CLOB},
+      </if>
+      <if test="filterField != null">
+        #{filterField,jdbcType=CLOB},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.business.model.TransBusiDbTable">
+    update trans_busi_db_table
+    <set>
+      <if test="businessId != null">
+        business_id = #{businessId,jdbcType=BIGINT},
+      </if>
+      <if test="sourceTableName != null">
+        source_table_name = #{sourceTableName,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcePrimaryField != null">
+        source_primary_field = #{sourcePrimaryField,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceIncreasField != null">
+        source_increas_field = #{sourceIncreasField,jdbcType=VARCHAR},
+      </if>
+      <if test="destTableName != null">
+        dest_table_name = #{destTableName,jdbcType=VARCHAR},
+      </if>
+      <if test="destPrimaryField != null">
+        dest_primary_field = #{destPrimaryField,jdbcType=VARCHAR},
+      </if>
+      <if test="destIncreasField != null">
+        dest_increas_field = #{destIncreasField,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldList != null">
+        field_list = #{fieldList,jdbcType=CLOB},
+      </if>
+      <if test="filterField != null">
+        filter_field = #{filterField,jdbcType=CLOB},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.business.model.TransBusiDbTable">
+    update trans_busi_db_table
+    set business_id = #{businessId,jdbcType=BIGINT},
+      source_table_name = #{sourceTableName,jdbcType=VARCHAR},
+      source_primary_field = #{sourcePrimaryField,jdbcType=VARCHAR},
+      source_increas_field = #{sourceIncreasField,jdbcType=VARCHAR},
+      dest_table_name = #{destTableName,jdbcType=VARCHAR},
+      dest_primary_field = #{destPrimaryField,jdbcType=VARCHAR},
+      dest_increas_field = #{destIncreasField,jdbcType=VARCHAR},
+      field_list = #{fieldList,jdbcType=CLOB},
+      filter_field = #{filterField,jdbcType=CLOB},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_busi_db_table
+  </select>
+  <select id="selectByBusinessId" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_busi_db_table where business_id = #{businessId,jdbcType=BIGINT} 
+  </select>
+  <delete id="deleteByBusinessId" parameterType="java.lang.Long">
+    delete from trans_busi_db_table
+    where business_id = #{businessId,jdbcType=BIGINT} 
+  </delete>
+  <select id="selectByChannelInfoId" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_busi_db_table 
+  	where business_id in (select id from trans_busi_db where channel_info_id = #{channelInfoId,jdbcType=BIGINT}) 
+  </select>
+</mapper>

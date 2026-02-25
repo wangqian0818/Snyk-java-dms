@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.device.mapper.ChannelIfaceMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.device.model.ChannelIface">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="channel_info_id" jdbcType="BIGINT" property="channelInfoId" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="work_type" jdbcType="TINYINT" property="workType" />
+    <result column="iface_type" jdbcType="TINYINT" property="ifaceType" />
+    <result column="raw_iface" jdbcType="VARCHAR" property="rawIface" />
+    <result column="external" jdbcType="TINYINT" property="external" />
+    <result column="init_iface_id" jdbcType="VARCHAR" property="initIfaceId" />
+    <result column="iface_ids" jdbcType="VARCHAR" property="ifaceIds" />
+    <result column="p_iface_ids" jdbcType="VARCHAR" property="pIfaceIds" />
+    <result column="ifaces" jdbcType="VARCHAR" property="ifaces" />
+    <result column="mac" jdbcType="VARCHAR" property="mac" />
+    <result column="vlan_ids" jdbcType="VARCHAR" property="vlanIds" />
+    <result column="bond_mode" jdbcType="TINYINT" property="bondMode" />
+    <result column="ips" jdbcType="VARCHAR" property="ips" />
+    <result column="gateway" jdbcType="VARCHAR" property="gateway" />
+    <result column="iface_state" jdbcType="TINYINT" property="ifaceState" />
+    <result column="iface_work_state" jdbcType="TINYINT" property="ifaceWorkState" />
+    <result column="ips_work_state" jdbcType="TINYINT" property="ipsWorkState" />
+    <result column="deleting" jdbcType="TINYINT" property="deleting" />
+    <result column="enabled" jdbcType="BIT" property="enabled" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, channel_info_id, device_name, name, work_type, iface_type, raw_iface, external, init_iface_id, ifaces,
+    iface_ids, p_iface_ids, mac, vlan_ids, bond_mode, ips, gateway, iface_state, iface_work_state, ips_work_state, enabled,
+    deleting, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from channel_iface
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from channel_iface
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.device.model.ChannelIface">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_iface (
+      channel_info_id, device_name, name, 
+      work_type, iface_type, raw_iface, external, init_iface_id, ifaces,
+      iface_ids, p_iface_ids, mac, vlan_ids, 
+      bond_mode, ips, gateway, iface_state, 
+      iface_work_state, ips_work_state, enabled, gmt_create, 
+      gmt_modified)
+    values (
+      #{channelInfoId,jdbcType=BIGINT}, #{deviceName,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{workType,jdbcType=TINYINT}, #{ifaceType,jdbcType=TINYINT}, #{rawIface,jdbcType=VARCHAR}, 
+      #{external,jdbcType=TINYINT}, #{initIfaceId,jdbcType=BIGINT}, #{ifaces,jdbcType=VARCHAR}, 
+      #{ifaceIds,jdbcType=VARCHAR}, #{pIfaceIds,jdbcType=VARCHAR}, #{mac,jdbcType=VARCHAR}, #{vlanIds,jdbcType=VARCHAR}, 
+      #{bondMode,jdbcType=TINYINT}, #{ips,jdbcType=VARCHAR}, #{gateway,jdbcType=VARCHAR}, #{ifaceState,jdbcType=TINYINT}, 
+      #{ifaceWorkState,jdbcType=TINYINT}, #{ipsWorkState,jdbcType=TINYINT}, #{enabled,jdbcType=BIT},
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.device.model.ChannelIface">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_iface
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="channelInfoId != null">
+        channel_info_id,
+      </if>
+      <if test="deviceName != null">
+        device_name,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="workType != null">
+        work_type,
+      </if>
+      <if test="ifaceType != null">
+        iface_type,
+      </if>
+      <if test="rawIface != null">
+        raw_iface,
+      </if>
+      <if test="external != null">
+        external,
+      </if>
+      <if test="initIfaceId != null">
+        init_iface_id,
+      </if>
+      <if test="ifaces != null">
+        ifaces,
+      </if>
+      <if test="ifaceIds != null">
+        iface_ids,
+      </if>
+      <if test="pIfaceIds != null">
+        p_iface_ids,
+      </if>
+      <if test="mac != null">
+        mac,
+      </if>
+      <if test="vlanIds != null">
+        vlan_ids,
+      </if>
+      <if test="bondMode != null">
+        bond_mode,
+      </if>
+      <if test="ips != null">
+        ips,
+      </if>
+      <if test="gateway != null">
+        gateway,
+      </if>
+      <if test="ifaceState != null">
+        iface_state,
+      </if>
+      <if test="ifaceWorkState != null">
+        iface_work_state,
+      </if>
+      <if test="ipsWorkState != null">
+        ips_work_state,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="channelInfoId != null">
+        #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceName != null">
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="workType != null">
+        #{workType,jdbcType=TINYINT},
+      </if>
+      <if test="ifaceType != null">
+        #{ifaceType,jdbcType=TINYINT},
+      </if>
+      <if test="rawIface != null">
+        #{rawIface,jdbcType=VARCHAR},
+      </if>
+      <if test="external != null">
+        #{external,jdbcType=TINYINT},
+      </if>
+      <if test="initIfaceId != null">
+        #{initIfaceId,jdbcType=VARCHAR},
+      </if>
+      <if test="ifaces != null">
+        #{ifaces,jdbcType=VARCHAR},
+      </if>
+      <if test="ifaceIds != null">
+        #{ifaceIds,jdbcType=VARCHAR},
+      </if>
+      <if test="pIfaceIds != null">
+        #{pIfaceIds,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null">
+        #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="vlanIds != null">
+        #{vlanIds,jdbcType=VARCHAR},
+      </if>
+      <if test="bondMode != null">
+        #{bondMode,jdbcType=TINYINT},
+      </if>
+      <if test="ips != null">
+        #{ips,jdbcType=VARCHAR},
+      </if>
+      <if test="gateway != null">
+        #{gateway,jdbcType=VARCHAR},
+      </if>
+      <if test="ifaceState != null">
+        #{ifaceState,jdbcType=TINYINT},
+      </if>
+      <if test="ifaceWorkState != null">
+        #{ifaceWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="ipsWorkState != null">
+        #{ipsWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.device.model.ChannelIface">
+    update channel_iface
+    <set>
+      <if test="channelInfoId != null">
+        channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceName != null">
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="workType != null">
+        work_type = #{workType,jdbcType=TINYINT},
+      </if>
+      <if test="ifaceType != null">
+        iface_type = #{ifaceType,jdbcType=TINYINT},
+      </if>
+      <if test="rawIface != null">
+        raw_iface = #{rawIface,jdbcType=VARCHAR},
+      </if>
+      <if test="external != null">
+        external = #{external,jdbcType=TINYINT},
+      </if>
+      <if test="initIfaceId != null">
+        init_iface_id = #{initIfaceId,jdbcType=VARCHAR},
+      </if>
+      <if test="ifaces != null">
+        ifaces = #{ifaces,jdbcType=VARCHAR},
+      </if>
+      <if test="ifaceIds != null">
+        iface_ids = #{ifaceIds,jdbcType=VARCHAR},
+      </if>
+      <if test="pIfaceIds != null">
+        p_iface_ids = #{pIfaceIds,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null">
+        mac = #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="vlanIds != null">
+        vlan_ids = #{vlanIds,jdbcType=VARCHAR},
+      </if>
+      <if test="bondMode != null">
+        bond_mode = #{bondMode,jdbcType=TINYINT},
+      </if>
+      <if test="ips != null">
+        ips = #{ips,jdbcType=VARCHAR},
+      </if>
+      <if test="gateway != null">
+        gateway = #{gateway,jdbcType=VARCHAR},
+      </if>
+      <if test="ifaceState != null">
+        iface_state = #{ifaceState,jdbcType=TINYINT},
+      </if>
+      <if test="ifaceWorkState != null">
+        iface_work_state = #{ifaceWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="ipsWorkState != null">
+        ips_work_state = #{ipsWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="deleting != null">
+        deleting = #{deleting,jdbcType=TINYINT},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.device.model.ChannelIface">
+    update channel_iface
+    set channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      work_type = #{workType,jdbcType=TINYINT},
+      iface_type = #{ifaceType,jdbcType=TINYINT},
+      raw_iface = #{rawIface,jdbcType=VARCHAR},
+      external = #{external,jdbcType=TINYINT},
+      init_iface_id = #{initIfaceId,jdbcType=VARCHAR},
+      ifaces = #{ifaces,jdbcType=VARCHAR},
+      iface_ids = #{ifaceIds,jdbcType=VARCHAR},
+      p_iface_ids = #{pIfaceIds,jdbcType=VARCHAR},
+      mac = #{mac,jdbcType=VARCHAR},
+      vlan_ids = #{vlanIds,jdbcType=VARCHAR},
+      bond_mode = #{bondMode,jdbcType=TINYINT},
+      ips = #{ips,jdbcType=VARCHAR},
+      gateway = #{gateway,jdbcType=VARCHAR},
+      iface_state = #{ifaceState,jdbcType=TINYINT},
+      iface_work_state = #{ifaceWorkState,jdbcType=TINYINT},
+      ips_work_state = #{ipsWorkState,jdbcType=TINYINT},
+      enabled = #{enabled,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from channel_iface
+  	<trim prefix="where">
+        external = 1 
+        <if test="channelInfoId != null">
+            and channel_info_id = #{channelInfoId,jdbcType=BIGINT}
+        </if>
+        <!--if test="workType != null">
+            <if test="workType == 1">
+                and work_type = 1
+            </if>
+            <if test="workType == 2 or workType == 3 or workType == 4">
+                and (work_type = 2 or work_type = 3 or work_type = 4)
+            </if>
+        </if-->
+        <if test="ifaceType != null">
+            and iface_type = #{ifaceType,jdbcType=TINYINT}
+            <choose>
+            	<when test="ifaceType == 1 and checkIfaceAndIpsState">
+		        	and (ips_work_state = 2 or iface_state = 3)
+            	</when>
+            	<when test="ifaceType == 2 and ifaceWorkState != null">
+            		and iface_work_state = #{ifaceWorkState,jdbcType=TINYINT}
+            	</when>
+            	<when test="ifaceType == 3 and ifaceWorkState != null">
+            		and (ips_work_state = #{ifaceWorkState,jdbcType=TINYINT} or iface_work_state = #{ifaceWorkState,jdbcType=TINYINT})
+            	</when>
+            </choose>
+        </if>
+  		<if test="search != null and '' neq search">
+  			and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from channel_iface
+  	<trim prefix="where">
+        external = 1 
+        <if test="channelInfoId != null">
+           and channel_info_id = #{channelInfoId,jdbcType=BIGINT}
+        </if>
+        <!--if test="workType != null">
+            <if test="workType == 1">
+                and work_type = 1
+            </if>
+	        <if test="workType == 2 or workType == 3 or workType == 4">
+                and (work_type = 2 or work_type = 3 or work_type = 4)
+            </if>
+        </if-->
+        <if test="ifaceType != null">
+            and iface_type = #{ifaceType,jdbcType=TINYINT}
+            <choose>
+            	<when test="ifaceType == 1 and checkIfaceAndIpsState">
+		        	and (ips_work_state = 2 or iface_state = 3)
+            	</when>
+            	<when test="ifaceType == 2 and ifaceWorkState != null">
+            		and iface_work_state = #{ifaceWorkState,jdbcType=TINYINT}
+            	</when>
+            	<when test="ifaceType == 3 and ifaceWorkState != null">
+            		and (ips_work_state = #{ifaceWorkState,jdbcType=TINYINT} or iface_work_state = #{ifaceWorkState,jdbcType=TINYINT})
+            	</when>
+            </choose>
+        </if>
+  		<if test="search != null and '' neq search">
+  			and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectVlanSubifaceList" resultMap="BaseResultMap">
+    select id, name, work_type, iface_type, raw_iface,p_iface_ids from channel_iface 
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT} and iface_type != 2 and
+        (
+            isnull(p_iface_ids) or p_iface_ids = ''
+            <if test="id != null">
+                or find_in_set(#{id,jdbcType=TINYINT}, p_iface_ids)
+            </if> 
+        ) 
+        <if test="workType == 1">
+            and work_type = #{workType,jdbcType=TINYINT}
+        </if> 
+        <if test="workType == 2">
+            and work_type = #{workType,jdbcType=TINYINT}
+        </if> 
+        <if test="workType == 3 or workType == 4">
+            and (work_type = 3 or work_type = 4)
+        </if>
+        <if test="id != null">
+            or find_in_set(#{id,jdbcType=TINYINT}, p_iface_ids)
+        </if> 
+        <if test="search != null and '' neq search">
+            and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="deleting != null">
+    		and deleting = #{deleting,jdbcType=TINYINT}
+    	</if>
+  </select>
+  <select id="selectBondSubifaceList" resultMap="BaseResultMap">
+    select id, name, work_type, iface_type, raw_iface,p_iface_ids from channel_iface 
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT} and iface_type = 1 and 
+        (
+            isnull(p_iface_ids)
+            <if test="id != null">
+	            or find_in_set(#{id,jdbcType=TINYINT}, p_iface_ids)
+	        </if> 
+        ) 
+        <if test="workType == 1">
+            and work_type = #{workType,jdbcType=TINYINT}
+        </if> 
+        <if test="workType == 2">
+            and work_type = #{workType,jdbcType=TINYINT}
+        </if> 
+        <if test="workType == 3 or workType == 4">
+            and (work_type = 3 or work_type = 4)
+        </if> 
+        <if test="search != null and '' neq search">
+            and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="deleting != null">
+            and deleting = #{deleting,jdbcType=TINYINT}
+        </if>
+  </select>
+  <update id="updateParentIds">
+    update channel_iface
+    set p_iface_ids = #{pids,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByName" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from channel_iface
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="selectDeviceIfaces" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from channel_iface
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT} 
+    and iface_type = #{ifaceType,jdbcType=TINYINT}
+  </select>
+  <select id="selectTopBizIfaceAll" resultMap="BaseResultMap">
+    select id, name, work_type, iface_type, raw_iface,vlan_ids, ips from channel_iface 
+    where 
+        channel_info_id = #{channelInfoId,jdbcType=BIGINT}
+        and (work_type = 2 or work_type = 3 or work_type = 4)
+        and (isnull(p_iface_ids) OR p_iface_ids NOT IN (
+			SELECT id FROM channel_iface 
+			WHERE channel_info_id = #{channelInfoId,jdbcType=BIGINT} 
+			AND iface_type = 3))
+  </select>
+  <delete id="deleteByChannelInfoId" parameterType="java.lang.Long">
+    delete from channel_iface 
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT}
+  </delete>
+  <select id="selectInsulateIfaceList" resultMap="BaseResultMap">
+    select id, name, vlan_ids, work_type, iface_type, raw_iface, init_iface_id, p_iface_ids from channel_iface 
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT} 
+         and isnull(p_iface_ids) 
+         and work_type = #{workType,jdbcType=TINYINT}
+        <if test="deleting != null">
+	    	and deleting = #{deleting,jdbcType=TINYINT}
+	    </if>
+  </select>
+  <select id="selectExistsPifaceIds" resultType="java.lang.Long">
+  	select <include refid="Base_Column_List" />
+    from channel_iface 
+    where FIND_IN_SET(#{id,jdbcType=BIGINT}, p_iface_ids)>0
+  </select>
+  <delete id="deleteByChannelInfoIdAndType" parameterType="java.lang.Long">
+    delete from channel_iface
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT} and iface_type != 1
+  </delete>
+  <update id="updateByChannelInfoId" parameterType="com.zx.dms.database.device.model.ChannelIface">
+    update channel_iface
+    set 
+      name = #{name,jdbcType=VARCHAR},
+      ifaces = #{ifaces,jdbcType=VARCHAR},
+      iface_ids = #{ifaceIds,jdbcType=VARCHAR},
+      p_iface_ids = #{pIfaceIds,jdbcType=VARCHAR},
+      vlan_ids = #{vlanIds,jdbcType=VARCHAR},
+      bond_mode = #{bondMode,jdbcType=TINYINT},
+      ips = #{ips,jdbcType=VARCHAR},
+      gateway = #{gateway,jdbcType=VARCHAR},
+      iface_state = #{ifaceState,jdbcType=TINYINT},
+      enabled = #{enabled,jdbcType=BIT},
+      iface_work_state = #{ifaceWorkState,jdbcType=TINYINT},
+      ips_work_state = #{ipsWorkState,jdbcType=TINYINT},
+      deleting = #{deleting,jdbcType=TINYINT}
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT} and 
+      work_type in (2, 3, 4) and external = 1 
+  </update>
+  <select id="selectByChannelInfoIdAndWorkTypeAndName" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from channel_iface
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT} 
+      and work_type = #{workType,jdbcType=TINYINT} 
+      <if test="name != null">
+      	and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="rawIface != null">
+      	and raw_iface = #{rawIface,jdbcType=VARCHAR}
+      </if>
+    limit 1
+  </select>
+  <update id="updatePifaceIds">
+    update channel_iface
+    set p_iface_ids = #{pids,jdbcType=VARCHAR}
+    where p_iface_ids = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByInitIfaceId" parameterType="com.zx.dms.database.device.model.ChannelIface">
+    update channel_iface
+    set 
+      raw_iface = #{rawIface,jdbcType=VARCHAR},
+      mac = #{mac,jdbcType=VARCHAR}
+    where init_iface_id = #{initIfaceId,jdbcType=BIGINT}
+  </update>
+</mapper>

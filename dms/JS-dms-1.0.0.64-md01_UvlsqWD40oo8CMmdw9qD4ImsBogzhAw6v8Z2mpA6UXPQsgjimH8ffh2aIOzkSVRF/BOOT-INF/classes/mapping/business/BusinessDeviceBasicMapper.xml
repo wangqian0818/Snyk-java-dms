@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.business.mapper.BusinessDeviceBasicMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.business.model.BusinessDeviceBasic">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="channel_info_id" jdbcType="BIGINT" property="channelInfoId" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="business_visit_id" jdbcType="BIGINT" property="businessVisitId" />
+    <result column="source_ip" jdbcType="VARCHAR" property="sourceIp" />
+    <result column="destination_ip" jdbcType="VARCHAR" property="destinationIp" />
+    <result column="destination_port" jdbcType="INTEGER" property="destinationPort" />
+    <result column="proxy_ip" jdbcType="VARCHAR" property="proxyIp" />
+    <result column="proxy_port" jdbcType="INTEGER" property="proxyPort" />
+    <result column="proxy_mode" jdbcType="TINYINT" property="proxyMode" />
+    <result column="business_time_id" jdbcType="BIGINT" property="businessTimeId" />
+    <result column="limit_conn" jdbcType="INTEGER" property="limitConn" />
+    <result column="waf" jdbcType="BIT" property="waf" />
+    <result column="virus" jdbcType="BIT" property="virus" />
+    <result column="cookie" jdbcType="BIT" property="cookie" />
+    <result column="waf_work_state" jdbcType="TINYINT" property="wafWorkState" />
+    <result column="virus_work_state" jdbcType="TINYINT" property="virusWorkState" />
+    <result column="cookie_work_state" jdbcType="TINYINT" property="cookieWorkState" />
+    <result column="work_state" jdbcType="TINYINT" property="workState" />
+    <result column="fastpath" jdbcType="BIT" property="fastpath" />
+    <result column="insulate_channel_id" jdbcType="BIGINT" property="insulateChannelId" />
+    <result column="deleting" jdbcType="TINYINT" property="deleting" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, channel_info_id, device_name, business_visit_id, source_ip, destination_ip, 
+    destination_port, proxy_ip, proxy_port, proxy_mode, business_time_id, limit_conn, 
+    waf, virus, cookie, waf_work_state, virus_work_state, cookie_work_state, work_state, 
+    fastpath, deleting, insulate_channel_id, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from business_device_basic
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from business_device_basic
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.business.model.BusinessDeviceBasic">
+    insert into business_device_basic (id, channel_info_id, device_name, business_visit_id, 
+      source_ip, destination_ip, destination_port, proxy_ip, proxy_port, proxy_mode, 
+      business_time_id, limit_conn, waf, virus, cookie, waf_work_state, virus_work_state, 
+      cookie_work_state, work_state, fastpath, insulate_channel_id, gmt_create, gmt_modified)
+    values (#{id,jdbcType=BIGINT}, #{channelInfoId,jdbcType=BIGINT}, #{deviceName,jdbcType=VARCHAR}, #{businessVisitId,jdbcType=BIGINT}, 
+      #{sourceIp,jdbcType=VARCHAR}, #{destinationIp,jdbcType=VARCHAR}, #{destinationPort,jdbcType=INTEGER}, 
+      #{proxyIp,jdbcType=VARCHAR}, #{proxyPort,jdbcType=INTEGER}, #{proxyMode,jdbcType=TINYINT}, 
+      #{businessTimeId,jdbcType=BIGINT}, #{limitConn,jdbcType=INTEGER}, #{waf,jdbcType=BIT}, 
+      #{virus,jdbcType=BIT}, #{cookie,jdbcType=BIT}, #{wafWorkState,jdbcType=TINYINT}, 
+      #{virusWorkState,jdbcType=TINYINT}, #{cookieWorkState,jdbcType=TINYINT}, #{workState,jdbcType=TINYINT}, #{fastpath,jdbcType=BIT}, 
+      #{insulateChannelId,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.business.model.BusinessDeviceBasic">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into business_device_basic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="channelInfoId != null">
+        channel_info_id,
+      </if>
+      <if test="deviceName != null">
+        device_name,
+      </if>
+      <if test="businessVisitId != null">
+        business_visit_id,
+      </if>
+      <if test="sourceIp != null">
+        source_ip,
+      </if>
+      <if test="destinationIp != null">
+        destination_ip,
+      </if>
+      <if test="destinationPort != null">
+        destination_port,
+      </if>
+      <if test="proxyIp != null">
+        proxy_ip,
+      </if>
+      <if test="proxyPort != null">
+        proxy_port,
+      </if>
+      <if test="proxyMode != null">
+        proxy_mode,
+      </if>
+      <if test="businessTimeId != null">
+        business_time_id,
+      </if>
+      <if test="limitConn != null">
+        limit_conn,
+      </if>
+      <if test="waf != null">
+        waf,
+      </if>
+      <if test="virus != null">
+        virus,
+      </if>
+      <if test="cookie != null">
+        cookie,
+      </if>
+      <if test="wafWorkState != null">
+        waf_work_state,
+      </if>
+      <if test="virusWorkState != null">
+        virus_work_state,
+      </if>
+      <if test="cookieWorkState != null">
+        cookie_work_state,
+      </if>
+      <if test="workState != null">
+        work_state,
+      </if>
+      <if test="fastpath != null">
+        fastpath,
+      </if>
+      <if test="deleting != null">
+        deleting,
+      </if>
+      <if test="insulateChannelId != null">
+        insulate_channel_id,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="channelInfoId != null">
+        #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceName != null">
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessVisitId != null">
+        #{businessVisitId,jdbcType=BIGINT},
+      </if>
+      <if test="sourceIp != null">
+        #{sourceIp,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationIp != null">
+        #{destinationIp,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationPort != null">
+        #{destinationPort,jdbcType=INTEGER},
+      </if>
+      <if test="proxyIp != null">
+        #{proxyIp,jdbcType=VARCHAR},
+      </if>
+      <if test="proxyPort != null">
+        #{proxyPort,jdbcType=INTEGER},
+      </if>
+      <if test="proxyMode != null">
+        #{proxyMode,jdbcType=TINYINT},
+      </if>
+      <if test="timeMode != null">
+        #{timeMode,jdbcType=TINYINT},
+      </if>
+      <if test="businessTimeId != null">
+        #{businessTimeId,jdbcType=BIGINT},
+      </if>
+      <if test="limitConn != null">
+        #{limitConn,jdbcType=INTEGER},
+      </if>
+      <if test="waf != null">
+        #{waf,jdbcType=BIT},
+      </if>
+      <if test="virus != null">
+        #{virus,jdbcType=BIT},
+      </if>
+      <if test="cookie != null">
+        #{cookie,jdbcType=BIT},
+      </if>
+      <if test="wafWorkState != null">
+        #{wafWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="virusWorkState != null">
+        #{virusWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="cookieWorkState != null">
+        #{cookieWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="workState != null">
+        #{workState,jdbcType=TINYINT},
+      </if>
+      <if test="fastpath != null">
+        #{fastpath,jdbcType=BIT},
+      </if>
+      <if test="deleting != null">
+        #{deleting,jdbcType=TINYINT},
+      </if>
+      <if test="insulateChannelId != null">
+        #{insulateChannelId,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.business.model.BusinessDeviceBasic">
+    update business_device_basic
+    <set>
+      <if test="channelInfoId != null">
+        channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceName != null">
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessVisitId != null">
+        business_visit_id = #{businessVisitId,jdbcType=BIGINT},
+      </if>
+      <if test="sourceIp != null">
+        source_ip = #{sourceIp,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationIp != null">
+        destination_ip = #{destinationIp,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationPort != null">
+        destination_port = #{destinationPort,jdbcType=INTEGER},
+      </if>
+      <if test="proxyIp != null">
+        proxy_ip = #{proxyIp,jdbcType=VARCHAR},
+      </if>
+      <if test="proxyPort != null">
+        proxy_port = #{proxyPort,jdbcType=INTEGER},
+      </if>
+      <if test="proxyMode != null">
+        proxy_mode = #{proxyMode,jdbcType=TINYINT},
+      </if>
+      <if test="businessTimeId != null">
+        business_time_id = #{businessTimeId,jdbcType=BIGINT},
+      </if>
+      <if test="limitConn != null">
+        limit_conn = #{limitConn,jdbcType=INTEGER},
+      </if>
+      <if test="waf != null">
+        waf = #{waf,jdbcType=BIT},
+      </if>
+      <if test="virus != null">
+        virus = #{virus,jdbcType=BIT},
+      </if>
+      <if test="cookie != null">
+        cookie = #{cookie,jdbcType=BIT},
+      </if>
+      <if test="wafWorkState != null">
+        waf_work_state = #{wafWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="virusWorkState != null">
+        virus_work_state = #{virusWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="cookieWorkState != null">
+        cookie_work_state = #{cookieWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="workState != null">
+        work_state = #{workState,jdbcType=TINYINT},
+      </if>
+      <if test="fastpath != null">
+        fastpath = #{fastpath,jdbcType=BIT},
+      </if>
+      <if test="deleting != null">
+        deleting = #{deleting,jdbcType=TINYINT},
+      </if>
+      <if test="insulateChannelId != null">
+        insulate_channel_id = #{insulateChannelId,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.business.model.BusinessDeviceBasic">
+    update business_device_basic
+    set channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      business_visit_id = #{businessVisitId,jdbcType=BIGINT},
+      source_ip = #{sourceIp,jdbcType=VARCHAR},
+      destination_ip = #{destinationIp,jdbcType=VARCHAR},
+      destination_port = #{destinationPort,jdbcType=INTEGER},
+      proxy_ip = #{proxyIp,jdbcType=VARCHAR},
+      proxy_port = #{proxyPort,jdbcType=INTEGER},
+      proxy_mode = #{proxyMode,jdbcType=TINYINT},
+      business_time_id = #{businessTimeId,jdbcType=BIGINT},
+      limit_conn = #{limitConn,jdbcType=INTEGER},
+      waf = #{waf,jdbcType=BIT},
+      virus = #{virus,jdbcType=BIT},
+      cookie = #{cookie,jdbcType=BIT},
+      waf_work_state = #{wafWorkState,jdbcType=TINYINT},
+      virus_work_state = #{virusWorkState,jdbcType=TINYINT},
+      cookie_work_state = #{cookieWorkState,jdbcType=TINYINT},
+      work_state = #{workState,jdbcType=TINYINT},
+      fastpath = #{fastpath,jdbcType=BIT},
+      deleting = #{deleting,jdbcType=TINYINT},
+      insulate_channel_id = #{insulateChannelId,jdbcType=BIGINT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <delete id="deleteByBusinessVisitId" parameterType="java.lang.Long">
+    delete from business_device_basic
+    where business_visit_id = #{businessVisitId,jdbcType=BIGINT}
+  </delete>
+  <select id="selectByBusinessVisitId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from business_device_basic
+    where business_visit_id = #{businessVisitId,jdbcType=BIGINT}
+    <if test="workState != null">
+    	and (waf_work_state = #{workState,jdbcType=TINYINT}
+    		or virus_work_state = #{workState,jdbcType=TINYINT}
+    		or work_state = #{workState,jdbcType=TINYINT})
+    </if>
+    <if test="deleting != null">
+    	and deleting = #{deleting,jdbcType=TINYINT}
+    </if>
+  </select>
+  <select id="selectByDeviceId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from business_device_basic
+    where channel_info_id = #{deviceId,jdbcType=BIGINT}
+    <if test="workState != null">
+    	and work_state = #{workState,jdbcType=TINYINT}
+    </if>
+  </select>
+  <select id="getLengthByBusinessVisitId" resultType="java.lang.Long">
+    select count(0)
+    from business_device_basic
+    where business_visit_id = #{businessVisitId,jdbcType=BIGINT}
+    <if test="workState != null">
+    	and (waf_work_state = #{workState,jdbcType=TINYINT}
+    		or virus_work_state = #{workState,jdbcType=TINYINT}
+    		or work_state = #{workState,jdbcType=TINYINT})
+    </if>
+    <if test="deleting != null">
+    	and deleting = #{deleting,jdbcType=TINYINT}
+    </if>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from business_device_basic
+  	<trim prefix="where">
+  		<if test="deleting != null">
+  			deleting = #{deleting,jdbcType=TINYINT}
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectByDeviceIdAndL4Proto" resultMap="BaseResultMap">
+    select b.* 
+    from business_device_basic b JOIN business_visit v ON b.business_visit_id = v.id 
+    where b.channel_info_id = #{deviceId,jdbcType=BIGINT} 
+    and v.l4_proto = #{l4proto,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByDeviceIdAndL7Proto" resultMap="BaseResultMap">
+    select b.* 
+    from business_device_basic b JOIN business_visit v ON b.business_visit_id = v.id 
+    where b.channel_info_id = #{deviceId,jdbcType=BIGINT} 
+    and v.l7_proto = #{l7proto,jdbcType=VARCHAR}
+    <if test="l7proto != null and '' neq l7proto">
+  		and v.l7_proto = #{l7proto,jdbcType=VARCHAR}
+  	</if>
+  	<if test="l7proto =''">
+  		and v.l7_proto != ''
+  	</if>
+  </select>
+  <select id="selectByDeviceIdAndMode" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select b.* 
+    from business_device_basic b JOIN business_visit v ON b.business_visit_id = v.id 
+    where b.channel_info_id = #{deviceId,jdbcType=BIGINT} 
+    and proxy_mode = 0 and work_state = 3
+  </select>
+  <select id="selectByTimeId" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from business_device_basic
+  	where business_time_id = #{businessTimeId,jdbcType=BIGINT}
+  </select>
+  <select id="selectByInsulateChannelId" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from business_device_basic
+  	where insulate_channel_id = #{insulateChannelId,jdbcType=BIGINT}
+  </select>
+</mapper>

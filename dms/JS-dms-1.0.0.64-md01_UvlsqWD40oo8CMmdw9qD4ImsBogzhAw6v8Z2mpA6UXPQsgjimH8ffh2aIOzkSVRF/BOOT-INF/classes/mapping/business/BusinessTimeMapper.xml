@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.business.mapper.BusinessTimeMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.business.model.BusinessTime">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="mode" jdbcType="TINYINT" property="mode" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="timeout" jdbcType="INTEGER" property="timeout" />
+    <result column="date_start" jdbcType="TIMESTAMP" property="dateStart" />
+    <result column="date_end" jdbcType="TIMESTAMP" property="dateEnd" />
+    <result column="gmt_start" jdbcType="TIMESTAMP" property="gmtStart" />
+    <result column="gmt_end" jdbcType="TIMESTAMP" property="gmtEnd" />
+    <result column="weekdays" jdbcType="VARCHAR" property="weekdays" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, mode, type, timeout, date_start, date_end, gmt_start, gmt_end, weekdays, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from business_time
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from business_time
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.business.model.BusinessTime">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into business_time (name, mode, type, timeout, date_start, date_end, gmt_start, gmt_end, 
+      weekdays, gmt_create, gmt_modified
+      )
+    values (#{name,jdbcType=VARCHAR}, #{mode,jdbcType=TINYINT}, #{type,jdbcType=TINYINT}, 
+      #{timeout,jdbcType=INTEGER}, #{dateStart,jdbcType=TIMESTAMP}, #{dateEnd,jdbcType=TIMESTAMP}, 
+      #{gmtStart,jdbcType=TIMESTAMP}, #{gmtEnd,jdbcType=TIMESTAMP}, 
+      #{weekdays,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.business.model.BusinessTime">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into business_time
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="mode != null">
+        mode,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="timeout != null">
+        timeout,
+      </if>
+      <if test="dateStart != null">
+        date_start,
+      </if>
+      <if test="dateEnd != null">
+        date_end,
+      </if>
+      <if test="gmtStart != null">
+        gmt_start,
+      </if>
+      <if test="gmtEnd != null">
+        gmt_end,
+      </if>
+      <if test="weekdays != null">
+        weekdays,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mode != null">
+        #{mode,jdbcType=TINYINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="timeout != null">
+        #{timeout,jdbcType=INTEGER},
+      </if>
+      <if test="dateStart != null">
+        #{dateStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateEnd != null">
+        #{dateEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtStart != null">
+        #{gmtStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtEnd != null">
+        #{gmtEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="weekdays != null">
+        #{weekdays,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.business.model.BusinessTime">
+    update business_time
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mode != null">
+        mode = #{mode,jdbcType=TINYINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="timeout != null">
+        timeout = #{timeout,jdbcType=INTEGER},
+      </if>
+      <if test="dateStart != null">
+        date_start = #{dateStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateEnd != null">
+        date_end = #{dateEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtStart != null">
+        gmt_start = #{gmtStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtEnd != null">
+        gmt_end = #{gmtEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="weekdays != null">
+        weekdays = #{weekdays,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.business.model.BusinessTime">
+    update business_time
+    set name = #{name,jdbcType=VARCHAR},
+      mode = #{mode,jdbcType=TINYINT},
+      type = #{type,jdbcType=TINYINT},
+      timeout = #{timeout,jdbcType=INTEGER},
+      date_start = #{dateStart,jdbcType=TIMESTAMP},
+      date_end = #{dateEnd,jdbcType=TIMESTAMP},
+      gmt_start = #{gmtStart,jdbcType=TIMESTAMP},
+      gmt_end = #{gmtEnd,jdbcType=TIMESTAMP},
+      weekdays = #{weekdays,jdbcType=VARCHAR},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from business_time
+  	<trim prefix="where">
+  		<if test="search != null and '' neq search">
+  			name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from business_time
+  	<trim prefix="where">
+  		<if test="search != null and '' neq search">
+  			name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  	</trim>
+  	order by gmt_create desc, id desc
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from business_time where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByMode" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from business_time where mode = #{mode,jdbcType=TINYINT}
+  </select>
+  <select id="selectByNuMode" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from business_time where mode != #{mode,jdbcType=TINYINT}
+  </select>
+</mapper>

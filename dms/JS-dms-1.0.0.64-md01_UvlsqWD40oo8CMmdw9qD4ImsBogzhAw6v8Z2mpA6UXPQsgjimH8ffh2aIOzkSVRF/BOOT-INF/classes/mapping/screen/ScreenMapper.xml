@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.screen.mapper.ScreenMapper">
+	<select id="selectDeviceNum" resultType="java.lang.Long">
+		select count(0) from channel_info
+		<where>
+			<if test="runningState != null">
+			 	running_state = #{runningState,jdbcType=TINYINT}
+			</if>
+		</where>
+	</select>
+	<select id="selectDeviceState" resultType="java.lang.Byte">
+		select running_state from channel_info 
+			where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="selectDevices" resultType="com.zx.dms.web.vo.screen.DeviceVO">
+		select id, name from channel_info 
+	</select>
+	<select id="selectDeviceSns" resultType="java.lang.String">
+		select DISTINCT(sn) from channel_info
+	</select>
+	<select id="selectDeviceSnbyId" resultType="java.lang.String">
+		select DISTINCT(sn) from channel_info 
+			where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="selectQosNum" resultType="java.lang.Long">
+		select count(0) from strategy_qos
+	</select>
+	<select id="selectMarkNum" resultType="java.lang.Long">
+		select count(0) from strategy_area_mark
+	</select>
+	<select id="selectAclNum" resultType="java.lang.Long">
+		select count(0) from strategy_acl
+	</select>
+	<select id="selectBrowseNum" resultType="java.lang.Long">
+		select count(0) from strategy_browse
+	</select>
+	<select id="selectContentNum" resultType="java.lang.Long">
+		select count(0) from strategy_content
+	</select>
+	<select id="selectCustomAppNum" resultType="java.lang.Long">
+		select count(0) from strategy_custom_app
+	</select>
+	<select id="selectFileNum" resultType="java.lang.Long">
+		select count(0) from strategy_file
+	</select>
+	<select id="selectMailNum" resultType="java.lang.Long">
+		select count(0) from strategy_mail
+	</select>
+	<select id="selectCheckNum" resultType="java.lang.Long">
+		select count(0) from strategy_sql_check
+	</select>
+	<select id="selectSpiceNum" resultType="java.lang.Long">
+		select count(0) from strategy_spice
+	</select>
+	<select id="selectEffectiveStrategyNum" resultType="java.lang.Long">
+		select count(DISTINCT strategy_id) from business_strategy
+		where type = #{type,jdbcType=TINYINT}
+		<if test="deviceId != null">
+			and channel_info_id = #{channelInfoId,jdbcType=BIGINT}
+		</if>
+		<if test="workState != null">
+			and work_state = #{workState,jdbcType=TINYINT}
+		</if>
+	</select>
+	<select id="selectDeviceSnbySn" resultType="java.lang.String">
+		select DISTINCT(name) from channel_info 
+			where sn = #{sn,jdbcType=VARCHAR} LIMIT 1
+	</select>
+</mapper>

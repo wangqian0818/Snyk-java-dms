@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.device.mapper.ChannelSnmpMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.device.model.ChannelSnmp">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="channel_info_id" jdbcType="BIGINT" property="channelInfoId" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="trust_ip" jdbcType="VARCHAR" property="trustIp" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="cpu_threshold" jdbcType="INTEGER" property="cpuThreshold" />
+    <result column="memory_threshold" jdbcType="INTEGER" property="memoryThreshold" />
+    <result column="disk_threshold" jdbcType="INTEGER" property="diskThreshold" />
+    <result column="trap_comm" jdbcType="VARCHAR" property="trapComm" />
+    <result column="snmp_version" jdbcType="TINYINT" property="snmpVersion" />
+    <result column="ro_comm" jdbcType="VARCHAR" property="roComm" />
+    <result column="rw_comm" jdbcType="VARCHAR" property="rwComm" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="auth_type" jdbcType="TINYINT" property="authType" />
+    <result column="auth_algo" jdbcType="VARCHAR" property="authAlgo" />
+    <result column="auth_pass" jdbcType="VARCHAR" property="authPass" />
+    <result column="priv_algo" jdbcType="VARCHAR" property="privAlgo" />
+    <result column="priv_pass" jdbcType="VARCHAR" property="privPass" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, channel_info_id, device_name, trust_ip, telephone, cpu_threshold, 
+    memory_threshold, disk_threshold, trap_comm, snmp_version, ro_comm, rw_comm, 
+    username, auth_type, auth_algo, auth_pass, priv_algo, priv_pass, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from channel_snmp
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from channel_snmp
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.device.model.ChannelSnmp">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_snmp (channel_info_id, device_name, trust_ip, telephone, 
+      cpu_threshold, memory_threshold, disk_threshold, trap_comm, snmp_version, ro_comm, 
+      rw_comm, username, auth_type, auth_algo, auth_pass, priv_algo, priv_pass, gmt_create, 
+      gmt_modified)
+    values (#{channelInfoId,jdbcType=BIGINT}, #{deviceName,jdbcType=VARCHAR}, #{trustIp,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{cpuThreshold,jdbcType=INTEGER}, #{memoryThreshold,jdbcType=INTEGER}, 
+      #{diskThreshold,jdbcType=INTEGER}, #{trapComm,jdbcType=VARCHAR}, #{snmpVersion,jdbcType=TINYINT}, 
+      #{roComm,jdbcType=VARCHAR}, #{rwComm,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{authType,jdbcType=TINYINT}, #{authAlgo,jdbcType=VARCHAR}, #{authPass,jdbcType=VARCHAR}, 
+      #{privAlgo,jdbcType=VARCHAR}, #{privPass,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.device.model.ChannelSnmp">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_snmp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="channelInfoId != null">
+        channel_info_id,
+      </if>
+      <if test="deviceName != null">
+        device_name,
+      </if>
+      <if test="trustIp != null">
+        trust_ip,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="cpuThreshold != null">
+        cpu_threshold,
+      </if>
+      <if test="memoryThreshold != null">
+        memory_threshold,
+      </if>
+      <if test="diskThreshold != null">
+        disk_threshold,
+      </if>
+      <if test="trapComm != null">
+        trap_comm,
+      </if>
+      <if test="snmpVersion != null">
+        snmp_version,
+      </if>
+      <if test="roComm != null">
+        ro_comm,
+      </if>
+      <if test="rwComm != null">
+        rw_comm,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="authType != null">
+        auth_type,
+      </if>
+      <if test="authAlgo != null">
+        auth_algo,
+      </if>
+      <if test="authPass != null">
+        auth_pass,
+      </if>
+      <if test="privAlgo != null">
+        priv_algo,
+      </if>
+      <if test="privPass != null">
+        priv_pass,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="channelInfoId != null">
+        #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceName != null">
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="trustIp != null">
+        #{trustIp,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuThreshold != null">
+        #{cpuThreshold,jdbcType=INTEGER},
+      </if>
+      <if test="memoryThreshold != null">
+        #{memoryThreshold,jdbcType=INTEGER},
+      </if>
+      <if test="diskThreshold != null">
+        #{diskThreshold,jdbcType=INTEGER},
+      </if>
+      <if test="trapComm != null">
+        #{trapComm,jdbcType=VARCHAR},
+      </if>
+      <if test="snmpVersion != null">
+        #{snmpVersion,jdbcType=TINYINT},
+      </if>
+      <if test="roComm != null">
+        #{roComm,jdbcType=VARCHAR},
+      </if>
+      <if test="rwComm != null">
+        #{rwComm,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="authType != null">
+        #{authType,jdbcType=TINYINT},
+      </if>
+      <if test="authAlgo != null">
+        #{authAlgo,jdbcType=VARCHAR},
+      </if>
+      <if test="authPass != null">
+        #{authPass,jdbcType=VARCHAR},
+      </if>
+      <if test="privAlgo != null">
+        #{privAlgo,jdbcType=VARCHAR},
+      </if>
+      <if test="privPass != null">
+        #{privPass,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.device.model.ChannelSnmp">
+    update channel_snmp
+    <set>
+      <if test="channelInfoId != null">
+        channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceName != null">
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="trustIp != null">
+        trust_ip = #{trustIp,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuThreshold != null">
+        cpu_threshold = #{cpuThreshold,jdbcType=INTEGER},
+      </if>
+      <if test="memoryThreshold != null">
+        memory_threshold = #{memoryThreshold,jdbcType=INTEGER},
+      </if>
+      <if test="diskThreshold != null">
+        disk_threshold = #{diskThreshold,jdbcType=INTEGER},
+      </if>
+      <if test="trapComm != null">
+        trap_comm = #{trapComm,jdbcType=VARCHAR},
+      </if>
+      <if test="snmpVersion != null">
+        snmp_version = #{snmpVersion,jdbcType=TINYINT},
+      </if>
+      <if test="roComm != null">
+        ro_comm = #{roComm,jdbcType=VARCHAR},
+      </if>
+      <if test="rwComm != null">
+        rw_comm = #{rwComm,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="authType != null">
+        auth_type = #{authType,jdbcType=TINYINT},
+      </if>
+      <if test="authAlgo != null">
+        auth_algo = #{authAlgo,jdbcType=VARCHAR},
+      </if>
+      <if test="authPass != null">
+        auth_pass = #{authPass,jdbcType=VARCHAR},
+      </if>
+      <if test="privAlgo != null">
+        priv_algo = #{privAlgo,jdbcType=VARCHAR},
+      </if>
+      <if test="privPass != null">
+        priv_pass = #{privPass,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.device.model.ChannelSnmp">
+    update channel_snmp
+    set channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      trust_ip = #{trustIp,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      cpu_threshold = #{cpuThreshold,jdbcType=INTEGER},
+      memory_threshold = #{memoryThreshold,jdbcType=INTEGER},
+      disk_threshold = #{diskThreshold,jdbcType=INTEGER},
+      trap_comm = #{trapComm,jdbcType=VARCHAR},
+      snmp_version = #{snmpVersion,jdbcType=TINYINT},
+      ro_comm = #{roComm,jdbcType=VARCHAR},
+      rw_comm = #{rwComm,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      auth_type = #{authType,jdbcType=TINYINT},
+      auth_algo = #{authAlgo,jdbcType=VARCHAR},
+      auth_pass = #{authPass,jdbcType=VARCHAR},
+      priv_algo = #{privAlgo,jdbcType=VARCHAR},
+      priv_pass = #{privPass,jdbcType=VARCHAR},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByChannelInfoId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from channel_snmp
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByChannelInfoId" parameterType="java.lang.Long">
+    delete from channel_snmp
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT}
+  </delete>
+</mapper>

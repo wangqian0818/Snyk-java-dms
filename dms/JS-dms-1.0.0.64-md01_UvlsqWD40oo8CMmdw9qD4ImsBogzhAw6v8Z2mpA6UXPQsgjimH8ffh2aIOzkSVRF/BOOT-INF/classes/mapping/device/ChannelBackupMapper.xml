@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.device.mapper.ChannelBackupMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.device.model.ChannelBackup">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="channel_info_id" jdbcType="BIGINT" property="channelInfoId" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="dms_version" jdbcType="VARCHAR" property="dmsVersion" />
+    <result column="device_version" jdbcType="VARCHAR" property="deviceVersion" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, channel_info_id, device_name, user_name, file_name, description, dms_version, device_version, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from channel_backup
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from channel_backup
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.device.model.ChannelBackup">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_backup (channel_info_id, device_name, user_name, 
+      file_name, description, dms_version, device_version, gmt_create, gmt_modified)
+    values (#{channelInfoId,jdbcType=BIGINT}, #{deviceName,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{dmsVersion,jdbcType=VARCHAR}, #{deviceVersion,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.device.model.ChannelBackup">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_backup
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="channelInfoId != null">
+        channel_info_id,
+      </if>
+      <if test="deviceName != null">
+        device_name,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="dmsVersion != null">
+        dms_version,
+      </if>
+      <if test="deviceVersion != null">
+        device_version,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="channelInfoId != null">
+        #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceName != null">
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="dmsVersion != null">
+        #{dmsVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceVersion != null">
+        #{deviceVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.device.model.ChannelBackup">
+    update channel_backup
+    <set>
+      <if test="channelInfoId != null">
+        channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceName != null">
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        filename = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="dmsVersion != null">
+        dms_version = #{dmsVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceVersion != null">
+        device_version = #{deviceVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.device.model.ChannelBackup">
+    update channel_backup
+    set channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      dms_version = #{dmsVersion,jdbcType=VARCHAR},
+      device_version = #{deviceVersion,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from channel_backup
+  	<trim prefix="where">
+  		<if test="channelInfoId != null">
+  			channel_info_id = #{channelInfoId,jdbcType=BIGINT} 
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from channel_backup
+  	<trim prefix="where">
+  		<if test="channelInfoId != null">
+  			channel_info_id = #{channelInfoId,jdbcType=BIGINT} 
+  		</if>
+  	</trim>
+  	order by gmt_create desc, id desc 
+  </select>
+  <select id="getWorkState" resultType="java.lang.String">
+  	  select ${fieldName} from ${tableName} where id = '${dataId}'
+  </select>
+  <delete id="deleteByChannelInfoId" parameterType="java.lang.Long">
+    delete from channel_backup
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT} 
+  </delete>
+</mapper>

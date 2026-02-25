@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.init.mapper.InitInterfaceMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.init.model.InitInterface">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="mac" jdbcType="VARCHAR" property="mac" />
+    <result column="device_id" jdbcType="BIGINT" property="deviceId" />
+    <result column="external" jdbcType="TINYINT" property="external" />
+    <result column="ips" jdbcType="VARCHAR" property="ips" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="if_type" jdbcType="TINYINT" property="ifType" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="row" jdbcType="TINYINT" property="row" />
+    <result column="column" jdbcType="TINYINT" property="column" />
+    <result column="info" jdbcType="VARCHAR" property="info" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, mac, device_id, external, ips, type, if_type, status, `row`, `column`, info, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from init_interface
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from init_interface
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.init.model.InitInterface">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into init_interface (name, mac, device_id, external, ips, type, if_type, status, 
+      `row`, `column`, info, gmt_create, gmt_modified
+      )
+    values (#{name,jdbcType=VARCHAR}, #{mac,jdbcType=VARCHAR}, #{deviceId,jdbcType=BIGINT}, #{external,jdbcType=TINYINT}, 
+      #{ips,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{ifType,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, 
+      #{row,jdbcType=TINYINT}, #{column,jdbcType=TINYINT}, #{info,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.init.model.InitInterface">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into init_interface
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="mac != null">
+        mac,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="external != null">
+        external,
+      </if>
+      <if test="ips != null">
+        ips,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="ifType != null">
+        if_type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="row != null">
+        `row`,
+      </if>
+      <if test="column != null">
+        `column`,
+      </if>
+      <if test="info != null">
+        info,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null">
+        #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="external != null">
+        #{external,jdbcType=TINYINT},
+      </if>
+      <if test="ips != null">
+        #{ips,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="ifType != null">
+        #{ifType,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="row != null">
+        #{row,jdbcType=TINYINT},
+      </if>
+      <if test="column != null">
+        #{column,jdbcType=TINYINT},
+      </if>
+      <if test="info != null">
+        #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.init.model.InitInterface">
+    update init_interface
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null">
+        mac = #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="external != null">
+        external = #{external,jdbcType=TINYINT},
+      </if>
+      <if test="ips != null">
+        ips = #{ips,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="ifType != null">
+        if_type = #{ifType,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="row != null">
+        `row` = #{row,jdbcType=TINYINT},
+      </if>
+      <if test="column != null">
+        `column` = #{column,jdbcType=TINYINT},
+      </if>
+      <if test="info != null">
+        info = #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.init.model.InitInterface">
+    update init_interface
+    set name = #{name,jdbcType=VARCHAR},
+      mac = #{mac,jdbcType=VARCHAR},
+      device_id = #{deviceId,jdbcType=BIGINT},
+      external = #{external,jdbcType=TINYINT},
+      ips = #{ips,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT},
+      if_type = #{ifType,jdbcType=TINYINT},
+      status = #{status,jdbcType=TINYINT},
+      `row` = #{row,jdbcType=TINYINT},
+      `column` = #{column,jdbcType=TINYINT},
+      info = #{info,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByDeviceId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from init_interface
+    where device_id = #{deviceId,jdbcType=BIGINT} and external = 1 
+  </select>
+  <select id="selectByUnique" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from init_interface
+    where device_id = #{deviceId,jdbcType=BIGINT}
+    and `row` = #{row,jdbcType=TINYINT}
+    and `column` = #{column,jdbcType=TINYINT}
+    limit 1
+  </select>
+  <select id="selectByDeviceIdAndName" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from init_interface
+    where device_id = #{deviceId,jdbcType=BIGINT}
+        and name = #{name,jdbcType=VARCHAR} 
+    <if test="type != null">
+    	and type = #{type,jdbcType=TINYINT}
+    </if>
+    limit 1
+  </select>
+  <select id="selectCountByDeviceIdAndName" resultType="java.lang.Long">
+    select count(0) from init_interface
+    where device_id = #{deviceId,jdbcType=BIGINT}
+        and name = #{name,jdbcType=VARCHAR} 
+  </select>
+  <delete id="deleteByDeviceId" parameterType="java.lang.Long">
+    delete from init_interface
+    where device_id = #{deviceId,jdbcType=BIGINT}
+  </delete>
+  <select id="selectByExternal" parameterType="java.lang.Byte" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from init_interface
+    where external = #{external,jdbcType=TINYINT}
+  </select>
+</mapper>

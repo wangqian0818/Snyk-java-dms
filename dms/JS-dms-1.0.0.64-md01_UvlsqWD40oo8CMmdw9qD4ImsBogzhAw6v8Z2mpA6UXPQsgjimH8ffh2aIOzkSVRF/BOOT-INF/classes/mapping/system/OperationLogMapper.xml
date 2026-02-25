@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.system.mapper.OperationLogMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.system.model.OperationLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="operation_username" jdbcType="VARCHAR" property="operationUsername" />
+    <result column="audit_username" jdbcType="VARCHAR" property="auditUsername" />
+    <result column="gmt_audit" jdbcType="TIMESTAMP" property="gmtAudit" />
+    <result column="permission_group_name" jdbcType="VARCHAR" property="permissionGroupName" />
+    <result column="operation_type" jdbcType="VARCHAR" property="operationType" />
+    <result column="module" jdbcType="VARCHAR" property="module" />
+    <result column="details" jdbcType="VARCHAR" property="details" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="state" jdbcType="BIT" property="state" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="str_create" jdbcType="VARCHAR" property="strCreate" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, operation_username, audit_username, gmt_audit, permission_group_name, operation_type, 
+    module, details, content, status, state, gmt_create, gmt_modified, str_create, ip
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from operation_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from operation_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.system.model.OperationLog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into operation_log (operation_username, audit_username, 
+      gmt_audit, permission_group_name, operation_type, 
+      module, details, content, status, state, str_create, ip,
+      gmt_create, gmt_modified)
+    values (#{operationUsername,jdbcType=VARCHAR}, #{auditUsername,jdbcType=VARCHAR}, 
+      #{gmtAudit,jdbcType=TIMESTAMP}, #{permissionGroupName,jdbcType=VARCHAR}, #{operationType,jdbcType=VARCHAR}, 
+      #{module,jdbcType=VARCHAR}, #{details,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{status,jdbcType=BIT}, #{state,jdbcType=BIT}, 
+      #{strCreate,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.system.model.OperationLog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into operation_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="operationUsername != null">
+        operation_username,
+      </if>
+      <if test="auditUsername != null">
+        audit_username,
+      </if>
+      <if test="gmtAudit != null">
+        gmt_audit,
+      </if>
+      <if test="permissionGroupName != null">
+        permission_group_name,
+      </if>
+      <if test="operationType != null">
+        operation_type,
+      </if>
+      <if test="module != null">
+        module,
+      </if>
+      <if test="details != null">
+        details,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="strCreate != null">
+        str_create,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="operationUsername != null">
+        #{operationUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="auditUsername != null">
+        #{auditUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtAudit != null">
+        #{gmtAudit,jdbcType=TIMESTAMP},
+      </if>
+      <if test="permissionGroupName != null">
+        #{permissionGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="operationType != null">
+        #{operationType,jdbcType=VARCHAR},
+      </if>
+      <if test="module != null">
+        #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null">
+        #{details,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=BIT},
+      </if>
+      <if test="strCreate != null">
+        #{strCreate,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.system.model.OperationLog">
+    update operation_log
+    <set>
+      <if test="operationUsername != null">
+        operation_username = #{operationUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="auditUsername != null">
+        audit_username = #{auditUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtAudit != null">
+        gmt_audit = #{gmtAudit,jdbcType=TIMESTAMP},
+      </if>
+      <if test="permissionGroupName != null">
+        permission_group_name = #{permissionGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="operationType != null">
+        operation_type = #{operationType,jdbcType=VARCHAR},
+      </if>
+      <if test="module != null">
+        module = #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null">
+        details = #{details,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="strCreate != null">
+        str_create = #{strCreate,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.system.model.OperationLog">
+    update operation_log
+    set operation_username = #{operationUsername,jdbcType=VARCHAR},
+      audit_username = #{auditUsername,jdbcType=VARCHAR},
+      gmt_audit = #{gmtAudit,jdbcType=TIMESTAMP},
+      permission_group_name = #{permissionGroupName,jdbcType=VARCHAR},
+      operation_type = #{operationType,jdbcType=VARCHAR},
+      module = #{module,jdbcType=VARCHAR},
+      details = #{details,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      status = #{status,jdbcType=BIT},
+      str_create = #{strCreate,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  		from operation_log
+		<trim prefix="where 1=1">
+			<if test="operationTypes != null and '' neq operationTypes">
+				and FIND_IN_SET(operation_type, #{operationTypes,jdbcType=VARCHAR})
+			</if>
+			<if test="search != null and '' neq search">
+				and ${fieldName} like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+			</if>
+			<if test="operationUsername != null">
+				and operation_username = #{operationUsername,jdbcType=VARCHAR} 
+			</if>
+			<if test="permissionGroupName != null">
+				and permission_group_name = #{permissionGroupName,jdbcType=VARCHAR} 
+			</if>
+			<if test="ip != null">
+				and ip = #{ip,jdbcType=VARCHAR} 
+			</if>
+			<if test="module != null">
+				and module like CONCAT('%', #{module,jdbcType=VARCHAR}, '%')
+			</if>
+			<if test="state != null">
+				and state = #{state,jdbcType=BIT} 
+			</if>
+			<if test="startDate != null and '' neq startDate ">
+				AND gmt_create <![CDATA[ >= ]]> #{startDate,jdbcType=VARCHAR}
+			</if>
+			<if test="endDate != null and '' neq endDate ">
+				AND gmt_create <![CDATA[ <= ]]> #{endDate,jdbcType=VARCHAR}
+			</if>
+			<if test="logType != null and logType eq '4'.toString() ">
+				AND permission_group_name IN (SELECT name FROM permission_group WHERE `type` != 4) 
+			</if>
+			<if test="logType != null and logType eq '3'.toString() ">
+				AND (permission_group_name IN (SELECT name FROM permission_group WHERE `type` = 4) 
+					or operation_username = 'timer')
+			</if>
+		</trim>
+		order by gmt_create desc, id desc
+  </select>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from operation_log
+		<trim prefix="where 1=1">
+			<if test="operationTypes != null and '' neq operationTypes">
+				and FIND_IN_SET(operation_type, #{operationTypes,jdbcType=VARCHAR})
+			</if>
+			<if test="search != null and '' neq search">
+				and ${fieldName} like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+			</if>
+			<if test="operationUsername != null">
+				and operation_username = #{operationUsername,jdbcType=VARCHAR} 
+			</if>
+			<if test="permissionGroupName != null">
+				and permission_group_name = #{permissionGroupName,jdbcType=VARCHAR} 
+			</if>
+			<if test="ip != null">
+				and ip = #{ip,jdbcType=VARCHAR} 
+			</if>
+			<if test="module != null">
+				and module like CONCAT('%', #{module,jdbcType=VARCHAR}, '%')
+			</if>
+			<if test="state != null">
+				and state = #{state,jdbcType=BIT} 
+			</if>
+			<if test="startDate != null and '' neq startDate ">
+				AND gmt_create <![CDATA[ >= ]]> #{startDate,jdbcType=VARCHAR}
+			</if>
+			<if test="endDate != null and '' neq endDate ">
+				AND gmt_create <![CDATA[ <= ]]> #{endDate,jdbcType=VARCHAR}
+			</if>
+			<if test="logType != null and logType eq '4'.toString() ">
+				AND permission_group_name IN (SELECT name FROM permission_group WHERE `type` != 4) 
+			</if>
+			<if test="logType != null and logType eq '3'.toString() ">
+				AND (permission_group_name IN (SELECT name FROM permission_group WHERE `type` = 4) 
+					or operation_username = 'timer')
+			</if>
+		</trim>
+  </select>
+   <delete id="deleteLogs">
+  	delete from operation_log
+		<trim prefix="where 1=1">
+			<if test="operationTypes != null and '' neq operationTypes">
+				and FIND_IN_SET(operation_type, #{operationTypes,jdbcType=VARCHAR})
+			</if>
+			<if test="search != null and '' neq search">
+				and ${fieldName} like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+			</if>
+			<if test="startDate != null and '' neq startDate ">
+				AND gmt_create <![CDATA[ >= ]]> #{startDate,jdbcType=VARCHAR}
+			</if>
+			<if test="endDate != null and '' neq endDate ">
+				AND gmt_create <![CDATA[ <= ]]> #{endDate,jdbcType=VARCHAR}
+			</if>
+		</trim>
+  </delete>
+  <select id="selectByDate" resultMap="BaseResultMap">
+	select <include refid="Base_Column_List" />
+	from operation_log
+	<trim prefix="where 1=1">
+		<if test="operationTypes != null and '' neq operationTypes">
+			and FIND_IN_SET(operation_type, #{operationTypes,jdbcType=VARCHAR}
+		</if>
+		<if test="startDate != null and '' neq startDate ">
+			AND str_create <![CDATA[ >= ]]> #{startDate,jdbcType=VARCHAR}
+		</if>
+		<if test="endDate != null and '' neq endDate ">
+			AND str_create <![CDATA[ <= ]]> #{endDate,jdbcType=VARCHAR}
+		</if>
+	</trim>	 
+  </select>
+  <select id="selectTotalSize" resultType="java.lang.Long">
+	SELECT SUM(DATA_LENGTH)
+	FROM information_schema.tables 
+	WHERE table_schema='dms' AND (table_name='operation_log' OR table_name='mq_message')
+  </select>
+  <delete id="deleteByTime" parameterType="java.lang.String">
+    delete from operation_log
+    where str_create <![CDATA[ <= ]]> #{gmtCreate,jdbcType=VARCHAR}
+  </delete>
+</mapper>

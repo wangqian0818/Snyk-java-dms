@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.device.mapper.ChannelWebsshMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.device.model.ChannelWebssh">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="channel_info_id" jdbcType="BIGINT" property="channelInfoId" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="manage_ip" jdbcType="VARCHAR" property="manageIp" />
+    <result column="port" jdbcType="INTEGER" property="port" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="webssh_key" jdbcType="VARCHAR" property="websshKey" />
+    <result column="passphrase" jdbcType="VARCHAR" property="passphrase" />
+    <result column="work_state" jdbcType="TINYINT" property="workState" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, channel_info_id, device_name, manage_ip, port, username, 
+    webssh_key, passphrase, work_state, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from channel_webssh
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from channel_webssh
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.device.model.ChannelWebssh">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_webssh (channel_info_id, device_name, manage_ip, port, username, 
+      webssh_key, passphrase, work_state, gmt_create, gmt_modified)
+    values (#{channelInfoId,jdbcType=BIGINT}, #{deviceName,jdbcType=VARCHAR}, #{manageIp,jdbcType=VARCHAR}, 
+      #{port,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{websshKey,jdbcType=VARCHAR}, #{passphrase,jdbcType=VARCHAR}, #{workState,jdbcType=TINYINT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.device.model.ChannelWebssh">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_webssh
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="channelInfoId != null">
+        channel_info_id,
+      </if>
+      <if test="deviceName != null">
+        device_name,
+      </if>
+      <if test="manageIp != null">
+        manage_ip,
+      </if>
+      <if test="port != null">
+        port,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="websshKey != null">
+        webssh_key,
+      </if>
+      <if test="passphrase != null">
+        passphrase,
+      </if>
+      <if test="workState != null">
+        work_state,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="channelInfoId != null">
+        #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceName != null">
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="manageIp != null">
+        #{manageIp,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null">
+        #{port,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="websshKey != null">
+        #{websshKey,jdbcType=VARCHAR},
+      </if>
+      <if test="passphrase != null">
+        #{passphrase,jdbcType=VARCHAR},
+      </if>
+      <if test="workState != null">
+        #{workState,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.device.model.ChannelWebssh">
+    update channel_webssh
+    <set>
+      <if test="channelInfoId != null">
+        channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceName != null">
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="manageIp != null">
+        manage_ip = #{manageIp,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null">
+        port = #{port,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="websshKey != null">
+        webssh_key = #{websshKey,jdbcType=VARCHAR},
+      </if>
+      <if test="passphrase != null">
+        passphrase = #{passphrase,jdbcType=VARCHAR},
+      </if>
+      <if test="workState != null">
+        work_state = #{workState,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.device.model.ChannelWebssh">
+    update channel_webssh
+    set channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      manage_ip = #{manageIp,jdbcType=VARCHAR},
+      port = #{port,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      webssh_key = #{websshKey,jdbcType=VARCHAR},
+      passphrase = #{passphrase,jdbcType=VARCHAR},
+      work_state = #{workState,jdbcType=TINYINT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from channel_webssh
+  	<trim prefix="where">
+  		<if test="search != null and '' neq search">
+  			device_name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from channel_webssh
+  	<trim prefix="where">
+  		<if test="search != null and '' neq search">
+  			device_name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectByChannelInfoId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from channel_webssh
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT}
+  </select>
+  <update id="updateSetSshCert">
+  	update channel_webssh set work_state = #{workState},gmt_modified = now() where id = #{id}
+  </update>
+</mapper>

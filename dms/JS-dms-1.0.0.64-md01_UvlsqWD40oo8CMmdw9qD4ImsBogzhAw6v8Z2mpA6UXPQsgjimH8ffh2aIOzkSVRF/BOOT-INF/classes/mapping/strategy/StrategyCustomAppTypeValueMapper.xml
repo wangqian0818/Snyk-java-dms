@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.strategy.mapper.StrategyCustomAppTypeValueMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.strategy.model.StrategyCustomAppTypeValue">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="strategy_custom_app_command_id" jdbcType="BIGINT" property="strategyCustomAppCommandId" />
+    <result column="offset" jdbcType="INTEGER" property="offset" />
+    <result column="byte_num" jdbcType="INTEGER" property="byteNum" />
+    <result column="end" jdbcType="VARCHAR" property="end" />
+    <result column="comparator" jdbcType="VARCHAR" property="comparator" />
+    <result column="compare_value" jdbcType="VARCHAR" property="compareValue" />
+    <result column="response_offset" jdbcType="INTEGER" property="responseOffset" />
+    <result column="response_byte_num" jdbcType="INTEGER" property="responseByteNum" />
+    <result column="response_end" jdbcType="VARCHAR" property="responseEnd" />
+    <result column="response_comparator" jdbcType="VARCHAR" property="responseComparator" />
+    <result column="response_compare_value" jdbcType="VARCHAR" property="responseCompareValue" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, strategy_custom_app_command_id, offset, byte_num, end, comparator, compare_value, 
+    response_offset, response_byte_num, response_end, response_comparator, response_compare_value, 
+    gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from strategy_custom_app_type_value
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from strategy_custom_app_type_value
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.strategy.model.StrategyCustomAppTypeValue">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into strategy_custom_app_type_value (strategy_custom_app_command_id, offset, 
+      byte_num, end, comparator, 
+      compare_value, response_offset, response_byte_num, 
+      response_end, response_comparator, response_compare_value, 
+      gmt_create, gmt_modified)
+    values (#{strategyCustomAppCommandId,jdbcType=BIGINT}, #{offset,jdbcType=INTEGER}, 
+      #{byteNum,jdbcType=INTEGER}, #{end,jdbcType=VARCHAR}, #{comparator,jdbcType=VARCHAR}, 
+      #{compareValue,jdbcType=VARCHAR}, #{responseOffset,jdbcType=INTEGER}, #{responseByteNum,jdbcType=INTEGER}, 
+      #{responseEnd,jdbcType=VARCHAR}, #{responseComparator,jdbcType=VARCHAR}, #{responseCompareValue,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertAll">
+    insert into strategy_custom_app_type_value (strategy_custom_app_command_id, offset, 
+      byte_num, end, comparator, 
+      compare_value, response_offset, response_byte_num, 
+      response_end, response_comparator, response_compare_value, 
+      gmt_create, gmt_modified)
+    values 
+    <foreach collection="records" item="record" separator=",">
+      (#{record.strategyCustomAppCommandId,jdbcType=BIGINT}, #{record.offset,jdbcType=INTEGER}, 
+      #{record.byteNum,jdbcType=INTEGER}, #{record.end,jdbcType=VARCHAR}, #{record.comparator,jdbcType=VARCHAR}, 
+      #{record.compareValue,jdbcType=VARCHAR}, #{record.responseOffset,jdbcType=INTEGER}, #{record.responseByteNum,jdbcType=INTEGER}, 
+      #{record.responseEnd,jdbcType=VARCHAR}, #{record.responseComparator,jdbcType=VARCHAR}, #{record.responseCompareValue,jdbcType=VARCHAR}, 
+      #{record.gmtCreate,jdbcType=TIMESTAMP}, #{record.gmtModified,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.strategy.model.StrategyCustomAppTypeValue">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into strategy_custom_app_type_value
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="strategyCustomAppCommandId != null">
+        strategy_custom_app_command_id,
+      </if>
+      <if test="offset != null">
+        offset,
+      </if>
+      <if test="byteNum != null">
+        byte_num,
+      </if>
+      <if test="end != null">
+        end,
+      </if>
+      <if test="comparator != null">
+        comparator,
+      </if>
+      <if test="compareValue != null">
+        compare_value,
+      </if>
+      <if test="responseOffset != null">
+        response_offset,
+      </if>
+      <if test="responseByteNum != null">
+        response_byte_num,
+      </if>
+      <if test="responseEnd != null">
+        response_end,
+      </if>
+      <if test="responseComparator != null">
+        response_comparator,
+      </if>
+      <if test="responseCompareValue != null">
+        response_compare_value,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="strategyCustomAppCommandId != null">
+        #{strategyCustomAppCommandId,jdbcType=BIGINT},
+      </if>
+      <if test="offset != null">
+        #{offset,jdbcType=INTEGER},
+      </if>
+      <if test="byteNum != null">
+        #{byteNum,jdbcType=INTEGER},
+      </if>
+      <if test="end != null">
+        #{end,jdbcType=VARCHAR},
+      </if>
+      <if test="comparator != null">
+        #{comparator,jdbcType=VARCHAR},
+      </if>
+      <if test="compareValue != null">
+        #{compareValue,jdbcType=VARCHAR},
+      </if>
+      <if test="responseOffset != null">
+        #{responseOffset,jdbcType=INTEGER},
+      </if>
+      <if test="responseByteNum != null">
+        #{responseByteNum,jdbcType=INTEGER},
+      </if>
+      <if test="responseEnd != null">
+        #{responseEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="responseComparator != null">
+        #{responseComparator,jdbcType=VARCHAR},
+      </if>
+      <if test="responseCompareValue != null">
+        #{responseCompareValue,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.strategy.model.StrategyCustomAppTypeValue">
+    update strategy_custom_app_type_value
+    <set>
+      <if test="strategyCustomAppCommandId != null">
+        strategy_custom_app_command_id = #{strategyCustomAppCommandId,jdbcType=BIGINT},
+      </if>
+      <if test="offset != null">
+        offset = #{offset,jdbcType=INTEGER},
+      </if>
+      <if test="byteNum != null">
+        byte_num = #{byteNum,jdbcType=INTEGER},
+      </if>
+      <if test="end != null">
+        end = #{end,jdbcType=VARCHAR},
+      </if>
+      <if test="comparator != null">
+        comparator = #{comparator,jdbcType=VARCHAR},
+      </if>
+      <if test="compareValue != null">
+        compare_value = #{compareValue,jdbcType=VARCHAR},
+      </if>
+      <if test="responseOffset != null">
+        response_offset = #{responseOffset,jdbcType=INTEGER},
+      </if>
+      <if test="responseByteNum != null">
+        response_byte_num = #{responseByteNum,jdbcType=INTEGER},
+      </if>
+      <if test="responseEnd != null">
+        response_end = #{responseEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="responseComparator != null">
+        response_comparator = #{responseComparator,jdbcType=VARCHAR},
+      </if>
+      <if test="responseCompareValue != null">
+        response_compare_value = #{responseCompareValue,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.strategy.model.StrategyCustomAppTypeValue">
+    update strategy_custom_app_type_value
+    set strategy_custom_app_command_id = #{strategyCustomAppCommandId,jdbcType=BIGINT},
+      offset = #{offset,jdbcType=INTEGER},
+      byte_num = #{byteNum,jdbcType=INTEGER},
+      end = #{end,jdbcType=VARCHAR},
+      comparator = #{comparator,jdbcType=VARCHAR},
+      compare_value = #{compareValue,jdbcType=VARCHAR},
+      response_offset = #{responseOffset,jdbcType=INTEGER},
+      response_byte_num = #{responseByteNum,jdbcType=INTEGER},
+      response_end = #{responseEnd,jdbcType=VARCHAR},
+      response_comparator = #{responseComparator,jdbcType=VARCHAR},
+      response_compare_value = #{responseCompareValue,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <delete id="deleteByStrategyCustomAppCommandId" parameterType="java.lang.Long">
+  	delete from strategy_custom_app_type_value
+    where strategy_custom_app_command_id = #{strategyCustomAppCommandId,jdbcType=BIGINT}
+  </delete>
+  <select id="selectByStrategyCustomAppCommandId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from strategy_custom_app_type_value
+    where strategy_custom_app_command_id = #{strategyCustomAppCommandId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from strategy_custom_app_type_value
+  </select>
+</mapper>

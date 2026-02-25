@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.alarm.mapper.AlarmInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.alarm.model.AlarmInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="system_ip" jdbcType="VARCHAR" property="systemIp" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="channel_name" jdbcType="VARCHAR" property="channelName" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="log_type" jdbcType="VARCHAR" property="logType" />
+    <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
+    <result column="stat_time" jdbcType="TIMESTAMP" property="statTime" />
+    <result column="notice_rank" jdbcType="TINYINT" property="noticeRank" />
+    <result column="total" jdbcType="INTEGER" property="total" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="actual_capacity" jdbcType="VARCHAR" property="actualCapacity" />
+    <result column="handle_state" jdbcType="TINYINT" property="handleState" />
+    <result column="handle_msg" jdbcType="VARCHAR" property="handleMsg" />
+    <result column="handle_user" jdbcType="VARCHAR" property="handleUser" />
+    <result column="sip" jdbcType="VARCHAR" property="sip" />
+    <result column="dip" jdbcType="VARCHAR" property="dip" />
+    <result column="sport" jdbcType="VARCHAR" property="sport" />
+    <result column="dport" jdbcType="VARCHAR" property="dport" />
+    <result column="protocol" jdbcType="VARCHAR" property="protocol" />
+    <result column="client_user" jdbcType="VARCHAR" property="clientUser" />
+    <result column="priority" jdbcType="VARCHAR" property="priority" />
+    <result column="class_type" jdbcType="VARCHAR" property="classType" />
+    <result column="severity" jdbcType="VARCHAR" property="severity" />
+    <result column="ddos_type" jdbcType="VARCHAR" property="ddosType" />
+    <result column="app_name" jdbcType="VARCHAR" property="appName" />
+    <result column="rule_name" jdbcType="VARCHAR" property="ruleName" />
+    <result column="filter_type" jdbcType="VARCHAR" property="filterType" />
+    <result column="action" jdbcType="VARCHAR" property="action" />
+    <result column="describe" jdbcType="VARCHAR" property="describe" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, system_ip, user_name, login_ip, result, device_name, channel_name, type, log_type, record_time, notice_rank, 
+    count, content, actual_capacity, handle_state, handle_msg, handle_user, sip, dip, sport, dport, protocol, client_user, 
+    priority, class_type, severity, ddos_type, app_name, rule_name, filter_type, action, `describe`, 
+    gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from alarm_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from alarm_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.alarm.model.AlarmInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into alarm_info (system_ip, user_name, login_ip, result, device_name, channel_name, type, log_type, record_time, 
+      notice_rank, count, content, actual_capacity, handle_state, handle_msg, handle_user, sip, dip, sport, dport, protocol, 
+      client_user, priority, class_type, severity, ddos_type, app_name, rule_name, filter_type, action, 
+      `describe`, gmt_create, gmt_modified)
+    values (#{systemIp,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{loginIp,jdbcType=VARCHAR}, 
+      #{result,jdbcType=VARCHAR}, #{deviceName,jdbcType=VARCHAR}, #{channelName,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, 
+      #{logType,jdbcType=VARCHAR}, #{recordTime,jdbcType=TIMESTAMP}, #{noticeRank,jdbcType=TINYINT}, 
+      #{count,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{actualCapacity,jdbcType=VARCHAR}, #{handleState,jdbcType=TINYINT}, 
+      #{handleMsg,jdbcType=VARCHAR}, #{handleUser,jdbcType=VARCHAR}, #{sip,jdbcType=VARCHAR}, 
+      #{dip,jdbcType=VARCHAR}, #{sport,jdbcType=VARCHAR}, #{dport,jdbcType=VARCHAR}, #{protocol,jdbcType=VARCHAR}, 
+      #{clientUser,jdbcType=VARCHAR}, #{priority,jdbcType=VARCHAR}, #{classType,jdbcType=VARCHAR}, 
+      #{severity,jdbcType=VARCHAR}, #{ddosType,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}, 
+      #{ruleName,jdbcType=VARCHAR}, #{filterType,jdbcType=VARCHAR}, #{action,jdbcType=VARCHAR}, 
+      #{describe,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.alarm.model.AlarmInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into alarm_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="systemIp != null">
+        system_ip,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="loginIp != null">
+        login_ip,
+      </if>
+      <if test="result != null">
+        result,
+      </if>
+      <if test="deviceName != null">
+        device_name,
+      </if>
+      <if test="channelName != null">
+        channel_name,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="logType != null">
+        log_type,
+      </if>
+      <if test="recordTime != null">
+        record_time,
+      </if>
+      <if test="noticeRank != null">
+        notice_rank,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="actualCapacity != null">
+        actual_capacity,
+      </if>
+      <if test="handleState != null">
+        handle_state,
+      </if>
+      <if test="handleMsg != null">
+        handle_msg,
+      </if>
+      <if test="handleUser != null">
+        handle_user,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="systemIp != null">
+        #{systemIp,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginIp != null">
+        #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceName != null">
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelName != null">
+        #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="logType != null">
+        #{logType,jdbcType=VARCHAR},
+      </if>
+      <if test="recordTime != null">
+        #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeRank != null">
+        #{noticeRank,jdbcType=TINYINT},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="actualCapacity != null">
+        #{actualCapacity,jdbcType=VARCHAR},
+      </if>
+      <if test="handleState != null">
+        #{handleState,jdbcType=TINYINT},
+      </if>
+      <if test="handleMsg != null">
+        #{handleMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="handleUser != null">
+        #{handleUser,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.alarm.model.AlarmInfo">
+    update alarm_info
+    <set>
+      <if test="systemIp != null">
+        system_ip = #{systemIp,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginIp != null">
+        login_ip = #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        result = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceName != null">
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="logType != null">
+        log_type = #{logType,jdbcType=VARCHAR},
+      </if>
+      <if test="recordTime != null">
+        record_time = #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeRank != null">
+        notice_rank = #{noticeRank,jdbcType=TINYINT},
+      </if>
+      <if test="count != null">
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="handleState != null">
+        handle_state = #{handleState,jdbcType=TINYINT},
+      </if>
+      <if test="handleMsg != null">
+        handle_msg = #{handleMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="handleUser != null">
+        handle_user = #{handleUser,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.alarm.model.AlarmInfo">
+    update alarm_info
+    set system_ip = #{systemIp,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      login_ip = #{loginIp,jdbcType=VARCHAR},
+      result = #{result,jdbcType=VARCHAR},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT},
+      log_type = #{logType,jdbcType=VARCHAR},
+      record_time = #{recordTime,jdbcType=TIMESTAMP},
+      notice_rank = #{noticeRank,jdbcType=TINYINT},
+      count = #{count,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      handle_state = #{handleState,jdbcType=TINYINT},
+      handle_msg = #{handleMsg,jdbcType=VARCHAR},
+      handle_user = #{handleUser,jdbcType=VARCHAR},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from alarm_info
+  	<trim prefix="where 1=1">
+		<if test="noticeRank != null">
+			and notice_rank = #{noticeRank,jdbcType=TINYINT} 
+		</if>
+		<if test="handleState != null">
+			and handle_state = #{handleState,jdbcType=TINYINT} 
+		</if>
+		<if test="handleUser != null and '' neq handleUser">
+			and handle_user = #{handleUser,jdbcType=VARCHAR} 
+		</if>
+  		<if test="deviceName != null and '' neq deviceName">
+  			and device_name = #{deviceName,jdbcType=VARCHAR} 
+  		</if>
+  		<if test="channelName != null and '' neq channelName">
+  			and channel_name = #{channelName,jdbcType=VARCHAR} 
+  		</if>
+  		<if test="types != null and types.length != 0">
+			and type in 
+			<foreach collection="types" item="alarmType" index="index"  
+       			open="(" close=")" separator=",">  
+        		${alarmType}  
+    		</foreach>
+		</if>
+		<if test="startDate != null and '' neq startDate ">
+			AND record_time <![CDATA[ >= ]]> #{startDate,jdbcType=VARCHAR}
+		</if>
+		<if test="endDate != null and '' neq endDate ">
+			AND record_time <![CDATA[ <= ]]> #{endDate,jdbcType=VARCHAR}
+		</if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from alarm_info
+  	<trim prefix="where 1=1">
+		<if test="noticeRank != null">
+			and notice_rank = #{noticeRank,jdbcType=TINYINT} 
+		</if>
+		<if test="handleState != null">
+			and handle_state = #{handleState,jdbcType=TINYINT} 
+		</if>
+		<if test="handleUser != null and '' neq handleUser">
+			and handle_user = #{handleUser,jdbcType=VARCHAR} 
+		</if>
+  		<if test="deviceName != null and '' neq deviceName">
+  			and device_name = #{deviceName,jdbcType=VARCHAR} 
+  		</if>
+  		<if test="channelName != null and '' neq channelName">
+  			and channel_name = #{channelName,jdbcType=VARCHAR} 
+  		</if>
+  		<if test="types != null and types.length != 0">
+			and type in 
+			<foreach collection="types" item="alarmType" index="index"  
+       			open="(" close=")" separator=",">  
+        		${alarmType}  
+    		</foreach>
+		</if>
+		<if test="startDate != null and '' neq startDate ">
+			AND record_time <![CDATA[ >= ]]> #{startDate,jdbcType=VARCHAR}
+		</if>
+		<if test="endDate != null and '' neq endDate ">
+			AND record_time <![CDATA[ <= ]]> #{endDate,jdbcType=VARCHAR}
+		</if>
+  	</trim>
+  	order by gmt_create desc, id desc
+  </select>
+  <update id="updateHandleByPrimaryKey" parameterType="com.zx.dms.database.alarm.model.AlarmInfo">
+    update alarm_info
+    set handle_state = #{handleState,jdbcType=TINYINT},
+      handle_msg = #{handleMsg,jdbcType=VARCHAR},
+      handle_user = #{handleUser,jdbcType=VARCHAR},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateHandleByType" parameterType="com.zx.dms.database.alarm.model.AlarmInfo">
+    update alarm_info
+    set handle_state = #{handleState,jdbcType=TINYINT},
+      handle_msg = #{handleMsg,jdbcType=VARCHAR},
+      handle_user = #{handleUser,jdbcType=VARCHAR},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where handle_state != 1 
+    <if test="type != null">
+		and type = #{type,jdbcType=TINYINT} 
+	</if>
+  </update>
+  <select id="selectTotalByHour" resultMap="BaseResultMap">
+  	select DATE_FORMAT(record_time, '%Y-%m-%d %H:00:00') AS stat_time, COUNT(*) AS total, SUM(`count`) AS `count` 
+  	from alarm_info
+  	where DATE_FORMAT(record_time, '%Y%m%d') = #{curDay,jdbcType=VARCHAR} 
+  	<if test="types != null and types.length != 0">
+		and type in 
+		<foreach collection="types" item="alarmType" index="index"  
+    		open="(" close=")" separator=",">  
+       		${alarmType}  
+    	</foreach>
+	</if>
+	<if test="channelName != null and channelName != ''"> and channel_name = #{channelName}</if>
+	GROUP BY stat_time 
+  	ORDER BY stat_time 
+  </select>
+  <select id="selectTotalByDays" resultMap="BaseResultMap">
+  	select DATE_FORMAT(record_time, '%Y-%m-%d 00:00:00') AS stat_time, COUNT(*) AS total, SUM(`count`) AS `count` 
+  	from alarm_info
+  	where DATE_FORMAT(record_time, '%Y%m%d') <![CDATA[ >= ]]> #{startDay,jdbcType=VARCHAR} 
+  		and DATE_FORMAT(record_time, '%Y%m%d') <![CDATA[ <= ]]> #{endDay,jdbcType=VARCHAR} 
+  	<if test="types != null and types.length != 0">
+		and type in 
+		<foreach collection="types" item="alarmType" index="index"  
+      		open="(" close=")" separator=",">  
+       		${alarmType}  
+    	</foreach>
+	</if>
+	<if test="channelName != null and channelName != ''"> and channel_name = #{channelName}</if>
+	GROUP BY stat_time 
+  	ORDER BY stat_time 
+  </select>
+  <select id="selectTotalByField" resultMap="BaseResultMap">
+  	select ${fieldName}, COUNT(*) AS total, SUM(`count`) AS `count` 
+  	from alarm_info
+  	where DATE_FORMAT(record_time, '%Y%m%d') <![CDATA[ >= ]]> #{startDay,jdbcType=VARCHAR} 
+  		and DATE_FORMAT(record_time, '%Y%m%d') <![CDATA[ <= ]]> #{endDay,jdbcType=VARCHAR} 
+  	<if test="types != null and types.length != 0">
+		and type in 
+		<foreach collection="types" item="alarmType" index="index"  
+      		open="(" close=")" separator=",">  
+       		${alarmType}  
+    	</foreach>
+	</if>
+	<if test="channelName != null and channelName != ''"> and channel_name = #{channelName}</if>
+	GROUP BY ${fieldName} 
+  	ORDER BY ${orderName} DESC 
+  </select>
+  <select id="selectGmtCreateByLimit" parameterType="java.lang.String">
+  	SELECT DATE_FORMAT(gmt_create, '%Y-%m-%d %T') AS gmt_create FROM alarm_info 
+  	where handle_state = 1 ORDER BY gmt_create DESC LIMIT ${oldLimit},1
+  </select>
+  <delete id="deleteOldByLimit" parameterType="java.lang.String">
+    delete from alarm_info 
+    where handle_state = 1 and gmt_create <![CDATA[ <= ]]> #{gmtCreate,jdbcType=VARCHAR} 
+  </delete>
+</mapper>

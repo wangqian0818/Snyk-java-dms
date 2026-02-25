@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.strategy.mapper.StrategyAreaMarkMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.strategy.model.StrategyAreaMark">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="device_type" jdbcType="TINYINT" property="deviceType" />
+    <result column="location" jdbcType="TINYINT" property="location" />
+    <result column="source_network_area_id" jdbcType="BIGINT" property="sourceNetworkAreaId" />
+    <result column="source_network_area_name" jdbcType="VARCHAR" property="sourceNetworkAreaName" />
+    <result column="destination_network_area_id" jdbcType="BIGINT" property="destinationNetworkAreaId" />
+    <result column="destination_network_area_name" jdbcType="VARCHAR" property="destinationNetworkAreaName" />
+    <result column="source_business_group_id" jdbcType="BIGINT" property="sourceBusinessGroupId" />
+    <result column="source_business_group_name" jdbcType="VARCHAR" property="sourceBusinessGroupName" />
+    <result column="destination_business_group_id" jdbcType="BIGINT" property="destinationBusinessGroupId" />
+    <result column="destination_business_group_name" jdbcType="VARCHAR" property="destinationBusinessGroupName" />
+    <result column="strategy_mark_id" jdbcType="BIGINT" property="strategyMarkId" />
+    <result column="strategy_mark_name" jdbcType="VARCHAR" property="strategyMarkName" />
+    <result column="category_compare_type" jdbcType="TINYINT" property="categoryCompareType" />
+    <result column="mark_action" jdbcType="TINYINT" property="markAction" />
+    <result column="transfer_strategy_mark_id" jdbcType="BIGINT" property="transferStrategyMarkId" />
+    <result column="transfer_strategy_mark_name" jdbcType="VARCHAR" property="transferStrategyMarkName" />
+    <result column="session_reverse_strategy_mark_id" jdbcType="BIGINT" property="sessionReverseStrategyMarkId" />
+    <result column="session_reverse_strategy_mark_name" jdbcType="VARCHAR" property="sessionReverseStrategyMarkName" />
+    <result column="session_reverse_category_compare_type" jdbcType="TINYINT" property="sessionReverseCategoryCompareType" />
+    <result column="session_reverse_transfer_strategy_mark_id" jdbcType="BIGINT" property="sessionReverseTransferStrategyMarkId" />
+    <result column="security_rank" jdbcType="TINYINT" property="securityRank" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, device_type, location, source_network_area_id, source_network_area_name, destination_network_area_id, 
+    destination_network_area_name, source_business_group_id, source_business_group_name, 
+    destination_business_group_id, destination_business_group_name, strategy_mark_id, 
+    strategy_mark_name, category_compare_type, mark_action, transfer_strategy_mark_id, 
+    transfer_strategy_mark_name, session_reverse_strategy_mark_id, session_reverse_strategy_mark_name, 
+    session_reverse_category_compare_type, session_reverse_transfer_strategy_mark_id, 
+    security_rank, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from strategy_area_mark
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from strategy_area_mark
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.strategy.model.StrategyAreaMark">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into strategy_area_mark (name, device_type, location, source_network_area_id, source_network_area_name, 
+      destination_network_area_id, destination_network_area_name, 
+      source_business_group_id, source_business_group_name, 
+      destination_business_group_id, destination_business_group_name, 
+      strategy_mark_id, strategy_mark_name, category_compare_type, 
+      mark_action, transfer_strategy_mark_id, transfer_strategy_mark_name, 
+      session_reverse_strategy_mark_id, session_reverse_strategy_mark_name, 
+      session_reverse_category_compare_type, session_reverse_transfer_strategy_mark_id, 
+      security_rank, gmt_create, gmt_modified
+      )
+    values (#{name,jdbcType=VARCHAR}, #{deviceType,jdbcType=TINYINT}, #{location,jdbcType=TINYINT}, 
+      #{sourceNetworkAreaId,jdbcType=BIGINT}, #{sourceNetworkAreaName,jdbcType=VARCHAR}, 
+      #{destinationNetworkAreaId,jdbcType=BIGINT}, #{destinationNetworkAreaName,jdbcType=VARCHAR}, 
+      #{sourceBusinessGroupId,jdbcType=BIGINT}, #{sourceBusinessGroupName,jdbcType=VARCHAR}, 
+      #{destinationBusinessGroupId,jdbcType=BIGINT}, #{destinationBusinessGroupName,jdbcType=VARCHAR}, 
+      #{strategyMarkId,jdbcType=BIGINT}, #{strategyMarkName,jdbcType=VARCHAR}, #{categoryCompareType,jdbcType=TINYINT}, 
+      #{markAction,jdbcType=TINYINT}, #{transferStrategyMarkId,jdbcType=BIGINT}, #{transferStrategyMarkName,jdbcType=VARCHAR}, 
+      #{sessionReverseStrategyMarkId,jdbcType=BIGINT}, #{sessionReverseStrategyMarkName,jdbcType=VARCHAR}, 
+      #{sessionReverseCategoryCompareType,jdbcType=TINYINT}, #{sessionReverseTransferStrategyMarkId,jdbcType=BIGINT}, 
+      #{securityRank,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertAll">
+    insert into strategy_area_mark (name, device_type, location, source_network_area_id, source_network_area_name, 
+      destination_network_area_id, destination_network_area_name, 
+      source_business_group_id, source_business_group_name, 
+      destination_business_group_id, destination_business_group_name, 
+      strategy_mark_id, strategy_mark_name, category_compare_type, 
+      mark_action, transfer_strategy_mark_id, transfer_strategy_mark_name, 
+      session_reverse_strategy_mark_id, session_reverse_strategy_mark_name, 
+      session_reverse_category_compare_type, session_reverse_transfer_strategy_mark_id, 
+      security_rank, gmt_create, gmt_modified)
+    values 
+    <foreach collection="records" item="record" separator=",">
+      (#{record.name,jdbcType=VARCHAR}, #{record.deviceType,jdbcType=TINYINT}, #{record.location,jdbcType=TINYINT}, 
+      #{record.sourceNetworkAreaId,jdbcType=BIGINT}, #{record.sourceNetworkAreaName,jdbcType=VARCHAR}, 
+      #{record.destinationNetworkAreaId,jdbcType=BIGINT}, #{record.destinationNetworkAreaName,jdbcType=VARCHAR}, 
+      #{record.sourceBusinessGroupId,jdbcType=BIGINT}, #{record.sourceBusinessGroupName,jdbcType=VARCHAR}, 
+      #{record.destinationBusinessGroupId,jdbcType=BIGINT}, #{record.destinationBusinessGroupName,jdbcType=VARCHAR}, 
+      #{record.strategyMarkId,jdbcType=BIGINT}, #{record.strategyMarkName,jdbcType=VARCHAR}, #{record.categoryCompareType,jdbcType=TINYINT}, 
+      #{record.markAction,jdbcType=TINYINT}, #{record.transferStrategyMarkId,jdbcType=BIGINT}, #{record.transferStrategyMarkName,jdbcType=VARCHAR}, 
+      #{record.sessionReverseStrategyMarkId,jdbcType=BIGINT}, #{record.sessionReverseStrategyMarkName,jdbcType=VARCHAR}, 
+      #{record.sessionReverseCategoryCompareType,jdbcType=TINYINT}, #{record.sessionReverseTransferStrategyMarkId,jdbcType=BIGINT}, 
+      #{record.securityRank,jdbcType=TINYINT}, #{record.gmtCreate,jdbcType=TIMESTAMP}, #{record.gmtModified,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.strategy.model.StrategyAreaMark">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into strategy_area_mark
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="deviceType != null">
+        device_type,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="sourceNetworkAreaId != null">
+        source_network_area_id,
+      </if>
+      <if test="sourceNetworkAreaName != null">
+        source_network_area_name,
+      </if>
+      <if test="destinationNetworkAreaId != null">
+        destination_network_area_id,
+      </if>
+      <if test="destinationNetworkAreaName != null">
+        destination_network_area_name,
+      </if>
+      <if test="sourceBusinessGroupId != null">
+        source_business_group_id,
+      </if>
+      <if test="sourceBusinessGroupName != null">
+        source_business_group_name,
+      </if>
+      <if test="destinationBusinessGroupId != null">
+        destination_business_group_id,
+      </if>
+      <if test="destinationBusinessGroupName != null">
+        destination_business_group_name,
+      </if>
+      <if test="strategyMarkId != null">
+        strategy_mark_id,
+      </if>
+      <if test="strategyMarkName != null">
+        strategy_mark_name,
+      </if>
+      <if test="categoryCompareType != null">
+        category_compare_type,
+      </if>
+      <if test="markAction != null">
+        mark_action,
+      </if>
+      <if test="transferStrategyMarkId != null">
+        transfer_strategy_mark_id,
+      </if>
+      <if test="transferStrategyMarkName != null">
+        transfer_strategy_mark_name,
+      </if>
+      <if test="sessionReverseStrategyMarkId != null">
+        session_reverse_strategy_mark_id,
+      </if>
+      <if test="sessionReverseStrategyMarkName != null">
+        session_reverse_strategy_mark_name,
+      </if>
+      <if test="sessionReverseCategoryCompareType != null">
+        session_reverse_category_compare_type,
+      </if>
+      <if test="sessionReverseTransferStrategyMarkId != null">
+        session_reverse_transfer_strategy_mark_id,
+      </if>
+      <if test="securityRank != null">
+        security_rank,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null">
+        #{deviceType,jdbcType=TINYINT},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=TINYINT},
+      </if>
+      <if test="sourceNetworkAreaId != null">
+        #{sourceNetworkAreaId,jdbcType=BIGINT},
+      </if>
+      <if test="sourceNetworkAreaName != null">
+        #{sourceNetworkAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationNetworkAreaId != null">
+        #{destinationNetworkAreaId,jdbcType=BIGINT},
+      </if>
+      <if test="destinationNetworkAreaName != null">
+        #{destinationNetworkAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceBusinessGroupId != null">
+        #{sourceBusinessGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="sourceBusinessGroupName != null">
+        #{sourceBusinessGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationBusinessGroupId != null">
+        #{destinationBusinessGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="destinationBusinessGroupName != null">
+        #{destinationBusinessGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyMarkId != null">
+        #{strategyMarkId,jdbcType=BIGINT},
+      </if>
+      <if test="strategyMarkName != null">
+        #{strategyMarkName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryCompareType != null">
+        #{categoryCompareType,jdbcType=TINYINT},
+      </if>
+      <if test="markAction != null">
+        #{markAction,jdbcType=TINYINT},
+      </if>
+      <if test="transferStrategyMarkId != null">
+        #{transferStrategyMarkId,jdbcType=BIGINT},
+      </if>
+      <if test="transferStrategyMarkName != null">
+        #{transferStrategyMarkName,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionReverseStrategyMarkId != null">
+        #{sessionReverseStrategyMarkId,jdbcType=BIGINT},
+      </if>
+      <if test="sessionReverseStrategyMarkName != null">
+        #{sessionReverseStrategyMarkName,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionReverseCategoryCompareType != null">
+        #{sessionReverseCategoryCompareType,jdbcType=TINYINT},
+      </if>
+      <if test="sessionReverseTransferStrategyMarkId != null">
+        #{sessionReverseTransferStrategyMarkId,jdbcType=BIGINT},
+      </if>
+      <if test="securityRank != null">
+        #{securityRank,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.strategy.model.StrategyAreaMark">
+    update strategy_area_mark
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null">
+        device_type = #{deviceType,jdbcType=TINYINT},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=TINYINT},
+      </if>
+      <if test="sourceNetworkAreaId != null">
+        source_network_area_id = #{sourceNetworkAreaId,jdbcType=BIGINT},
+      </if>
+      <if test="sourceNetworkAreaName != null">
+        source_network_area_name = #{sourceNetworkAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationNetworkAreaId != null">
+        destination_network_area_id = #{destinationNetworkAreaId,jdbcType=BIGINT},
+      </if>
+      <if test="destinationNetworkAreaName != null">
+        destination_network_area_name = #{destinationNetworkAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceBusinessGroupId != null">
+        source_business_group_id = #{sourceBusinessGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="sourceBusinessGroupName != null">
+        source_business_group_name = #{sourceBusinessGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationBusinessGroupId != null">
+        destination_business_group_id = #{destinationBusinessGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="destinationBusinessGroupName != null">
+        destination_business_group_name = #{destinationBusinessGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyMarkId != null">
+        strategy_mark_id = #{strategyMarkId,jdbcType=BIGINT},
+      </if>
+      <if test="strategyMarkName != null">
+        strategy_mark_name = #{strategyMarkName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryCompareType != null">
+        category_compare_type = #{categoryCompareType,jdbcType=TINYINT},
+      </if>
+      <if test="markAction != null">
+        mark_action = #{markAction,jdbcType=TINYINT},
+      </if>
+      <if test="transferStrategyMarkId != null">
+        transfer_strategy_mark_id = #{transferStrategyMarkId,jdbcType=BIGINT},
+      </if>
+      <if test="transferStrategyMarkName != null">
+        transfer_strategy_mark_name = #{transferStrategyMarkName,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionReverseStrategyMarkId != null">
+        session_reverse_strategy_mark_id = #{sessionReverseStrategyMarkId,jdbcType=BIGINT},
+      </if>
+      <if test="sessionReverseStrategyMarkName != null">
+        session_reverse_strategy_mark_name = #{sessionReverseStrategyMarkName,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionReverseCategoryCompareType != null">
+        session_reverse_category_compare_type = #{sessionReverseCategoryCompareType,jdbcType=TINYINT},
+      </if>
+      <if test="sessionReverseTransferStrategyMarkId != null">
+        session_reverse_transfer_strategy_mark_id = #{sessionReverseTransferStrategyMarkId,jdbcType=BIGINT},
+      </if>
+      <if test="securityRank != null">
+        security_rank = #{securityRank,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.strategy.model.StrategyAreaMark">
+    update strategy_area_mark
+    set name = #{name,jdbcType=VARCHAR},
+      device_type = #{deviceType,jdbcType=TINYINT},
+      location = #{location,jdbcType=TINYINT},
+      source_network_area_id = #{sourceNetworkAreaId,jdbcType=BIGINT},
+      source_network_area_name = #{sourceNetworkAreaName,jdbcType=VARCHAR},
+      destination_network_area_id = #{destinationNetworkAreaId,jdbcType=BIGINT},
+      destination_network_area_name = #{destinationNetworkAreaName,jdbcType=VARCHAR},
+      source_business_group_id = #{sourceBusinessGroupId,jdbcType=BIGINT},
+      source_business_group_name = #{sourceBusinessGroupName,jdbcType=VARCHAR},
+      destination_business_group_id = #{destinationBusinessGroupId,jdbcType=BIGINT},
+      destination_business_group_name = #{destinationBusinessGroupName,jdbcType=VARCHAR},
+      strategy_mark_id = #{strategyMarkId,jdbcType=BIGINT},
+      strategy_mark_name = #{strategyMarkName,jdbcType=VARCHAR},
+      category_compare_type = #{categoryCompareType,jdbcType=TINYINT},
+      mark_action = #{markAction,jdbcType=TINYINT},
+      transfer_strategy_mark_id = #{transferStrategyMarkId,jdbcType=BIGINT},
+      transfer_strategy_mark_name = #{transferStrategyMarkName,jdbcType=VARCHAR},
+      session_reverse_strategy_mark_id = #{sessionReverseStrategyMarkId,jdbcType=BIGINT},
+      session_reverse_strategy_mark_name = #{sessionReverseStrategyMarkName,jdbcType=VARCHAR},
+      session_reverse_category_compare_type = #{sessionReverseCategoryCompareType,jdbcType=TINYINT},
+      session_reverse_transfer_strategy_mark_id = #{sessionReverseTransferStrategyMarkId,jdbcType=BIGINT},
+      security_rank = #{securityRank,jdbcType=TINYINT},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from strategy_area_mark
+  	<trim prefix="where">
+  		<if test="search != null and '' neq search">
+  			name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from strategy_area_mark
+  	<trim prefix="where">
+  		<if test="search != null and '' neq search">
+  			name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  	</trim>
+  	order by gmt_create desc, id desc
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from strategy_area_mark where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByDeviceType" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from strategy_area_mark
+  	<trim prefix="where" prefixOverrides="and|or">
+  		<if test="deviceType != null">
+  			and device_type = #{deviceType,jdbcType=TINYINT}
+  		</if>
+  		<if test="location != null">
+  			and location = #{location,jdbcType=TINYINT}
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectByMarkId" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from strategy_area_mark
+  	<trim prefix="where">
+  		<if test="markId != null">
+  			strategy_mark_id = #{markId,jdbcType=BIGINT} 
+  			or transfer_strategy_mark_id = #{markId,jdbcType=BIGINT} 
+  			or session_reverse_strategy_mark_id = #{markId,jdbcType=BIGINT} 
+  			or session_reverse_transfer_strategy_mark_id = #{markId,jdbcType=BIGINT} 
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectByNetworkId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from strategy_area_mark 
+    where source_network_area_id = #{networkAreaId,jdbcType=BIGINT} 
+    or destination_network_area_id = #{networkAreaId,jdbcType=BIGINT} 
+  </select>
+  <select id="selectByChannelInfoId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from strategy_area_mark 
+    where id in (select strategy_id from business_strategy where channel_info_id = #{channelInfoId,jdbcType=BIGINT} and type = 8)
+  </select>
+</mapper>

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.business.mapper.BusinessVisitMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.business.model.BusinessVisit">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="rank" jdbcType="TINYINT" property="rank" />
+    <result column="source_network_area_id" jdbcType="BIGINT" property="sourceNetworkAreaId" />
+    <result column="source_network_area_name" jdbcType="VARCHAR" property="sourceNetworkAreaName" />
+    <result column="destination_network_area_id" jdbcType="BIGINT" property="destinationNetworkAreaId" />
+    <result column="destination_network_area_name" jdbcType="VARCHAR" property="destinationNetworkAreaName" />
+    <result column="source_business_group_id" jdbcType="BIGINT" property="sourceBusinessGroupId" />
+    <result column="source_business_group_name" jdbcType="VARCHAR" property="sourceBusinessGroupName" />
+    <result column="destination_business_group_id" jdbcType="BIGINT" property="destinationBusinessGroupId" />
+    <result column="destination_business_group_name" jdbcType="VARCHAR" property="destinationBusinessGroupName" />
+    <result column="source_port" jdbcType="INTEGER" property="sourcePort" />
+    <result column="destination_port" jdbcType="INTEGER" property="destinationPort" />
+    <result column="l4_proto" jdbcType="VARCHAR" property="l4Proto" />
+    <result column="l7_proto" jdbcType="VARCHAR" property="l7Proto" />
+    <result column="deleting" jdbcType="TINYINT" property="deleting" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, `rank`, source_network_area_id, source_network_area_name, destination_network_area_id, 
+    destination_network_area_name, source_business_group_id, source_business_group_name, 
+    destination_business_group_id, destination_business_group_name, source_port, destination_port, 
+    l4_proto, l7_proto, deleting, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from business_visit
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from business_visit
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.business.model.BusinessVisit">
+    insert into business_visit (id, name, `rank`, source_network_area_id, source_network_area_name, 
+      destination_network_area_id, destination_network_area_name, 
+      source_business_group_id, source_business_group_name, 
+      destination_business_group_id, destination_business_group_name, 
+      source_port, destination_port, l4_proto, 
+      l7_proto, gmt_create, gmt_modified
+      )
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{rank,jdbcType=TINYINT}, #{sourceNetworkAreaId,jdbcType=BIGINT}, #{sourceNetworkAreaName,jdbcType=VARCHAR}, 
+      #{destinationNetworkAreaId,jdbcType=BIGINT}, #{destinationNetworkAreaName,jdbcType=VARCHAR}, 
+      #{sourceBusinessGroupId,jdbcType=BIGINT}, #{sourceBusinessGroupName,jdbcType=VARCHAR}, 
+      #{destinationBusinessGroupId,jdbcType=BIGINT}, #{destinationBusinessGroupName,jdbcType=VARCHAR}, 
+      #{sourcePort,jdbcType=INTEGER}, #{destinationPort,jdbcType=INTEGER}, #{l4Proto,jdbcType=VARCHAR}, 
+      #{l7Proto,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.business.model.BusinessVisit">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into business_visit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="rank != null">
+        `rank`,
+      </if>
+      <if test="sourceNetworkAreaId != null">
+        source_network_area_id,
+      </if>
+      <if test="sourceNetworkAreaName != null">
+        source_network_area_name,
+      </if>
+      <if test="destinationNetworkAreaId != null">
+        destination_network_area_id,
+      </if>
+      <if test="destinationNetworkAreaName != null">
+        destination_network_area_name,
+      </if>
+      <if test="sourceBusinessGroupId != null">
+        source_business_group_id,
+      </if>
+      <if test="sourceBusinessGroupName != null">
+        source_business_group_name,
+      </if>
+      <if test="destinationBusinessGroupId != null">
+        destination_business_group_id,
+      </if>
+      <if test="destinationBusinessGroupName != null">
+        destination_business_group_name,
+      </if>
+      <if test="sourcePort != null">
+        source_port,
+      </if>
+      <if test="destinationPort != null">
+        destination_port,
+      </if>
+      <if test="l4Proto != null">
+        l4_proto,
+      </if>
+      <if test="l7Proto != null">
+        l7_proto,
+      </if>
+      <if test="deleting != null">
+        deleting,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=TINYINT},
+      </if>
+      <if test="sourceNetworkAreaId != null">
+        #{sourceNetworkAreaId,jdbcType=BIGINT},
+      </if>
+      <if test="sourceNetworkAreaName != null">
+        #{sourceNetworkAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationNetworkAreaId != null">
+        #{destinationNetworkAreaId,jdbcType=BIGINT},
+      </if>
+      <if test="destinationNetworkAreaName != null">
+        #{destinationNetworkAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceBusinessGroupId != null">
+        #{sourceBusinessGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="sourceBusinessGroupName != null">
+        #{sourceBusinessGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationBusinessGroupId != null">
+        #{destinationBusinessGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="destinationBusinessGroupName != null">
+        #{destinationBusinessGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcePort != null">
+        #{sourcePort,jdbcType=INTEGER},
+      </if>
+      <if test="destinationPort != null">
+        #{destinationPort,jdbcType=INTEGER},
+      </if>
+      <if test="l4Proto != null">
+        #{l4Proto,jdbcType=VARCHAR},
+      </if>
+      <if test="l7Proto != null">
+        #{l7Proto,jdbcType=VARCHAR},
+      </if>
+      <if test="deleting != null">
+        #{deleting,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.business.model.BusinessVisit">
+    update business_visit
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null">
+        `rank` = #{rank,jdbcType=TINYINT},
+      </if>
+      <if test="sourceNetworkAreaId != null">
+        source_network_area_id = #{sourceNetworkAreaId,jdbcType=BIGINT},
+      </if>
+      <if test="sourceNetworkAreaName != null">
+        source_network_area_name = #{sourceNetworkAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationNetworkAreaId != null">
+        destination_network_area_id = #{destinationNetworkAreaId,jdbcType=BIGINT},
+      </if>
+      <if test="destinationNetworkAreaName != null">
+        destination_network_area_name = #{destinationNetworkAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceBusinessGroupId != null">
+        source_business_group_id = #{sourceBusinessGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="sourceBusinessGroupName != null">
+        source_business_group_name = #{sourceBusinessGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationBusinessGroupId != null">
+        destination_business_group_id = #{destinationBusinessGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="destinationBusinessGroupName != null">
+        destination_business_group_name = #{destinationBusinessGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcePort != null">
+        source_port = #{sourcePort,jdbcType=INTEGER},
+      </if>
+      <if test="destinationPort != null">
+        destination_port = #{destinationPort,jdbcType=INTEGER},
+      </if>
+      <if test="l4Proto != null">
+        l4_proto = #{l4Proto,jdbcType=VARCHAR},
+      </if>
+      <if test="l7Proto != null">
+        l7_proto = #{l7Proto,jdbcType=VARCHAR},
+      </if>
+      <if test="deleting != null">
+        deleting = #{deleting,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.business.model.BusinessVisit">
+    update business_visit
+    set name = #{name,jdbcType=VARCHAR},
+      `rank` = #{rank,jdbcType=TINYINT},
+      source_network_area_id = #{sourceNetworkAreaId,jdbcType=BIGINT},
+      source_network_area_name = #{sourceNetworkAreaName,jdbcType=VARCHAR},
+      destination_network_area_id = #{destinationNetworkAreaId,jdbcType=BIGINT},
+      destination_network_area_name = #{destinationNetworkAreaName,jdbcType=VARCHAR},
+      source_business_group_id = #{sourceBusinessGroupId,jdbcType=BIGINT},
+      source_business_group_name = #{sourceBusinessGroupName,jdbcType=VARCHAR},
+      destination_business_group_id = #{destinationBusinessGroupId,jdbcType=BIGINT},
+      destination_business_group_name = #{destinationBusinessGroupName,jdbcType=VARCHAR},
+      source_port = #{sourcePort,jdbcType=INTEGER},
+      destination_port = #{destinationPort,jdbcType=INTEGER},
+      l4_proto = #{l4Proto,jdbcType=VARCHAR},
+      l7_proto = #{l7Proto,jdbcType=VARCHAR},
+      deleting = #{deleting,jdbcType=TINYINT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from business_visit
+  	<trim prefix="where">
+  		1 = 1
+  		<if test="search != null and '' neq search">
+  			and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="rank != null">
+  			and `rank` <![CDATA[ <= ]]> #{rank,jdbcType=TINYINT} 
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from business_visit
+  	<trim prefix="where">
+  		1 = 1
+  		<if test="search != null and '' neq search">
+  			and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="rank != null">
+  			and `rank` <![CDATA[ <= ]]> #{rank,jdbcType=TINYINT} 
+  		</if>
+  	</trim>
+  	order by gmt_create desc, id desc
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from business_visit where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="selectName" resultType="java.lang.String">
+ 	select name from ${tableName} 
+ 	where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectNameByAppId" resultType="java.lang.String">
+ 	SELECT name FROM business_visit WHERE id = #{id,jdbcType=BIGINT}
+	UNION ALL
+	SELECT name FROM trans_busi_file WHERE id = #{id,jdbcType=BIGINT}
+	UNION ALL
+	SELECT name FROM trans_busi_db WHERE id = #{id,jdbcType=BIGINT}
+	UNION ALL
+	SELECT name FROM trans_busi_data WHERE id = #{id,jdbcType=BIGINT}
+  </select>
+</mapper>

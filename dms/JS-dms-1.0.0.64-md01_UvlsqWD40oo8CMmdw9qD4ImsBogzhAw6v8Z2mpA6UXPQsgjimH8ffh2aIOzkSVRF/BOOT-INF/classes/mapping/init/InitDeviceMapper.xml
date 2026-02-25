@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.init.mapper.InitDeviceMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.init.model.InitDevice">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="sn" jdbcType="VARCHAR" property="sn" />
+    <result column="device_type" jdbcType="TINYINT" property="deviceType" />
+    <result column="device_sub_type" jdbcType="TINYINT" property="deviceSubType" />
+    <result column="channel_type" jdbcType="TINYINT" property="channelType" />
+    <result column="channel_name" jdbcType="VARCHAR" property="channelName" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="device_node_name" jdbcType="VARCHAR" property="deviceNodeName" />
+    <result column="slot_id" jdbcType="VARCHAR" property="slotId" />
+    <result column="slot_ip" jdbcType="VARCHAR" property="slotIp" />
+    <result column="gmt_clock" jdbcType="TIMESTAMP" property="gmtClock" />
+    <result column="gmt_clock_record" jdbcType="TIMESTAMP" property="gmtClockRecord" />
+    <result column="memory" jdbcType="VARCHAR" property="memory" />
+    <result column="hard_disk" jdbcType="VARCHAR" property="hardDisk" />
+    <result column="iface_num" jdbcType="TINYINT" property="ifaceNum" />
+    <result column="cpu_num" jdbcType="TINYINT" property="cpuNum" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="product_model" jdbcType="VARCHAR" property="productModel" />
+    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
+    <result column="product_version" jdbcType="VARCHAR" property="productVersion" />
+    <result column="working_mode" jdbcType="VARCHAR" property="workingMode" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sn, device_type, device_sub_type, channel_type, channel_name, location, device_node_name, slot_id, slot_ip, gmt_clock, gmt_clock_record, memory, hard_disk, 
+    iface_num, cpu_num, product_name, product_model, product_code, product_version, working_mode, version, 
+    gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from init_device
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from init_device
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.init.model.InitDevice">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into init_device (sn, device_type, device_sub_type, channel_type, channel_name, location, device_node_name, slot_id, slot_ip, gmt_clock, gmt_clock_record, 
+      memory, hard_disk, iface_num, cpu_num, product_name, product_model, product_code, product_version, 
+      working_mode, version, gmt_create, gmt_modified)
+    values (#{sn,jdbcType=VARCHAR}, #{deviceType,jdbcType=TINYINT}, #{deviceSubType,jdbcType=TINYINT}, #{channelType,jdbcType=TINYINT}, #{channelName,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{deviceNodeName,jdbcType=VARCHAR}, #{slotId,jdbcType=VARCHAR}, #{slotIp,jdbcType=VARCHAR}, #{gmtClock,jdbcType=TIMESTAMP}, #{gmtClockRecord,jdbcType=TIMESTAMP}, 
+      #{memory,jdbcType=VARCHAR}, #{hardDisk,jdbcType=VARCHAR}, #{ifaceNum,jdbcType=TINYINT}, 
+      #{cpuNum,jdbcType=TINYINT}, #{productName,jdbcType=VARCHAR}, #{productModel,jdbcType=VARCHAR}, 
+      #{productCode,jdbcType=VARCHAR}, #{productVersion,jdbcType=VARCHAR}, #{workingMode,jdbcType=VARCHAR}, 
+      #{version,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.init.model.InitDevice">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into init_device
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sn != null">
+        sn,
+      </if>
+      <if test="deviceType != null">
+        device_type,
+      </if>
+      <if test="deviceSubType != null">
+        device_sub_type,
+      </if>
+      <if test="channelType != null">
+        channel_type,
+      </if>
+      <if test="channelName != null">
+        channel_name,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="deviceNodeName != null">
+        device_node_name,
+      </if>
+      <if test="slotId != null">
+        slot_id,
+      </if>
+      <if test="slotIp != null">
+        slot_ip,
+      </if>
+      <if test="gmtClock != null">
+        gmt_clock,
+      </if>
+      <if test="gmtClockRecord != null">
+        gmt_clock_record,
+      </if>
+      <if test="memory != null">
+        memory,
+      </if>
+      <if test="hardDisk != null">
+        hard_disk,
+      </if>
+      <if test="ifaceNum != null">
+        iface_num,
+      </if>
+      <if test="cpuNum != null">
+        cpu_num,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="productModel != null">
+        product_model,
+      </if>
+      <if test="productCode != null">
+        product_code,
+      </if>
+      <if test="productVersion != null">
+        product_version,
+      </if>
+      <if test="workingMode != null">
+        working_mode,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sn != null">
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null">
+        #{deviceType,jdbcType=TINYINT},
+      </if>
+      <if test="deviceSubType != null">
+        #{deviceSubType,jdbcType=TINYINT},
+      </if>
+      <if test="channelType != null">
+        #{channelType,jdbcType=TINYINT},
+      </if>
+      <if test="channelName != null">
+        #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceNodeName != null">
+        #{deviceNodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="slotId != null">
+        #{slotId,jdbcType=VARCHAR},
+      </if>
+      <if test="slotIp != null">
+        #{slotIp,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtClock != null">
+        #{gmtClock,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtClockRecord != null">
+        #{gmtClockRecord,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memory != null">
+        #{memory,jdbcType=VARCHAR},
+      </if>
+      <if test="hardDisk != null">
+        #{hardDisk,jdbcType=VARCHAR},
+      </if>
+      <if test="ifaceNum != null">
+        #{ifaceNum,jdbcType=TINYINT},
+      </if>
+      <if test="cpuNum != null">
+        #{cpuNum,jdbcType=TINYINT},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productModel != null">
+        #{productModel,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null">
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productVersion != null">
+        #{productVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="workingMode != null">
+        #{workingMode,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.init.model.InitDevice">
+    update init_device
+    <set>
+      <if test="sn != null">
+        sn = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null">
+        device_type = #{deviceType,jdbcType=TINYINT},
+      </if>
+      <if test="deviceSubType != null">
+        device_sub_type = #{deviceSubType,jdbcType=TINYINT},
+      </if>
+      <if test="channelType != null">
+        channel_type = #{channelType,jdbcType=TINYINT},
+      </if>
+      <if test="channelName != null">
+        channel_name = #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceNodeName != null">
+        device_node_name = #{deviceNodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="slotId != null">
+        slot_id = #{slotId,jdbcType=VARCHAR},
+      </if>
+      <if test="slotIp != null">
+        slot_ip = #{slotIp,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtClock != null">
+        gmt_clock = #{gmtClock,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtClockRecord != null">
+        gmt_clock_record = #{gmtClockRecord,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memory != null">
+        memory = #{memory,jdbcType=VARCHAR},
+      </if>
+      <if test="hardDisk != null">
+        hard_disk = #{hardDisk,jdbcType=VARCHAR},
+      </if>
+      <if test="ifaceNum != null">
+        iface_num = #{ifaceNum,jdbcType=TINYINT},
+      </if>
+      <if test="cpuNum != null">
+        cpu_num = #{cpuNum,jdbcType=TINYINT},
+      </if> 
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productModel != null">
+        product_model = #{productModel,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null">
+        product_code = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productVersion != null">
+        product_version = #{productVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="workingMode != null">
+        working_mode = #{workingMode,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.init.model.InitDevice">
+    update init_device
+    set sn = #{sn,jdbcType=VARCHAR},
+      device_type = #{deviceType,jdbcType=TINYINT},
+      device_sub_type = #{deviceSubType,jdbcType=TINYINT},
+      channel_type = #{channelType,jdbcType=TINYINT},
+      channel_name = #{channelName,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      device_node_name = #{deviceNodeName,jdbcType=VARCHAR},
+      slot_id = #{slotId,jdbcType=VARCHAR},
+      slot_ip = #{slotIp,jdbcType=VARCHAR},
+      gmt_clock = #{gmtClock,jdbcType=TIMESTAMP},
+      gmt_clock_record = #{gmtClockRecord,jdbcType=TIMESTAMP},
+      memory = #{memory,jdbcType=VARCHAR},
+      hard_disk = #{hardDisk,jdbcType=VARCHAR},
+      iface_num = #{ifaceNum,jdbcType=TINYINT},
+      cpu_num = #{cpuNum,jdbcType=TINYINT},
+      product_name = #{productName,jdbcType=VARCHAR},
+      product_model = #{productModel,jdbcType=VARCHAR},
+      product_code = #{productCode,jdbcType=VARCHAR},
+      product_version = #{productVersion,jdbcType=VARCHAR},
+      working_mode = #{workingMode,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+    select count(0) from init_device
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from init_device
+    <trim prefix="where">
+    	<if test="deviceType != null">
+    		device_type = #{deviceType,jdbcType=TINYINT}
+    	</if>
+    </trim>
+    order by gmt_create desc, id desc
+  </select>
+  <select id="selectBySn" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from init_device
+    where sn = #{sn,jdbcType=VARCHAR}
+  </select>
+  <select id="selectBySnAndChannelAndNode" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from init_device
+    where sn = #{sn,jdbcType=VARCHAR} 
+    	<if test="channelName != null">
+    		and channel_name = #{channelName,jdbcType=VARCHAR} 
+    	</if>
+    	and device_node_name = #{deviceNodeName,jdbcType=VARCHAR}
+  </select>
+</mapper>

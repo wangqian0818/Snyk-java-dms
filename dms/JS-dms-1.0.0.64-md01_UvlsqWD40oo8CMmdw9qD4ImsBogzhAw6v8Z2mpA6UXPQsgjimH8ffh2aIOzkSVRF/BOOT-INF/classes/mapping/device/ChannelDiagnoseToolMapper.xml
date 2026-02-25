@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.device.mapper.ChannelDiagnoseToolMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.device.model.ChannelDiagnoseTool">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="device_id" jdbcType="BIGINT" property="deviceId" />
+    <result column="channel_info_id" jdbcType="BIGINT" property="channelInfoId" />
+    <result column="command" jdbcType="VARCHAR" property="command" />
+    <result column="params" jdbcType="VARCHAR" property="params" />
+    <result column="work_area" jdbcType="VARCHAR" property="workArea" />
+    <result column="iface_id" jdbcType="BIGINT" property="ifaceId" />
+    <result column="exec_state" jdbcType="TINYINT" property="execState" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, device_id, channel_info_id, command, params, work_area, 
+    iface_id, exec_state, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from channel_diagnose_tool
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from channel_diagnose_tool
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.device.model.ChannelDiagnoseTool">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_diagnose_tool (device_id, channel_info_id, 
+      command, params, work_area, iface_id, exec_state, gmt_create, gmt_modified)
+    values (#{deviceId,jdbcType=BIGINT}, #{channelInfoId,jdbcType=BIGINT}, 
+      #{command,jdbcType=VARCHAR}, #{params,jdbcType=VARCHAR}, 
+      #{workArea,jdbcType=VARCHAR}, #{ifaceId,jdbcType=BIGINT}, #{execState,jdbcType=TINYINT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.device.model.ChannelDiagnoseTool">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_diagnose_tool
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="channelInfoId != null">
+        channel_info_id,
+      </if>
+      <if test="command != null">
+        command,
+      </if>
+      <if test="params != null">
+        params,
+      </if>
+      <if test="workArea != null">
+        work_area,
+      </if>
+      <if test="ifaceId != null">
+        iface_id,
+      </if>
+      <if test="execState != null">
+        exec_state,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="channelInfoId != null">
+        #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="command != null">
+        #{command,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null">
+        #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="workArea != null">
+        #{workArea,jdbcType=VARCHAR},
+      </if>
+      <if test="ifaceId != null">
+        #{ifaceId,jdbcType=BIGINT},
+      </if>
+      <if test="execState != null">
+        #{execState,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.device.model.ChannelDiagnoseTool">
+    update channel_diagnose_tool
+    <set>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="channelInfoId != null">
+        channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="command != null">
+        command = #{command,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null">
+        params = #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="workArea != null">
+        work_area = #{workArea,jdbcType=VARCHAR},
+      </if>
+      <if test="ifaceId != null">
+        iface_id = #{ifaceId,jdbcType=BIGINT},
+      </if>
+      <if test="execState != null">
+        exec_state = #{execState,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.device.model.ChannelDiagnoseTool">
+    update channel_diagnose_tool
+    set device_id = #{deviceId,jdbcType=BIGINT},
+      channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      command = #{command,jdbcType=VARCHAR},
+      params = #{params,jdbcType=VARCHAR},
+      work_area = #{workArea,jdbcType=VARCHAR},
+      iface_id = #{ifaceId,jdbcType=BIGINT},
+      exec_state = #{execState,jdbcType=TINYINT},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from channel_diagnose_tool
+  	<trim prefix="where" prefixOverrides="and|or">
+  		<if test="search != null and '' neq search">
+  			and command like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="command != null and '' neq command">
+  			and command = #{command,jdbcType=VARCHAR}
+  		</if>
+  		<if test="params != null and '' neq params">
+  			and params like CONCAT('%', #{params,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="deviceId != null">
+  			and device_id = #{deviceId,jdbcType=BIGINT} 
+  		</if>
+  		<if test="channelInfoId != null">
+  			and channel_info_id = #{channelInfoId,jdbcType=BIGINT} 
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from channel_diagnose_tool
+  	<trim prefix="where" prefixOverrides="and|or">
+  		<if test="search != null and '' neq search">
+  			and command like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="command != null and '' neq command">
+  			and command = #{command,jdbcType=VARCHAR}
+  		</if>
+  		<if test="params != null and '' neq params">
+  			and params like CONCAT('%', #{params,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="deviceId != null">
+  			and device_id = #{deviceId,jdbcType=BIGINT} 
+  		</if>
+  		<if test="channelInfoId != null">
+  			and channel_info_id = #{channelInfoId,jdbcType=BIGINT} 
+  		</if>
+  	</trim>
+  	order by gmt_create desc, id desc
+  </select>
+  <select id="selectGmtCreateByLimit" parameterType="java.lang.String">
+  	SELECT DATE_FORMAT(gmt_create, '%Y-%m-%d %T') AS gmt_create FROM channel_diagnose_tool 
+  	ORDER BY gmt_create DESC LIMIT ${oldLimit},1
+  </select>
+  <delete id="deleteOldByLimit" parameterType="java.lang.String">
+    delete from channel_diagnose_tool 
+    where gmt_create <![CDATA[ <= ]]> #{gmtCreate,jdbcType=VARCHAR} 
+  </delete>
+</mapper>

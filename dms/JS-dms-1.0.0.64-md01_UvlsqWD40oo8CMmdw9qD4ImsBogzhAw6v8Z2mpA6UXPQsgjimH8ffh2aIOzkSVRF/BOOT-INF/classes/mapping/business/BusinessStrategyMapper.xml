@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.business.mapper.BusinessStrategyMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.business.model.BusinessStrategy">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="business_device_basic_id" jdbcType="BIGINT" property="businessDeviceBasicId" />
+    <result column="app_type" jdbcType="TINYINT" property="appType" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="channel_info_id" jdbcType="BIGINT" property="channelInfoId" />
+    <result column="strategy_id" jdbcType="BIGINT" property="strategyId" />
+    <result column="iface_id" jdbcType="BIGINT" property="ifaceId" />
+    <result column="work_state" jdbcType="TINYINT" property="workState" />
+    <result column="deleting" jdbcType="BIT" property="deleting" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, business_device_basic_id, app_type, type, channel_info_id, strategy_id, 
+    iface_id, work_state, deleting, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from business_strategy
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from business_strategy
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.business.model.BusinessStrategy">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into business_strategy (business_device_basic_id, app_type, type, strategy_id, 
+      iface_id, work_state, channel_info_id, deleting, gmt_create, gmt_modified
+      )
+    values (#{businessDeviceBasicId,jdbcType=BIGINT}, #{appType,jdbcType=TINYINT}, #{type,jdbcType=TINYINT}, 
+      #{strategyId,jdbcType=BIGINT}, #{ifaceId,jdbcType=BIGINT}, #{workState,jdbcType=TINYINT}, #{channelInfoId,jdbcType=BIGINT}, 
+      #{deleting,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.business.model.BusinessStrategy">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into business_strategy
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="businessDeviceBasicId != null">
+        business_device_basic_id,
+      </if>
+      <if test="appType != null">
+        app_type,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="strategyId != null">
+        strategy_id,
+      </if>
+      <if test="ifaceId != null">
+        iface_id,
+      </if>
+      <if test="workState != null">
+        work_state,
+      </if>
+      <if test="deleting != null">
+        deleting,
+      </if>
+      <if test="channelInfoId != null">
+        channel_info_id,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="businessDeviceBasicId != null">
+        #{businessDeviceBasicId,jdbcType=BIGINT},
+      </if>
+      <if test="appType != null">
+        #{appType,jdbcType=TINYINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="strategyId != null">
+        #{strategyId,jdbcType=BIGINT},
+      </if>
+      <if test="ifaceId != null">
+        #{ifaceId,jdbcType=BIGINT},
+      </if>
+      <if test="workState != null">
+        #{workState,jdbcType=TINYINT},
+      </if>
+      <if test="deleting != null">
+        #{deleting,jdbcType=TINYINT},
+      </if>
+      <if test="channelInfoId != null">
+        #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.business.model.BusinessStrategy">
+    update business_strategy
+    <set>
+      <if test="businessDeviceBasicId != null">
+        business_device_basic_id = #{businessDeviceBasicId,jdbcType=BIGINT},
+      </if>
+      <if test="appType != null">
+        app_type = #{appType,jdbcType=TINYINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="strategyId != null">
+        strategy_id = #{strategyId,jdbcType=BIGINT},
+      </if>
+      <if test="ifaceId != null">
+        iface_id = #{ifaceId,jdbcType=BIGINT},
+      </if>
+      <if test="workState != null">
+        work_state = #{workState,jdbcType=TINYINT},
+      </if>
+      <if test="deleting != null">
+        deleting = #{deleting,jdbcType=TINYINT},
+      </if>
+      <if test="channelInfoId != null">
+        channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.business.model.BusinessStrategy">
+    update business_strategy
+    set business_device_basic_id = #{businessDeviceBasicId,jdbcType=BIGINT},
+      app_type = #{appType,jdbcType=TINYINT},
+      type = #{type,jdbcType=TINYINT},
+      strategy_id = #{strategyId,jdbcType=BIGINT},
+      iface_id = #{ifaceId,jdbcType=BIGINT},
+      work_state = #{workState,jdbcType=TINYINT},
+      deleting = #{deleting,jdbcType=TINYINT},
+      channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <delete id="deleteByBusinessDeviceBasicId" parameterType="java.lang.Long">
+    delete from business_strategy
+    where business_device_basic_id = #{businessDeviceBasicId,jdbcType=BIGINT}
+  </delete>
+  <update id="updateBusinessStrategy" parameterType="com.zx.dms.database.business.model.BusinessStrategy">
+    update business_strategy
+    <set>
+      <if test="appType != null">
+        app_type = #{appType,jdbcType=TINYINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="ifaceId != null">
+        iface_id = #{ifaceId,jdbcType=BIGINT},
+      </if>
+      <if test="workState != null">
+        work_state = #{workState,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <where>
+        business_device_basic_id = #{businessDeviceBasicId,jdbcType=BIGINT} and 
+        strategy_id = #{strategyId,jdbcType=BIGINT}
+    </where>
+  </update>
+  <select id="selectByBusinessDeviceBasicIdAndTypeAndStrategyId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from business_strategy
+    where business_device_basic_id = #{businessDeviceBasicId,jdbcType=BIGINT} 
+    and type = #{type,jdbcType=TINYINT} and strategy_id = #{strategyId,jdbcType=BIGINT}
+    <if test="appType != null">
+        and app_type = #{appType,jdbcType=TINYINT} 
+    </if>
+  </select>
+  <select id="selectAllByBusinessBasicId" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+    from business_strategy
+    where business_device_basic_id = #{businessDeviceBasicId,jdbcType=BIGINT}
+    <if test="workState != null">
+    	and work_state = #{workState,jdbcType=TINYINT}
+    </if>
+    <if test="deleting != null">
+    	and deleting = #{deleting,jdbcType=TINYINT}
+    </if>
+    <if test="appType != null">
+        and app_type = #{appType,jdbcType=TINYINT} 
+    </if>
+  </select>
+  <select id="getLengthByBusinessBasicId" resultType="java.lang.Long">
+  	select count(0)
+    from business_strategy
+    where business_device_basic_id = #{businessDeviceBasicId,jdbcType=BIGINT}
+    <if test="workState != null">
+    	and work_state = #{workState,jdbcType=TINYINT}
+    </if>
+    <if test="deleting != null">
+    	and deleting = #{deleting,jdbcType=TINYINT}
+    </if>
+    <if test="appType != null">
+        and app_type = #{appType,jdbcType=TINYINT} 
+    </if>
+  </select>
+  <delete id="deleteByBusinessDeviceBasicIdAndWorkState">
+    delete from business_strategy
+    where business_device_basic_id = #{businessDeviceBasicId,jdbcType=BIGINT} 
+    and work_state = #{workState,jdbcType=TINYINT}
+    <if test="appType != null">
+        and app_type = #{appType,jdbcType=TINYINT} 
+    </if>
+  </delete>
+  <select id="selectAllByStrategyId" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+    from business_strategy
+    where strategy_id = #{strategyId,jdbcType=BIGINT}
+    <if test="type != null">
+      	and type = #{type,jdbcType=TINYINT}
+    </if>
+    <if test="deleting != null">
+    	and deleting = #{deleting,jdbcType=TINYINT}
+    </if>
+    <if test="appType != null">
+        and app_type = #{appType,jdbcType=TINYINT} 
+    </if>
+  </select>
+  <select id="selectAllByIfaceId" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+    from business_strategy
+    where iface_id = #{ifaceId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+    from business_strategy 
+  </select>
+  <select id="selectByAppidAndType" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+    from business_strategy
+    where business_device_basic_id = #{businessDeviceBasicId,jdbcType=BIGINT}
+    <if test="type != null">
+      	and type = #{type,jdbcType=TINYINT}
+    </if>
+  </select>
+  <select id="selectByChannelIdAndTypeAndStrategyId" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+    from business_strategy
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT} 
+    <if test="type != null">
+    	and type = #{type,jdbcType=TINYINT} 
+    </if>
+    <if test="strategyId != null">
+    	and strategy_id = #{strategyId,jdbcType=BIGINT} 
+    </if>
+    limit 1 
+  </select>
+  <delete id="deleteByChannelIdAndType">
+    delete from business_strategy
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT} 
+    <if test="type != null">
+        and type = #{type,jdbcType=TINYINT} 
+    </if>
+  </delete>
+  <select id="selectByChannelInfoId" resultMap="BaseResultMap">
+	select <include refid="Base_Column_List" />
+    from business_strategy
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT} 
+  </select>
+</mapper>

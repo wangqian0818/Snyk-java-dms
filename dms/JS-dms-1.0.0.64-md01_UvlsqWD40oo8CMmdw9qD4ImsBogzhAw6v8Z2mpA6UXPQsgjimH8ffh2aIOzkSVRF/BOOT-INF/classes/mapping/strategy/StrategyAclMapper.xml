@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.strategy.mapper.StrategyAclMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.strategy.model.StrategyAcl">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="source_ip" jdbcType="VARCHAR" property="sourceIp" />
+    <result column="source_port" jdbcType="VARCHAR" property="sourcePort" />
+    <result column="destination_ip" jdbcType="VARCHAR" property="destinationIp" />
+    <result column="destination_port" jdbcType="VARCHAR" property="destinationPort" />
+    <result column="proto_type" jdbcType="VARCHAR" property="protoType" />
+    <result column="exec_action" jdbcType="TINYINT" property="execAction" />
+    <result column="priority" jdbcType="INTEGER" property="priority" />
+    <result column="business_time_id" jdbcType="BIGINT" property="businessTimeId" />
+    <result column="business_time_name" jdbcType="VARCHAR" property="businessTimeName" />
+    <result column="security_rank" jdbcType="TINYINT" property="securityRank" />
+    <result column="work_state" jdbcType="TINYINT" property="workState" />
+    <result column="deleting" jdbcType="TINYINT" property="deleting" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, source_ip, source_port, destination_ip, destination_port, proto_type, exec_action, 
+    priority, business_time_id, business_time_name, security_rank, work_state, deleting, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from strategy_acl
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from strategy_acl
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.strategy.model.StrategyAcl">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into strategy_acl (name, source_ip, source_port, 
+      destination_ip, destination_port, proto_type, 
+      exec_action, priority, business_time_id, business_time_name, security_rank, work_state, 
+      gmt_create, gmt_modified)
+    values (#{name,jdbcType=VARCHAR}, #{sourceIp,jdbcType=VARCHAR}, #{sourcePort,jdbcType=VARCHAR}, 
+      #{destinationIp,jdbcType=VARCHAR}, #{destinationPort,jdbcType=VARCHAR}, #{protoType,jdbcType=VARCHAR}, 
+      #{execAction,jdbcType=TINYINT}, #{priority,jdbcType=INTEGER}, 
+      #{businessTimeId,jdbcType=BIGINT}, #{businessTimeName,jdbcType=VARCHAR}, #{securityRank,jdbcType=TINYINT}, 
+      #{workState,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertAll">
+    insert into strategy_acl (name, source_ip, source_port, 
+      destination_ip, destination_port, proto_type, 
+      exec_action, priority, business_time_id, business_time_name, security_rank, work_state, 
+      gmt_create, gmt_modified)
+    values 
+    <foreach collection="records" item="record" separator=",">
+      (#{record.name,jdbcType=VARCHAR}, #{record.sourceIp,jdbcType=VARCHAR}, #{record.sourcePort,jdbcType=VARCHAR}, 
+      #{record.destinationIp,jdbcType=VARCHAR}, #{record.destinationPort,jdbcType=VARCHAR}, #{record.protoType,jdbcType=VARCHAR}, 
+      #{record.execAction,jdbcType=TINYINT}, #{record.priority,jdbcType=INTEGER}, 
+      #{record.businessTimeId,jdbcType=BIGINT}, #{record.businessTimeName,jdbcType=VARCHAR}, #{record.securityRank,jdbcType=TINYINT}, 
+      #{record.workState,jdbcType=TINYINT}, #{record.gmtCreate,jdbcType=TIMESTAMP}, #{record.gmtModified,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.strategy.model.StrategyAcl">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into strategy_acl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="sourceIp != null">
+        source_ip,
+      </if>
+      <if test="sourcePort != null">
+        source_port,
+      </if>
+      <if test="destinationIp != null">
+        destination_ip,
+      </if>
+      <if test="destinationPort != null">
+        destination_port,
+      </if>
+      <if test="protoType != null">
+        proto_type,
+      </if>
+      <if test="execAction != null">
+        exec_action,
+      </if>
+      <if test="priority != null">
+        priority,
+      </if>
+      <if test="businessTimeId != null">
+        business_time_id,
+      </if>
+      <if test="businessTimeName != null">
+        business_time_name,
+      </if>
+      <if test="securityRank != null">
+        security_rank,
+      </if>
+      <if test="workState != null">
+        work_state,
+      </if>
+      <if test="deleting != null">
+        deleting,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceIp != null">
+        #{sourceIp,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcePort != null">
+        #{sourcePort,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationIp != null">
+        #{destinationIp,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationPort != null">
+        #{destinationPort,jdbcType=VARCHAR},
+      </if>
+      <if test="protoType != null">
+        #{protoType,jdbcType=VARCHAR},
+      </if>
+      <if test="execAction != null">
+        #{execAction,jdbcType=TINYINT},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="businessTimeId != null">
+        #{businessTimeId,jdbcType=BIGINT},
+      </if>
+      <if test="businessTimeName != null">
+        #{businessTimeName,jdbcType=VARCHAR},
+      </if>
+      <if test="securityRank != null">
+        #{securityRank,jdbcType=TINYINT},
+      </if>
+      <if test="workState != null">
+        #{workState,jdbcType=TINYINT},
+      </if>
+      <if test="deleting != null">
+        #{deleting,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.strategy.model.StrategyAcl">
+    update strategy_acl
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceIp != null">
+        source_ip = #{sourceIp,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcePort != null">
+        source_port = #{sourcePort,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationIp != null">
+        destination_ip = #{destinationIp,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationPort != null">
+        destination_port = #{destinationPort,jdbcType=VARCHAR},
+      </if>
+      <if test="protoType != null">
+        proto_type = #{protoType,jdbcType=VARCHAR},
+      </if>
+      <if test="execAction != null">
+        exec_action = #{execAction,jdbcType=TINYINT},
+      </if>
+      <if test="priority != null">
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="businessTimeId != null">
+        business_time_id = #{businessTimeId,jdbcType=BIGINT},
+      </if>
+      <if test="businessTimeName != null">
+        business_time_name = #{businessTimeName,jdbcType=VARCHAR},
+      </if>
+      <if test="securityRank != null">
+        security_rank = #{securityRank,jdbcType=TINYINT},
+      </if>
+      <if test="workState != null">
+        work_state = #{workState,jdbcType=TINYINT},
+      </if>
+      <if test="deleting != null">
+        deleting = #{deleting,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.strategy.model.StrategyAcl">
+    update strategy_acl
+    set name = #{name,jdbcType=VARCHAR},
+      source_ip = #{sourceIp,jdbcType=VARCHAR},
+      source_port = #{sourcePort,jdbcType=VARCHAR},
+      destination_ip = #{destinationIp,jdbcType=VARCHAR},
+      destination_port = #{destinationPort,jdbcType=VARCHAR},
+      proto_type = #{protoType,jdbcType=VARCHAR},
+      exec_action = #{execAction,jdbcType=TINYINT},
+      priority = #{priority,jdbcType=INTEGER},
+      business_time_id = #{businessTimeId,jdbcType=BIGINT},
+      business_time_name = #{businessTimeName,jdbcType=VARCHAR},
+      security_rank = #{securityRank,jdbcType=TINYINT},
+      work_state = #{workState,jdbcType=TINYINT},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from strategy_acl
+  	<trim prefix="where" prefixOverrides="and|or">
+  		<if test="search != null and '' neq search">
+  			and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="name != null and '' neq name">
+  			and name like CONCAT('%', #{name,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="sourceIp != null and '' neq sourceIp">
+  			and source_ip like CONCAT('%', #{sourceIp,jdbcType=VARCHAR}, '%') 
+  		</if>
+  		<if test="sourcePort != null and '' neq sourcePort">
+  			and source_port like CONCAT('%', #{sourcePort,jdbcType=VARCHAR}, '%') 
+  		</if>
+  		<if test="destinationIp != null and '' neq destinationIp">
+  			and destination_ip like CONCAT('%', #{destinationIp,jdbcType=VARCHAR}, '%') 
+  		</if>
+  		<if test="destinationPort != null and '' neq destinationPort">
+  			and destination_port like CONCAT('%', #{destinationPort,jdbcType=VARCHAR}, '%') 
+  		</if>
+  		<if test="protoType != null and '' neq protoType">
+  			and proto_type = #{protoType,jdbcType=VARCHAR} 
+  		</if>
+  		<if test="execAction != null">
+  			and exec_action = #{execAction,jdbcType=TINYINT} 
+  		</if>
+  		<if test="workState != null">
+  			and work_state = #{workState,jdbcType=TINYINT} 
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from strategy_acl
+  	<trim prefix="where" prefixOverrides="and|or">
+  		<if test="search != null and '' neq search">
+  			and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="name != null and '' neq name">
+  			and name like CONCAT('%', #{name,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="sourceIp != null and '' neq sourceIp">
+  			and source_ip like CONCAT('%', #{sourceIp,jdbcType=VARCHAR}, '%') 
+  		</if>
+  		<if test="sourcePort != null and '' neq sourcePort">
+  			and source_port like CONCAT('%', #{sourcePort,jdbcType=VARCHAR}, '%') 
+  		</if>
+  		<if test="destinationIp != null and '' neq destinationIp">
+  			and destination_ip like CONCAT('%', #{destinationIp,jdbcType=VARCHAR}, '%') 
+  		</if>
+  		<if test="destinationPort != null and '' neq destinationPort">
+  			and destination_port like CONCAT('%', #{destinationPort,jdbcType=VARCHAR}, '%') 
+  		</if>
+  		<if test="protoType != null and '' neq protoType">
+  			and proto_type = #{protoType,jdbcType=VARCHAR} 
+  		</if>
+  		<if test="execAction != null">
+  			and exec_action = #{execAction,jdbcType=TINYINT} 
+  		</if>
+  		<if test="workState != null">
+  			and work_state = #{workState,jdbcType=TINYINT} 
+  		</if>
+  	</trim>
+  	order by gmt_create desc, id desc
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from strategy_acl where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="selectUnique" parameterType="com.zx.dms.database.strategy.model.StrategyAcl" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from strategy_acl 
+  	<trim prefix="where" prefixOverrides="and|or">
+  		<if test="sourceIp != null and '' neq sourceIp">
+  			and source_ip = #{sourceIp,jdbcType=VARCHAR} 
+  		</if>
+  		<if test="sourcePort != null and '' neq sourcePort">
+  			and source_port = #{sourcePort,jdbcType=VARCHAR} 
+  		</if>
+  		<if test="destinationIp != null and '' neq destinationIp">
+  			and destination_ip = #{destinationIp,jdbcType=VARCHAR} 
+  		</if>
+  		<if test="destinationPort != null and '' neq destinationPort">
+  			and destination_port = #{destinationPort,jdbcType=VARCHAR} 
+  		</if>
+  		<if test="protoType != null and '' neq protoType">
+  			and proto_type = #{protoType,jdbcType=VARCHAR} 
+  		</if>
+  	</trim>
+  	limit 1 
+  </select>
+  <select id="selectByTimeId" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from strategy_acl
+  	where business_time_id = #{businessTimeId,jdbcType=BIGINT}
+  </select>
+  <select id="selectByChannelInfoId" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from strategy_acl
+  	where id in (select strategy_id from business_strategy where channel_info_id = #{channelInfoId,jdbcType=BIGINT} and type = 7)
+  </select>
+</mapper>

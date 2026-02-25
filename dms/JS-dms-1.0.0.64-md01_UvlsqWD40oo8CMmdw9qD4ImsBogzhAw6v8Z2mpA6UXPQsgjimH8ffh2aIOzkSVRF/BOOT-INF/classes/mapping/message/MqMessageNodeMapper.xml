@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.message.mapper.MqMessageNodeMapper">
+  <insert id="insert">
+  	insert into mq_message_node(app_id,busi_type,from_node,to_node,message_id,message,status,gmt_create)
+  	values(#{appId},#{busiType},#{fromNode},#{toNode},#{messageId},#{message},'已下发',NOW())
+  </insert>
+  <delete id="deleteByAppId">
+  	delete from mq_message_node where app_id = #{appId}
+  </delete>
+  <delete id="deleteByBusiType">
+  	delete from mq_message_node where busi_type = #{busiType}
+  </delete>
+  <delete id="deleteByBusiTypeAndMD5">
+  	delete from mq_message_node where busi_type = #{busiType} and message like CONCAT('%', #{message}, '%')
+  </delete>
+  <update id="updateRespones">
+  	update mq_message_node 
+  	set status = #{status},
+  		response_message = #{responseMessage},
+  	    error_msg = #{errorMsg},
+  	    gmt_modified = NOW()
+  	where id = #{id}
+  </update>
+  <select id="selectByAppId" resultType="com.zx.dms.database.message.model.MqMessageNode">
+  	select * from mq_message_node where app_id = #{appId}
+  </select>
+  <select id="selectByBusiType" resultType="com.zx.dms.database.message.model.MqMessageNode">
+  	select * from mq_message_node where busi_type = #{busiType}
+  </select>
+  <select id="selectByToNodeAndMessageId" resultType="com.zx.dms.database.message.model.MqMessageNode">
+  	select * from mq_message_node where to_node = #{toNode} and message_id = #{messageId}
+  </select>
+  <select id="selectByBusiTypeAndMessage" resultType="com.zx.dms.database.message.model.MqMessageNode">
+  	select * from mq_message_node where busi_type = #{busiType} and message like CONCAT('%', #{message}, '%') 
+  </select>
+  <delete id="deleteByBusiTypeAndMessage">
+  	delete from mq_message_node where busi_type = #{busiType} and message like CONCAT('%', #{message}, '%') 
+  </delete>
+</mapper>
+

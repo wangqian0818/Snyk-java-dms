@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.system.mapper.SysInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.system.model.SysInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="val" jdbcType="VARCHAR" property="val" />
+    <result column="zh_name" jdbcType="VARCHAR" property="zhName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, val, zh_name, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.system.model.SysInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_info (name, val, zh_name, 
+      gmt_create, gmt_modified)
+    values (#{name,jdbcType=VARCHAR}, #{val,jdbcType=VARCHAR}, #{zhName,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.system.model.SysInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="val != null">
+        val,
+      </if>
+      <if test="zhName != null">
+        zh_name,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="val != null">
+        #{val,jdbcType=VARCHAR},
+      </if>
+      <if test="zhName != null">
+        #{zhName,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.system.model.SysInfo">
+    update sys_info
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="val != null">
+        val = #{val,jdbcType=VARCHAR},
+      </if>
+      <if test="zhName != null">
+        zh_name = #{zhName,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.system.model.SysInfo">
+    update sys_info
+    set name = #{name,jdbcType=VARCHAR},
+      val = #{val,jdbcType=VARCHAR},
+      zh_name = #{zhName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByName" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+	  	from sys_info 
+		where name = #{name,jdbcType=VARCHAR}  		
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+	  	from sys_info 
+  </select>
+  <delete id="sysRecover" parameterType="java.lang.Long">
+    delete from alarm_templete;
+    delete from alarm_receiver;
+    delete from alarm_config;
+    delete from alarm_info_opinions;
+    delete from alarm_info;
+	delete from channel_ddos_config;
+	delete from channel_diagnose_tool;
+	delete from channel_ha_device;
+	delete from channel_ha_vrids;
+	delete from channel_ha;
+	delete from channel_ip_mac;
+	delete from channel_router;
+	delete from channel_snmp;
+	delete from channel_time;
+	delete from channel_upgrade_dispatch;
+	delete from channel_upgrade;
+	delete from channel_webssh;
+	delete from business_host;
+	delete from business_group;
+	delete from study_browse;
+	delete from study_visit;
+	delete from business_strategy;
+	delete from business_device_basic;
+	delete from business_visit;
+	delete from business_insulate_channel;
+	delete from trans_busi_data_strategy_content;
+	delete from trans_busi_data_strategy_custom;
+	delete from trans_busi_data;
+	delete from trans_busi_db_table;
+	delete from trans_busi_db;
+	delete from trans_busi_file;
+	delete from channel_dispatched_strategy;
+    delete from identity;
+	delete from identity_dispatch;
+	delete from identity_root_cert;
+	delete from identity_service;
+	delete from redis;
+    delete from strategy_acl;
+    delete from strategy_app_mark;
+    delete from strategy_area_mark;
+    delete from strategy_browse;
+    delete from strategy_content;
+    delete from strategy_custom_app_type_value;
+    delete from strategy_custom_app_type_command;
+    delete from strategy_custom_app_command;
+    delete from strategy_custom_app;
+    delete from strategy_file;
+    delete from strategy_mail;
+    delete from strategy_mark;
+    delete from strategy_qos;
+    delete from strategy_spice;
+    delete from strategy_sql_check;
+    delete from strategy_tag_mark;
+    delete from strategy_list;
+    delete from tb_cmp_flow_analyse_min;
+    delete from trans_data;
+    delete from trans_db;
+    delete from trans_strategy_db;
+    delete from trans_strategy_file;
+    delete from trans_strategy_filter;
+    delete from business_time;
+	delete from jsp_info;
+	delete from entity_access_device;
+    delete from user_entity_access_device;
+	delete from entity_org_structure;
+	delete from network_resource;
+    <!-- -->
+    <if test="id == null">
+   		<!-- delete from user_permission_group; -->
+   		<!-- delete from user; -->
+    </if>
+    
+    <if test="id != null">
+	    delete from user_permission_group where user_id > 6;
+	    delete from user where id > 6;
+	    delete from sys_config WHERE name != 'sys.device.type' AND name != 'sys.single.type';
+    </if>
+    delete from user_login_record;
+  </delete>
+
+  <insert id="insertInit">
+	INSERT INTO sys_config VALUES (1,0,'zx.init.web.tokenTtl','600','TOKEN有效期，(单位：秒)',now(),now());
+	INSERT INTO sys_config VALUES (2,0,'zx.init.web.retryTimes','3','连续登录重试次数',now(),now());
+	INSERT INTO sys_config VALUES (3,0,'zx.init.web.retryInterval','240','登录失败，锁定时长，(单位：秒)',now(),now());
+	INSERT INTO sys_config VALUES (4,0,'zx.init.web.enableCrt','false','启用用户证书',now(),now());
+	INSERT INTO sys_config VALUES (5,0,'zx.init.web.trustIps','','可信主机IP',now(),now());
+	INSERT INTO sys_config VALUES (6,0,'zx.init.system.ip','','集中管控IP',now(),now());
+	INSERT INTO sys_config VALUES (7,0,'password.rules','{"upper":true,"lower":true,"number":true,"special":true,"pwdLength":[10,49]}','密码复杂度',now(),now());
+	INSERT INTO sys_config VALUES (8,0,'password.forceChange','true','强制更换密码开关',now(),now());
+	INSERT INTO sys_config VALUES (9,0,'password.updateCircle','7','密码更换周期，(单位：天)',now(),now());
+	INSERT INTO sys_config VALUES (10,0,'email.host','','邮件服务器地址',now(),now());
+	INSERT INTO sys_config VALUES (11,0,'email.protocol','','协议',now(),now());
+	INSERT INTO sys_config VALUES (12,0,'email.port','25','端口',now(),now());
+	INSERT INTO sys_config VALUES (13,0,'email.username','','邮箱',now(),now());
+	INSERT INTO sys_config VALUES (14,0,'email.password','','密码',now(),now());
+	INSERT INTO sys_config VALUES (15,0,'syslog.host','','地址',now(),now());
+	INSERT INTO sys_config VALUES (16,0,'syslog.protocol','','协议',now(),now());
+	INSERT INTO sys_config VALUES (17,0,'syslog.port','','端口',now(),now());
+	INSERT INTO sys_config VALUES (18,0,'syslog.mode','','模式',now(),now());
+	INSERT INTO sys_config VALUES (19,0,'syslog.enable','false','状态',now(),now());
+	INSERT INTO sys_config VALUES (20,0,'audit.log.enable','true','全局审计日志',now(),now());
+	INSERT INTO sys_config VALUES (21,0,'audit.log.access','true','数据同步日志',now(),now());
+	INSERT INTO sys_config VALUES (22,0,'audit.log.remote','false','放行的应用安全策略日志',now(),now());
+	INSERT INTO sys_config VALUES (23,0,'audit.limit.time','180','日志存储时长(天)',now(),now());
+	INSERT INTO sys_config VALUES (24,0,'audit.limit.capacity','10','日志存储容量(GB)',now(),now());
+	INSERT INTO sys_config VALUES (25,0,'audit.limit.ftp.enable','false','FTP转存',now(),now());
+	INSERT INTO sys_config VALUES (26,0,'audit.limit.hostname','','FTP服务器IP',now(),now());
+	INSERT INTO sys_config VALUES (27,0,'audit.limit.port','','FTP服务器端口',now(),now());
+	INSERT INTO sys_config VALUES (28,0,'audit.limit.username','','用户名',now(),now());
+	INSERT INTO sys_config VALUES (29,0,'audit.limit.password','','密码',now(),now());
+	INSERT INTO sys_config VALUES (30,0,'audit.limit.ftpPath','/','路径',now(),now());
+	INSERT INTO sys_config VALUES (31,0,'audit.limit.logCanDeleted','false','日志是否可删除',now(),now());
+	INSERT INTO sys_config VALUES (32,0,'system.maintenance.username','jusonOPS','运维用户',now(),now());
+	INSERT INTO sys_config VALUES (33,0,'system.maintenance.password','af036f9548992ef7b55f638ffc2bc4eff786f09289f002d15be7176b097eb214','运维用户密码',now(),now());
+	INSERT INTO sys_config VALUES (34,0,'backup.ftp.enable','false','自动备份开关',now(),now());
+	INSERT INTO sys_config VALUES (35,0,'backup.ftp.interval','30','间隔时间(天)',now(),now());
+	INSERT INTO sys_config VALUES (36,0,'backup.ftp.hostname','','备份服务器地址',now(),now());
+	INSERT INTO sys_config VALUES (37,0,'backup.ftp.port','','备份服务器端口',now(),now());
+	INSERT INTO sys_config VALUES (38,0,'backup.ftp.username','','备份服务器账号',now(),now());
+	INSERT INTO sys_config VALUES (39,0,'backup.ftp.password','','备份服务器密码',now(),now());
+	INSERT INTO sys_config VALUES (40,0,'backup.ftp.path','/','备份上传路径',now(),now());
+	INSERT INTO sys_config VALUES (41,0,'backup.ftp.devices','','备份设备',now(),now());
+	INSERT INTO sys_config VALUES (42,0,'baseline.enable','false','基线核查开关',now(),now());
+	INSERT INTO sys_config VALUES (43,0,'baseline.cycle','7','基线核查时效(天)',now(),now());
+	INSERT INTO sys_config VALUES (44,0,'baseline.port','6000','基线核查上报端口',now(),now());
+	INSERT INTO sys_config VALUES (45,0,'sys.name','all','统一设备管理系统',now(),now());
+	INSERT INTO sys_config VALUES (46,0,'client.ngx','true','客户端与管控通信走业务口ngx代理',now(),now());
+	INSERT INTO sys_config VALUES (47,0,'network.resource.rate','10','带宽利用率',now(),now());
+	INSERT INTO sys_config VALUES (48,0,'network.resource.duration','15','持续时间',now(),now());
+	INSERT INTO sys_config VALUES (49,0,'network.resource.ge','600','千兆口总带宽',now(),now());
+	INSERT INTO sys_config VALUES (50,0,'network.resource.tg','6','万兆口总带宽',now(),now());
+	INSERT INTO sys_config VALUES (51,0,'baseline.whiteList','','基线核查白名单',now(),now());
+	INSERT INTO sys_config VALUES (52,1,'logType','SBRZ','认证日志',now(),now());
+	INSERT INTO sys_config VALUES (53,2,'logType','SBYW','业务访问日志',now(),now());
+	INSERT INTO sys_config VALUES (54,3,'logType','SBACLHIT','网络访问控制日志',now(),now());
+	INSERT INTO sys_config VALUES (55,4,'logType','SBKGJ','DDoS攻击防护日志',now(),now());
+	INSERT INTO sys_config VALUES (56,5,'logType','SBGJCGL','关键字过滤日志',now(),now());
+	INSERT INTO sys_config VALUES (57,6,'logType','SBWAF','WAF日志',now(),now());
+	INSERT INTO sys_config VALUES (58,7,'logType','SBDZYY','自定义协议检查策略日志',now(),now());
+	INSERT INTO sys_config VALUES (59,8,'logType','SBAQLL','安全浏览策略日志',now(),now());
+	INSERT INTO sys_config VALUES (60,9,'logType','SBWJCS','文件传输策略日志',now(),now());
+	INSERT INTO sys_config VALUES (61,10,'logType','SBYJ','邮件策略日志',now(),now());
+	INSERT INTO sys_config VALUES (62,11,'logType','SBYYBJ','应用安全标记日志',now(),now());
+	INSERT INTO sys_config VALUES (63,12,'logType','SBBJGL','域间标记日志',now(),now());
+	INSERT INTO sys_config VALUES (64,13,'logType','SBQOSGL','流量控制日志',now(),now());
+	INSERT INTO sys_config VALUES (65,14,'logType','SBHAYC','HA切换日志',now(),now());
+	INSERT INTO sys_config VALUES (66,15,'logType','SBIPS','入侵检测日志',now(),now());
+	INSERT INTO sys_config VALUES (67,16,'logType','SBSQL','SQL审查日志',now(),now());
+	INSERT INTO sys_config VALUES (68,17,'logType','SBRTSP','RTSP过滤日志',now(),now());
+	INSERT INTO sys_config VALUES (69,18,'logType','SBSIP','SIP过滤日志',now(),now());
+	INSERT INTO sys_config VALUES (70,19,'logType','SBFTPSJ','单向文件同步日志',now(),now());
+	INSERT INTO sys_config VALUES (71,20,'logType','SBFTPTJ','文件同步统计',now(),now());
+	INSERT INTO sys_config VALUES (72,21,'logType','SBFTPYD','文件同步源端处理日志',now(),now());
+	INSERT INTO sys_config VALUES (73,22,'logType','SBDBTSMXX','单向数据库同步日志',now(),now());
+	INSERT INTO sys_config VALUES (74,23,'logType','SBACCESS','单向数据导入日志',now(),now());
+	INSERT INTO sys_config VALUES (75,24,'logType','SBSPICE','虚拟桌面协议过滤日志',now(),now());
+	INSERT INTO sys_config VALUES (76,25,'logType','SBDTCP','双单向数据交换日志',now(),now());
+	INSERT INTO sys_config VALUES (77,26,'logType','SBBLSEC','基线核查日志',now(),now());
+	INSERT INTO sys_config VALUES (78,27,'logType','SBIPMAC','IPMAC绑定日志',now(),now());
+	INSERT INTO sys_config VALUES (79,28,'logType','SBVIRUS','病毒防护日志',now(),now());
+	INSERT INTO sys_config VALUES (80,29,'logType','SBSJWZXJC','数据完整性检查日志',now(),now());
+	INSERT INTO sys_config VALUES (81,30,'logType','SBJJM','数据加解密日志',now(),now());
+	INSERT INTO sys_config VALUES (82,31,'logType','SBFLCTL','网络资源控制日志',now(),now());
+	INSERT INTO sys_config VALUES (83,32,'logType','SBFK','飞控协议过滤日志',now(),now());
+	INSERT INTO sys_config VALUES (84,33,'logType','SBSPT','视频通日志',now(),now());
+	INSERT INTO sys_config VALUES (85,34,'logType','SBDL','设备登录日志',now(),now());
+	INSERT INTO sys_config VALUES (86,35,'logType','SBYC','设备异常日志',now(),now());
+	INSERT INTO sys_config VALUES (87,36,'logType','SBCZ','设备操作日志',now(),now());
+	INSERT INTO sys_config VALUES (88,37,'logType','SBSXWJGL','文件过滤日志',now(),now());
+	INSERT INTO sys_config VALUES (89,0,'zx.init.web.jsp.port','50000-51000','JSP端口范围',now(),now());
+	INSERT INTO sys_config VALUES (90,0,'zx.init.ntp.type','时间','类型',now(),now());
+	INSERT INTO sys_config VALUES (91,0,'zx.init.ntp.time','','时间',now(),now());
+	INSERT INTO sys_config VALUES (92,0,'zx.init.ntp.server','','服务器',now(),now());
+	INSERT INTO sys_config VALUES (93,0,'zx.init.ntp.cycle','','同步周期（分钟）',now(),now());
+  </insert>
+</mapper>

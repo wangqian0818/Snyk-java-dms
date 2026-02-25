@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.alarm.mapper.AlarmInfoOpinionsMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.alarm.model.AlarmInfoOpinions">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="alarm_info_id" jdbcType="BIGINT" property="alarmInfoId" />
+    <result column="handle_msg" jdbcType="VARCHAR" property="handleMsg" />
+    <result column="handle_user" jdbcType="VARCHAR" property="handleUser" />
+    <result column="handle_time" jdbcType="TIMESTAMP" property="handleTime" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, alarm_info_id, handle_msg, handle_user, handle_time, gmt_create
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from alarm_info_opinions
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from alarm_info_opinions
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.alarm.model.AlarmInfoOpinions">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into alarm_info_opinions (alarm_info_id, handle_msg, handle_user, handle_time, gmt_create)
+    values (#{alarmInfoId,jdbcType=BIGINT}, #{handleMsg,jdbcType=VARCHAR}, #{handleUser,jdbcType=VARCHAR}, 
+      #{handleTime,jdbcType=TIMESTAMP}, #{gmtCreate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.alarm.model.AlarmInfoOpinions">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into alarm_info_opinions
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="alarmInfoId != null">
+        alarm_info_id,
+      </if>
+      <if test="handleMsg != null">
+        handle_msg,
+      </if>
+      <if test="handleUser != null">
+        handle_user,
+      </if>
+      <if test="handleTime != null">
+        handle_time,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="alarmInfoId != null">
+        #{alarmInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="handleMsg != null">
+        #{handleMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="handleUser != null">
+        #{handleUser,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTime != null">
+        #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.alarm.model.AlarmInfoOpinions">
+    update alarm_info_opinions
+    <set>
+      <if test="alarmInfoId != null">
+        alarm_info_id = #{alarmInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="handleMsg != null">
+        handle_msg = #{handleMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="handleUser != null">
+        handle_user = #{handleUser,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTime != null">
+        handle_time = #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.alarm.model.AlarmInfoOpinions">
+    update alarm_info_opinions
+    set alarm_info_id = #{alarmInfoId,jdbcType=BIGINT},
+      handle_msg = #{handleMsg,jdbcType=VARCHAR},
+      handle_user = #{handleUser,jdbcType=VARCHAR},
+      handle_time = #{handleTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from alarm_info_opinions
+  	<trim prefix="where 1=1">
+		<if test="alarmInfoId != null">
+			and alarm_info_id = #{alarmInfoId,jdbcType=BIGINT} 
+		</if>
+  	</trim>
+  	order by handle_time desc, id desc
+  </select>
+  <delete id="deleteByAlarmInfoId" parameterType="java.lang.Long">
+    delete from alarm_info_opinions
+    where alarm_info_id = #{alarmInfoId,jdbcType=BIGINT} 
+  </delete>
+</mapper>

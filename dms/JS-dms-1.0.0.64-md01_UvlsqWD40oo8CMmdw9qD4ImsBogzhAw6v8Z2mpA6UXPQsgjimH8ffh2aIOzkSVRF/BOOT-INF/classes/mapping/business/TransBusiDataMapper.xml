@@ -1,0 +1,854 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.business.mapper.TransBusiDataMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.business.model.TransBusiData">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="business_id" jdbcType="BIGINT" property="businessId" />
+    <result column="dispatch_id" jdbcType="VARCHAR" property="dispatchId" />
+    <result column="group_id" jdbcType="BIGINT" property="groupId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="rank" jdbcType="TINYINT" property="rank" />
+    <result column="transmit_model" jdbcType="VARCHAR" property="transmitModel" />
+    <result column="l7_proto" jdbcType="VARCHAR" property="l7Proto" />
+    <result column="busi_mode" jdbcType="TINYINT" property="busiMode" />
+    <result column="transmit_data_id" jdbcType="BIGINT" property="transmitDataId" />
+    <result column="transmit_data_name" jdbcType="VARCHAR" property="transmitDataName" />
+    <result column="network_area_id" jdbcType="BIGINT" property="networkAreaId" />
+    <result column="network_area_name" jdbcType="VARCHAR" property="networkAreaName" />
+    <result column="sip" jdbcType="VARCHAR" property="sip" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="port" jdbcType="INTEGER" property="port" />
+    <result column="channel_info_id" jdbcType="BIGINT" property="channelInfoId" />
+    <result column="channel_name" jdbcType="VARCHAR" property="channelName" />
+    <result column="device_id" jdbcType="BIGINT" property="deviceId" />
+    <result column="device_sn" jdbcType="VARCHAR" property="deviceSn" />
+    <result column="local_proxy_ip" jdbcType="VARCHAR" property="localProxyIp" />
+    <result column="local_proxy_port" jdbcType="INTEGER" property="localProxyPort" />
+    <result column="local_feedback_ip" jdbcType="VARCHAR" property="localFeedbackIp" />
+    <result column="local_feedback_port" jdbcType="INTEGER" property="localFeedbackPort" />
+    <result column="local_feedback_sip" jdbcType="VARCHAR" property="localFeedbackSip" />
+    <result column="business_time_id" jdbcType="BIGINT" property="businessTimeId" />
+    <result column="delay_sync" jdbcType="INTEGER" property="delaySync" />
+    <result column="strategy_qos_id" jdbcType="BIGINT" property="strategyQosId" />
+    <result column="strategy_custom_ids" jdbcType="VARCHAR" property="strategyCustomIds" />
+    <result column="strategy_content_ids" jdbcType="VARCHAR" property="strategyContentIds" />
+    <result column="strategy_area_mark_id" jdbcType="BIGINT" property="strategyAreaMarkId" />
+    <result column="strategy_app_mark_id" jdbcType="BIGINT" property="strategyAppMarkId" />
+    <result column="strategy_spice_id" jdbcType="BIGINT" property="strategySpiceId" />
+    <result column="strategy_acl_ids" jdbcType="VARCHAR" property="strategyAclIds" />
+    <result column="strategy_data_lable_id" jdbcType="BIGINT" property="strategyDataLableId" />
+    <result column="strategy_data_sign_id" jdbcType="BIGINT" property="strategyDataSignId" />
+    <result column="filter_file_name" jdbcType="VARCHAR" property="filterFileName" />
+    <result column="filter_file_type" jdbcType="VARCHAR" property="filterFileType" />
+    <result column="filter_file_suffix" jdbcType="VARCHAR" property="filterFileSuffix" />
+    <result column="waf" jdbcType="BIT" property="waf" />
+    <result column="waf_work_state" jdbcType="TINYINT" property="wafWorkState" />
+    <result column="virus" jdbcType="BIT" property="virus" />
+    <result column="virus_work_state" jdbcType="TINYINT" property="virusWorkState" />
+    <result column="data_cfus" jdbcType="TINYINT" property="dataCfus" />
+    <result column="data_cfus_work_state" jdbcType="TINYINT" property="dataCfusWorkState" />
+    <result column="video_enable" jdbcType="BIT" property="videoEnable" />
+    <result column="audio_enable" jdbcType="BIT" property="audioEnable" />
+    <result column="proto_enable" jdbcType="BIT" property="protoEnable" />
+    <result column="flight_action" jdbcType="VARCHAR" property="flightAction" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="work_state" jdbcType="TINYINT" property="workState" />
+    <result column="approval_state" jdbcType="TINYINT" property="approvalState" />
+    <result column="deleting" jdbcType="TINYINT" property="deleting" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, type, business_id, dispatch_id, group_id, name, `rank`, transmit_model, l7_proto, busi_mode, transmit_data_id, transmit_data_name, network_area_id, 
+    network_area_name, sip, ip, port, channel_info_id, channel_name, device_id, device_sn, local_proxy_ip, local_proxy_port, local_feedback_ip, 
+    local_feedback_port, local_feedback_sip, business_time_id, delay_sync, strategy_qos_id, strategy_custom_ids, strategy_content_ids, 
+    strategy_area_mark_id, strategy_app_mark_id, strategy_spice_id, strategy_acl_ids, strategy_data_lable_id, strategy_data_sign_id, 
+    filter_file_name, filter_file_type, filter_file_suffix, 
+    waf, waf_work_state, virus, virus_work_state, data_cfus, data_cfus_work_state, video_enable, audio_enable, proto_enable, flight_action, 
+    create_user, work_state, approval_state, deleting, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from trans_busi_data
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from trans_busi_data
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.business.model.TransBusiData">
+    insert into trans_busi_data (id, type, business_id, dispatch_id, group_id, name, `rank`, transmit_model, l7_proto, busi_mode, transmit_data_id, transmit_data_name, 
+      network_area_id, network_area_name, sip, ip, port, channel_info_id, channel_name, device_id, device_sn, local_proxy_ip, local_proxy_port, 
+      local_feedback_ip, local_feedback_port, local_feedback_sip, business_time_id, delay_sync, strategy_qos_id, strategy_custom_ids, 
+      strategy_content_ids, strategy_area_mark_id, strategy_app_mark_id, strategy_spice_id, strategy_acl_ids, strategy_data_lable_id, 
+      strategy_data_sign_id, filter_file_name, filter_file_type, filter_file_suffix, 
+      waf, waf_work_state, virus, virus_work_state, data_cfus, data_cfus_work_state, video_enable, audio_enable, proto_enable, flight_action, 
+      create_user, work_state, approval_state, deleting, gmt_create, gmt_modified
+      )
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, #{businessId,jdbcType=BIGINT}, #{dispatchId,jdbcType=VARCHAR}, #{groupId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{rank,jdbcType=TINYINT}, #{transmitModel,jdbcType=VARCHAR}, #{l7Proto,jdbcType=VARCHAR}, #{busiMode,jdbcType=TINYINT}, #{transmitDataId,jdbcType=BIGINT}, 
+      #{transmitDataName,jdbcType=VARCHAR}, #{networkAreaId,jdbcType=BIGINT}, #{networkAreaName,jdbcType=VARCHAR}, 
+      #{sip,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{port,jdbcType=INTEGER}, #{channelInfoId,jdbcType=BIGINT}, #{channelName,jdbcType=VARCHAR}, #{deviceId,jdbcType=BIGINT}, #{deviceSn,jdbcType=VARCHAR}, 
+      #{localProxyIp,jdbcType=VARCHAR}, #{localProxyPort,jdbcType=INTEGER}, #{localFeedbackIp,jdbcType=VARCHAR}, 
+      #{localFeedbackPort,jdbcType=INTEGER}, #{localFeedbackSip,jdbcType=VARCHAR}, #{businessTimeId,jdbcType=BIGINT}, 
+      #{delaySync,jdbcType=INTEGER}, #{strategyQosId,jdbcType=BIGINT}, #{strategyCustomIds,jdbcType=VARCHAR}, 
+      #{strategyContentIds,jdbcType=VARCHAR}, #{strategyAreaMarkId,jdbcType=BIGINT}, #{strategyAppMarkId,jdbcType=BIGINT}, #{strategySpiceId,jdbcType=BIGINT}, 
+      #{strategyAclIds,jdbcType=VARCHAR}, #{strategyDataLableId,jdbcType=BIGINT}, #{strategyDataSignId,jdbcType=BIGINT}, 
+      #{filterFileName,jdbcType=VARCHAR}, #{filterFileType,jdbcType=VARCHAR}, #{filterFileSuffix,jdbcType=VARCHAR}, 
+      #{waf,jdbcType=BIT}, #{wafWorkState,jdbcType=TINYINT}, #{virus,jdbcType=BIT}, #{virusWorkState,jdbcType=TINYINT}, 
+      #{dataCfus,jdbcType=TINYINT}, #{dataCfusWorkState,jdbcType=TINYINT}, #{videoEnable,jdbcType=BIT}, #{audioEnable,jdbcType=BIT}, 
+      #{protoEnable,jdbcType=BIT}, #{flightAction,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{workState,jdbcType=TINYINT}, 
+      #{approvalState,jdbcType=TINYINT}, #{deleting,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.business.model.TransBusiData">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into trans_busi_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="businessId != null">
+        business_id,
+      </if>
+      <if test="dispatchId != null">
+        dispatch_id,
+      </if>
+      <if test="groupId != null">
+        group_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="rank != null">
+        `rank`,
+      </if>
+      <if test="transmitModel != null">
+        transmit_model,
+      </if>
+      <if test="l7Proto != null">
+        l7_proto,
+      </if>
+      <if test="busiMode != null">
+        busi_mode,
+      </if>
+      <if test="transmitDataId != null">
+        transmit_data_id,
+      </if>
+      <if test="transmitDataName != null">
+        transmit_data_name,
+      </if>
+      <if test="networkAreaId != null">
+        network_area_id,
+      </if>
+      <if test="networkAreaName != null">
+        network_area_name,
+      </if>
+      <if test="sip != null">
+        sip,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="port != null">
+        port,
+      </if>
+      <if test="channelInfoId != null">
+        channel_info_id,
+      </if>
+      <if test="channelName != null">
+        channel_name,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="deviceSn != null">
+        device_sn,
+      </if>
+      <if test="localProxyIp != null">
+        local_proxy_ip,
+      </if>
+      <if test="localProxyPort != null">
+        local_proxy_port,
+      </if>
+      <if test="localFeedbackIp != null">
+        local_feedback_ip,
+      </if>
+      <if test="localFeedbackPort != null">
+        local_feedback_port,
+      </if>
+      <if test="localFeedbackSip != null">
+        local_feedback_sip,
+      </if>
+      <if test="businessTimeId != null">
+        business_time_id,
+      </if>
+      <if test="delaySync != null">
+        delay_sync,
+      </if>
+      <if test="strategyQosId != null">
+        strategy_qos_id,
+      </if>
+      <if test="strategyCustomIds != null">
+        strategy_custom_ids,
+      </if>
+      <if test="strategyContentIds != null">
+        strategy_content_ids,
+      </if>
+      <if test="strategyAreaMarkId != null">
+        strategy_area_mark_id,
+      </if>
+      <if test="strategyAppMarkId != null">
+        strategy_app_mark_id,
+      </if>
+      <if test="strategySpiceId != null">
+        strategy_spice_id,
+      </if>
+      <if test="strategyAclIds != null">
+        strategy_acl_ids,
+      </if>
+      <if test="strategyDataLableId != null">
+        strategy_data_lable_id,
+      </if>
+      <if test="strategyDataSignId != null">
+        strategy_data_sign_id,
+      </if>
+      <if test="filterFileName != null">
+        filter_file_name,
+      </if>
+      <if test="filterFileType != null">
+        filter_file_type,
+      </if>
+      <if test="filterFileSuffix != null">
+        filter_file_suffix,
+      </if>
+      <if test="waf != null">
+        waf,
+      </if>
+      <if test="wafWorkState != null">
+        waf_work_state,
+      </if>
+      <if test="virus != null">
+        virus,
+      </if>
+      <if test="virusWorkState != null">
+        virus_work_state,
+      </if>
+      <if test="dataCfus != null">
+        data_cfus,
+      </if>
+      <if test="dataCfusWorkState != null">
+        data_cfus_work_state,
+      </if>
+      <if test="videoEnable != null">
+        video_enable,
+      </if>
+      <if test="audioEnable != null">
+        audio_enable,
+      </if>
+      <if test="protoEnable != null">
+        proto_enable,
+      </if>
+      <if test="flightAction != null">
+        flight_action,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="workState != null">
+        work_state,
+      </if>
+      <if test="approvalState != null">
+        approval_state,
+      </if>
+      <if test="deleting != null">
+        deleting,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null">
+        #{businessId,jdbcType=BIGINT},
+      </if>
+      <if test="dispatchId != null">
+        #{dispatchId,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=TINYINT},
+      </if>
+      <if test="transmitModel != null">
+        #{transmitModel,jdbcType=VARCHAR},
+      </if>
+      <if test="l7Proto != null">
+        #{l7Proto,jdbcType=VARCHAR},
+      </if>
+      <if test="busiMode != null">
+        #{busiMode,jdbcType=TINYINT},
+      </if>
+      <if test="transmitDataId != null">
+        #{transmitDataId,jdbcType=BIGINT},
+      </if>
+      <if test="transmitDataName != null">
+        #{transmitDataName,jdbcType=VARCHAR},
+      </if>
+      <if test="networkAreaId != null">
+        #{networkAreaId,jdbcType=BIGINT},
+      </if>
+      <if test="networkAreaName != null">
+        #{networkAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="sip != null">
+        #{sip,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null">
+        #{port,jdbcType=INTEGER},
+      </if>
+      <if test="channelInfoId != null">
+        #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="channelName != null">
+        #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceSn != null">
+        #{deviceSn,jdbcType=VARCHAR},
+      </if>
+      <if test="localProxyIp != null">
+        #{localProxyIp,jdbcType=VARCHAR},
+      </if>
+      <if test="localProxyPort != null">
+        #{localProxyPort,jdbcType=INTEGER},
+      </if>
+      <if test="localFeedbackIp != null">
+        #{localFeedbackIp,jdbcType=VARCHAR},
+      </if>
+      <if test="localFeedbackPort != null">
+        #{localFeedbackPort,jdbcType=INTEGER},
+      </if>
+      <if test="localFeedbackSip != null">
+        #{localFeedbackSip,jdbcType=VARCHAR},
+      </if>
+      <if test="businessTimeId != null">
+        #{businessTimeId,jdbcType=BIGINT},
+      </if>
+      <if test="delaySync != null">
+        #{delaySync,jdbcType=INTEGER},
+      </if>
+      <if test="strategyQosId != null">
+        #{strategyQosId,jdbcType=BIGINT},
+      </if>
+      <if test="strategyCustomIds != null">
+        #{strategyCustomIds,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyContentIds != null">
+        #{strategyContentIds,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyAreaMarkId != null">
+        #{strategyAreaMarkId,jdbcType=BIGINT},
+      </if>
+      <if test="strategyAppMarkId != null">
+        #{strategyAppMarkId,jdbcType=BIGINT},
+      </if>
+      <if test="strategySpiceId != null">
+        #{strategySpiceId,jdbcType=BIGINT},
+      </if>
+      <if test="strategyAclIds != null">
+        #{strategyAclIds,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyDataLableId != null">
+        #{strategyDataLableId,jdbcType=BIGINT},
+      </if>
+      <if test="strategyDataSignId != null">
+        #{strategyDataSignId,jdbcType=BIGINT},
+      </if>
+      <if test="filterFileName != null">
+        #{filterFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="filterFileType != null">
+        #{filterFileType,jdbcType=VARCHAR},
+      </if>
+      <if test="filterFileSuffix != null">
+        #{filterFileSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="waf != null">
+        #{waf,jdbcType=BIT},
+      </if>
+      <if test="wafWorkState != null">
+        #{wafWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="virus != null">
+        #{virus,jdbcType=BIT},
+      </if>
+      <if test="virusWorkState != null">
+        #{virusWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="dataCfus != null">
+        #{dataCfus,jdbcType=TINYINT},
+      </if>
+      <if test="dataCfusWorkState != null">
+        #{dataCfusWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="videoEnable != null">
+        #{videoEnable,jdbcType=BIT},
+      </if>
+      <if test="audioEnable != null">
+        #{audioEnable,jdbcType=BIT},
+      </if>
+      <if test="protoEnable != null">
+        #{protoEnable,jdbcType=BIT},
+      </if>
+      <if test="flightAction != null">
+        #{flightAction,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="workState != null">
+        #{workState,jdbcType=TINYINT},
+      </if>
+      <if test="approvalState != null">
+        #{approvalState,jdbcType=TINYINT},
+      </if>
+      <if test="deleting != null">
+        #{deleting,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.business.model.TransBusiData">
+    update trans_busi_data
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null">
+        business_id = #{businessId,jdbcType=BIGINT},
+      </if>
+      <if test="dispatchId != null">
+        dispatch_id = #{dispatchId,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        group_id = #{groupId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null">
+        `rank` = #{rank,jdbcType=TINYINT},
+      </if>
+      <if test="transmitModel != null">
+        transmit_model = #{transmitModel,jdbcType=VARCHAR},
+      </if>
+      <if test="l7Proto != null">
+        l7_proto = #{l7Proto,jdbcType=VARCHAR},
+      </if>
+      <if test="busiMode != null">
+        busi_mode = #{busiMode,jdbcType=TINYINT},
+      </if>
+      <if test="transmitDataId != null">
+        transmit_data_id = #{transmitDataId,jdbcType=BIGINT},
+      </if>
+      <if test="transmitDataName != null">
+        transmit_data_name = #{transmitDataName,jdbcType=VARCHAR},
+      </if>
+      <if test="networkAreaId != null">
+        network_area_id = #{networkAreaId,jdbcType=BIGINT},
+      </if>
+      <if test="networkAreaName != null">
+        network_area_name = #{networkAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="sip != null">
+        sip = #{sip,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null">
+        port = #{port,jdbcType=INTEGER},
+      </if>
+      <if test="channelInfoId != null">
+        channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="channelName != null">
+        channel_name = #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceSn != null">
+        device_sn = #{deviceSn,jdbcType=VARCHAR},
+      </if>
+      <if test="localProxyIp != null">
+        local_proxy_ip = #{localProxyIp,jdbcType=VARCHAR},
+      </if>
+      <if test="localProxyPort != null">
+        local_proxy_port = #{localProxyPort,jdbcType=INTEGER},
+      </if>
+      <if test="localFeedbackIp != null">
+        local_feedback_ip = #{localFeedbackIp,jdbcType=VARCHAR},
+      </if>
+      <if test="localFeedbackPort != null">
+        local_feedback_port = #{localFeedbackPort,jdbcType=INTEGER},
+      </if>
+      <if test="localFeedbackSip != null">
+        local_feedback_sip = #{localFeedbackSip,jdbcType=VARCHAR},
+      </if>
+      <if test="businessTimeId != null">
+        business_time_id = #{businessTimeId,jdbcType=BIGINT},
+      </if>
+      <if test="delaySync != null">
+        delay_sync = #{delaySync,jdbcType=INTEGER},
+      </if>
+      <if test="strategyQosId != null">
+        strategy_qos_id = #{strategyQosId,jdbcType=BIGINT},
+      </if>
+      <if test="strategyCustomIds != null">
+        strategy_custom_ids = #{strategyCustomIds,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyContentIds != null">
+        strategy_content_ids = #{strategyContentIds,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyAreaMarkId != null">
+        strategy_area_mark_id = #{strategyAreaMarkId,jdbcType=BIGINT},
+      </if>
+      <if test="strategyAppMarkId != null">
+        strategy_app_mark_id = #{strategyAppMarkId,jdbcType=BIGINT},
+      </if>
+      <if test="strategySpiceId != null">
+        strategy_spice_id = #{strategySpiceId,jdbcType=BIGINT},
+      </if>
+      <if test="strategyAclIds != null">
+        strategy_acl_ids = #{strategyAclIds,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyDataLableId != null">
+        strategy_data_lable_id = #{strategyDataLableId,jdbcType=BIGINT},
+      </if>
+      <if test="strategyDataSignId != null">
+        strategy_data_sign_id = #{strategyDataSignId,jdbcType=BIGINT},
+      </if>
+      <if test="filterFileName != null">
+        filter_file_name = #{filterFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="filterFileType != null">
+        filter_file_type = #{filterFileType,jdbcType=VARCHAR},
+      </if>
+      <if test="filterFileSuffix != null">
+        filter_file_suffix = #{filterFileSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="waf != null">
+        waf = #{waf,jdbcType=BIT},
+      </if>
+      <if test="wafWorkState != null">
+        waf_work_state = #{wafWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="virus != null">
+        virus = #{virus,jdbcType=BIT},
+      </if>
+      <if test="virusWorkState != null">
+        virus_work_state = #{virusWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="dataCfus != null">
+        data_cfus = #{dataCfus,jdbcType=TINYINT},
+      </if>
+      <if test="dataCfusWorkState != null">
+        data_cfus_work_state = #{dataCfusWorkState,jdbcType=TINYINT},
+      </if>
+      <if test="videoEnable != null">
+        video_enable = #{videoEnable,jdbcType=BIT},
+      </if>
+      <if test="audioEnable != null">
+        audio_enable = #{audioEnable,jdbcType=BIT},
+      </if>
+      <if test="protoEnable != null">
+        proto_enable = #{protoEnable,jdbcType=BIT},
+      </if>
+      <if test="flightAction != null">
+        flight_action = #{flightAction,jdbcType=VARCHAR},
+      </if>
+      <if test="workState != null">
+        work_state = #{workState,jdbcType=TINYINT},
+      </if>
+      <if test="approvalState != null">
+        approval_state = #{approvalState,jdbcType=TINYINT},
+      </if>
+      <if test="deleting != null">
+        deleting = #{deleting,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.business.model.TransBusiData">
+    update trans_busi_data
+    set type = #{type,jdbcType=VARCHAR},
+      business_id = #{businessId,jdbcType=BIGINT},
+      dispatch_id = #{dispatchId,jdbcType=VARCHAR},
+      group_id = #{groupId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      `rank` = #{rank,jdbcType=TINYINT},
+      transmit_model = #{transmitModel,jdbcType=VARCHAR},
+      l7_proto = #{l7Proto,jdbcType=VARCHAR},
+      busi_mode = #{busiMode,jdbcType=TINYINT},
+      transmit_data_id = #{transmitDataId,jdbcType=BIGINT},
+      transmit_data_name = #{transmitDataName,jdbcType=VARCHAR},
+      network_area_id = #{networkAreaId,jdbcType=BIGINT},
+      network_area_name = #{networkAreaName,jdbcType=VARCHAR},
+      sip = #{sip,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      port = #{port,jdbcType=INTEGER},
+      channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      channel_name = #{channelName,jdbcType=VARCHAR},
+      device_id = #{deviceId,jdbcType=BIGINT},
+      device_sn = #{deviceSn,jdbcType=VARCHAR},
+      local_proxy_ip = #{localProxyIp,jdbcType=VARCHAR},
+      local_proxy_port = #{localProxyPort,jdbcType=INTEGER},
+      local_feedback_ip = #{localFeedbackIp,jdbcType=VARCHAR},
+      local_feedback_port = #{localFeedbackPort,jdbcType=INTEGER},
+      local_feedback_sip = #{localFeedbackSip,jdbcType=VARCHAR},
+      business_time_id = #{businessTimeId,jdbcType=BIGINT},
+      delay_sync = #{delaySync,jdbcType=INTEGER},
+      strategy_qos_id = #{strategyQosId,jdbcType=BIGINT},
+      strategy_custom_ids = #{strategyCustomIds,jdbcType=VARCHAR},
+      strategy_content_ids = #{strategyContentIds,jdbcType=VARCHAR},
+      strategy_area_mark_id = #{strategyAreaMarkId,jdbcType=BIGINT},
+      strategy_app_mark_id = #{strategyAppMarkId,jdbcType=BIGINT},
+      strategy_spice_id = #{strategySpiceId,jdbcType=BIGINT},
+      strategy_acl_ids = #{strategyAclIds,jdbcType=VARCHAR},
+      strategy_data_lable_id = #{strategyDataLableId,jdbcType=BIGINT},
+      strategy_data_sign_id = #{strategyDataSignId,jdbcType=BIGINT},
+      filter_file_name = #{filterFileName,jdbcType=VARCHAR},
+      filter_file_type = #{filterFileType,jdbcType=VARCHAR},
+      filter_file_suffix = #{filterFileSuffix,jdbcType=VARCHAR},
+      waf = #{waf,jdbcType=BIT},
+      waf_work_state = #{wafWorkState,jdbcType=TINYINT},
+      virus = #{virus,jdbcType=BIT},
+      virus_work_state = #{virusWorkState,jdbcType=TINYINT},
+      data_cfus = #{dataCfus,jdbcType=TINYINT},
+      data_cfus_work_state = #{dataCfusWorkState,jdbcType=TINYINT},
+      video_enable = #{videoEnable,jdbcType=BIT},
+      audio_enable = #{audioEnable,jdbcType=BIT},
+      proto_enable = #{protoEnable,jdbcType=BIT},
+      flight_action = #{flightAction,jdbcType=VARCHAR},
+      work_state = #{workState,jdbcType=TINYINT},
+      approval_state = #{approvalState,jdbcType=TINYINT},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from trans_busi_data
+  	<trim prefix="where" prefixOverrides="and|or">
+  		<if test="search != null and '' neq search">
+  			and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="type != null and '' neq type">
+  			and type = #{type,jdbcType=VARCHAR}
+  		</if>
+  		<if test="rank != null">
+  			and `rank` <![CDATA[ <= ]]> #{rank,jdbcType=TINYINT} 
+  		</if>
+  		<if test="businessId != null">
+  			and (business_id = #{businessId,jdbcType=BIGINT} 
+  				or id = #{businessId,jdbcType=BIGINT}) 
+  		</if>
+  		<if test="groupId != null">
+  			and group_id = #{groupId,jdbcType=BIGINT}
+  		</if>
+  		<if test="channelInfoId != null">
+  			and channel_info_id = #{channelInfoId,jdbcType=BIGINT} 
+  		</if>
+  		<if test="deviceId != null">
+  			and device_id = #{deviceId,jdbcType=BIGINT} 
+  		</if>
+  		<if test="name != null and '' neq name">
+  			and name like CONCAT('%', #{name,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="transmitModel != null and '' neq transmitModel">
+  			and transmit_model like CONCAT('%', #{transmitModel,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="workState != null">
+  			and work_state = #{workState,jdbcType=TINYINT}
+  		</if>
+  		<if test="approvalState != null">
+  			and approval_state = #{approvalState,jdbcType=TINYINT}
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_busi_data
+  	<trim prefix="where" prefixOverrides="and|or">
+  		<if test="search != null and '' neq search">
+  			and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="type != null and '' neq type">
+  			and type = #{type,jdbcType=VARCHAR}
+  		</if>
+  		<if test="rank != null">
+  			and `rank` <![CDATA[ <= ]]> #{rank,jdbcType=TINYINT} 
+  		</if>
+  		<if test="businessId != null">
+  			and (business_id = #{businessId,jdbcType=BIGINT} 
+  				or id = #{businessId,jdbcType=BIGINT}) 
+  		</if>
+  		<if test="groupId != null">
+  			and group_id = #{groupId,jdbcType=BIGINT}
+  		</if>
+  		<if test="channelInfoId != null">
+  			and channel_info_id = #{channelInfoId,jdbcType=BIGINT} 
+  		</if>
+  		<if test="deviceId != null">
+  			and device_id = #{deviceId,jdbcType=BIGINT} 
+  		</if>
+  		<if test="name != null and '' neq name">
+  			and name like CONCAT('%', #{name,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="transmitModel != null and '' neq transmitModel">
+  			and transmit_model like CONCAT('%', #{transmitModel,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="workState != null">
+  			and work_state = #{workState,jdbcType=TINYINT}
+  		</if>
+  		<if test="approvalState != null">
+  			and approval_state = #{approvalState,jdbcType=TINYINT}
+  		</if>
+  	</trim>
+  	order by gmt_create desc, id desc
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_busi_data where name = #{name,jdbcType=VARCHAR} and type = #{type,jdbcType=VARCHAR} 
+  </select>
+  <select id="selectByBusinessId" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_busi_data where business_id = #{businessId,jdbcType=BIGINT} 
+ 	<if test="type != null and '' neq type">
+ 		and type = #{type,jdbcType=VARCHAR}
+ 	</if>
+  </select>
+  <delete id="deleteByBusinessId">
+    delete from trans_busi_data
+    where business_id = #{businessId,jdbcType=BIGINT} and type = #{type,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByRelevance" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_busi_data where 1 = 1 and type != 'recSender' 
+ 	<if test="transmitDataId != null">
+ 		and transmit_data_id = #{transmitDataId,jdbcType=BIGINT}
+ 	</if>
+ 	<if test="strategyQosId != null">
+ 		and strategy_qos_id = #{strategyQosId,jdbcType=BIGINT}
+ 	</if>
+ 	<if test="businessTimeId != null">
+ 		and business_time_id = #{businessTimeId,jdbcType=BIGINT}
+ 	</if>
+  </select>
+  <select id="selectByChannelInfoId" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_busi_data where channel_info_id = #{channelInfoId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByChannelInfoId">
+    delete from trans_busi_data
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT}
+  </delete>
+  <select id="selectByIpPort" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_busi_data where type = #{type,jdbcType=VARCHAR}
+  	and ((local_proxy_ip = #{ip,jdbcType=VARCHAR} AND local_proxy_port = #{port,jdbcType=INTEGER}) 
+  	OR (local_feedback_ip = #{ip,jdbcType=VARCHAR} AND local_feedback_port = #{port,jdbcType=INTEGER}))
+  	limit 1 
+  </select>
+  <select id="selectByTransData" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_busi_data where type = #{type,jdbcType=VARCHAR}
+  	and transmit_data_id = #{transmitDataId,jdbcType=BIGINT} 
+  	limit 1 
+  </select>
+  <select id="selectByChannelInfoIdAndModel" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_busi_data where channel_info_id = #{channelInfoId,jdbcType=BIGINT} 
+  	and type = #{type,jdbcType=VARCHAR} 
+  	and transmit_model like CONCAT('%', #{transmitModel,jdbcType=VARCHAR}, '%')
+  </select>
+  <select id="selectBySpiceId" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_busi_data where type = #{type,jdbcType=VARCHAR}
+  	and strategy_spice_id = #{strategySpiceId,jdbcType=BIGINT} 
+  	limit 1 
+  </select>
+  <select id="selectByNetworkId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from trans_busi_data 
+    where network_area_id = #{networkAreaId,jdbcType=BIGINT} 
+  </select>
+  <select id="selectByIpPortModel" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_busi_data where transmit_model = #{transmitModel,jdbcType=VARCHAR} 
+  	and ((local_proxy_ip = #{ip,jdbcType=VARCHAR} AND local_proxy_port = #{port,jdbcType=INTEGER}) 
+  	OR (local_feedback_ip = #{ip,jdbcType=VARCHAR} AND local_feedback_port = #{port,jdbcType=INTEGER}))
+  	limit 1 
+  </select>
+  <select id="selectApprovalAll" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from trans_busi_data 
+    where 1 = 1 
+   		<if test="type != null and '' neq type">
+ 			and type = #{type,jdbcType=VARCHAR}
+ 		</if>
+  		<if test="approvalState != null">
+  			and approval_state = #{approvalState,jdbcType=TINYINT}
+  		</if>
+  		<if test="transmitModel != null">
+  			and transmit_model like CONCAT('%', #{transmitModel,jdbcType=VARCHAR}, '%')
+  		</if>
+  		and type != 'recSender' and type != 'recSenderDouble' 
+  </select>
+  <update id="updateByGroupId" parameterType="java.lang.Long">
+    update trans_busi_data
+    set group_id = null 
+    where group_id = #{groupId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByGroupId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from trans_busi_data 
+    where group_id = #{groupId,jdbcType=BIGINT}
+  </select>
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.business.mapper.JspInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.business.model.JspInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="port" jdbcType="INTEGER" property="port" />
+    <result column="entity_id" jdbcType="BIGINT" property="entityId" />
+    <result column="business_id" jdbcType="BIGINT" property="businessId" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, path, port,  entity_id, business_id, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jsp_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByEntityId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from jsp_info
+    where entity_id = #{entityId,jdbcType=BIGINT}
+  </select>
+  <select id="selectByBusinessId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from jsp_info
+    where business_id = #{businessId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from jsp_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.business.model.JspInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    INSERT INTO jsp_info
+            (path, port,  entity_id, business_id, gmt_create, gmt_modified)
+    values (#{path,jdbcType=VARCHAR},  #{port,jdbcType=INTEGER},#{entityId,jdbcType=BIGINT},#{businessId,jdbcType=BIGINT},
+            #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.business.model.JspInfo">
+    update jsp_info
+    <set>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null">
+        port = #{port,jdbcType=INTEGER},
+      </if>
+      <if test="entityId != null">
+        entity_id = #{entityId,jdbcType=BIGINT},
+      </if>
+      <if test="businessId != null">
+        business_id = #{businessId,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.business.model.JspInfo">
+    update jsp_info
+    set
+        path = #{path,jdbcType=VARCHAR},
+        port = #{port,jdbcType=INTEGER},
+        entity_id = #{entityId,jdbcType=BIGINT},
+        business_id = #{businessId,jdbcType=BIGINT},
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from jsp_info
+  </select>
+  <delete id="deleteByBusinessId" parameterType="java.lang.Long">
+    delete from jsp_info
+    where business_id = #{businessId,jdbcType=BIGINT} 
+  </delete>
+  <select id="selectByChannelInfoId" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from jsp_info where business_id in (select id from trans_busi_file where channel_info_id = #{channelInfoId,jdbcType=BIGINT})
+  </select>
+</mapper>

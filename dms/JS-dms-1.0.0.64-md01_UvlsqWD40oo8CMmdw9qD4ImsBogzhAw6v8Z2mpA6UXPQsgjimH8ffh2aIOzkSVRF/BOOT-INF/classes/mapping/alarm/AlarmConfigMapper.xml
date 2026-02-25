@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.alarm.mapper.AlarmConfigMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.alarm.model.AlarmConfig">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="threshold" jdbcType="VARCHAR" property="threshold" />
+    <result column="notice_type" jdbcType="TINYINT" property="noticeType" />
+    <result column="receivers" jdbcType="VARCHAR" property="receivers" />
+    <result column="notice_rank" jdbcType="TINYINT" property="noticeRank" />
+    <result column="period" jdbcType="INTEGER" property="period" />
+    <result column="state" jdbcType="BIT" property="state" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, type, threshold, notice_type, receivers, notice_rank, period, state, gmt_create, 
+    gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from alarm_config
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from alarm_config
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.alarm.model.AlarmConfig">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into alarm_config (name, type, threshold, 
+      notice_type, receivers, notice_rank, 
+      period, state, gmt_create, 
+      gmt_modified)
+    values (#{name,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{threshold,jdbcType=VARCHAR}, 
+      #{noticeType,jdbcType=TINYINT}, #{receivers,jdbcType=VARCHAR}, #{noticeRank,jdbcType=TINYINT}, 
+      #{period,jdbcType=INTEGER}, #{state,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.alarm.model.AlarmConfig">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into alarm_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="threshold != null">
+        threshold,
+      </if>
+      <if test="noticeType != null">
+        notice_type,
+      </if>
+      <if test="receivers != null">
+        receivers,
+      </if>
+      <if test="noticeRank != null">
+        notice_rank,
+      </if>
+      <if test="period != null">
+        period,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="threshold != null">
+        #{threshold,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeType != null">
+        #{noticeType,jdbcType=TINYINT},
+      </if>
+      <if test="receivers != null">
+        #{receivers,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeRank != null">
+        #{noticeRank,jdbcType=TINYINT},
+      </if>
+      <if test="period != null">
+        #{period,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.alarm.model.AlarmConfig">
+    update alarm_config
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="threshold != null">
+        threshold = #{threshold,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeType != null">
+        notice_type = #{noticeType,jdbcType=TINYINT},
+      </if>
+      <if test="receivers != null">
+        receivers = #{receivers,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeRank != null">
+        notice_rank = #{noticeRank,jdbcType=TINYINT},
+      </if>
+      <if test="period != null">
+        period = #{period,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.alarm.model.AlarmConfig">
+    update alarm_config
+    set name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT},
+      threshold = #{threshold,jdbcType=VARCHAR},
+      notice_type = #{noticeType,jdbcType=TINYINT},
+      receivers = #{receivers,jdbcType=VARCHAR},
+      notice_rank = #{noticeRank,jdbcType=TINYINT},
+      period = #{period,jdbcType=INTEGER},
+      state = #{state,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from alarm_config
+  	<trim prefix="where">
+  		<if test="search != null and '' neq search">
+  			name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from alarm_config
+  	<trim prefix="where">
+  		<if test="search != null and '' neq search">
+  			name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  	</trim>
+  	order by gmt_create desc, id desc
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from alarm_config where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByType"  resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from alarm_config where type = #{type,jdbcType=TINYINT}
+  	order by state desc
+  </select>
+  
+  <select id="selectInUse"  resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from alarm_config where state='1'
+  </select>
+  
+  <select id="selectByReceiverId" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from alarm_config where find_in_set(#{receiverId,jdbcType=BIGINT}, receivers) 
+  	limit 1
+  </select>
+</mapper>

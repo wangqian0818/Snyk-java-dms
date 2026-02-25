@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.business.mapper.TransApprovalOpinionMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.business.model.TransApprovalOpinion">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="business_id" jdbcType="BIGINT" property="businessId" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="opinion" jdbcType="VARCHAR" property="opinion" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="approval_user" jdbcType="VARCHAR" property="approvalUser" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, business_id, type, opinion, result, approval_user, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from trans_approval_opinion
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from trans_approval_opinion
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.business.model.TransApprovalOpinion">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into trans_approval_opinion (business_id, type, opinion, result, approval_user, 
+      gmt_create, gmt_modified)
+    values (#{businessId,jdbcType=BIGINT}, #{type,jdbcType=TINYINT}, #{opinion,jdbcType=VARCHAR}, 
+      #{result,jdbcType=VARCHAR}, #{approvalUser,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.business.model.TransApprovalOpinion">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into trans_approval_opinion
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="businessId != null">
+        business_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="opinion != null">
+        opinion,
+      </if>
+      <if test="result != null">
+        result,
+      </if>
+      <if test="approvalUser != null">
+        approval_user,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="businessId != null">
+        #{businessId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="opinion != null">
+        #{opinion,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalUser != null">
+        #{approvalUser,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.business.model.TransApprovalOpinion">
+    update trans_approval_opinion
+    <set>
+      <if test="businessId != null">
+        business_id = #{businessId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="opinion != null">
+        opinion = #{opinion,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        result = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalUser != null">
+        approval_user = #{approvalUser,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.business.model.TransApprovalOpinion">
+    update trans_approval_opinion
+    set business_id = #{businessId,jdbcType=BIGINT},
+      type = #{type,jdbcType=TINYINT},
+      opinion = #{opinion,jdbcType=VARCHAR},
+      result = #{result,jdbcType=VARCHAR},
+      approval_user = #{approvalUser,jdbcType=VARCHAR},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByBusinessId" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from trans_approval_opinion
+  	<trim prefix="where">
+  		<if test="businessId != null">
+  			business_id = #{businessId,jdbcType=BIGINT} 
+  		</if>
+  	</trim>
+  	order by gmt_create desc, id desc
+  </select>
+  <delete id="deleteByBusinessId" parameterType="java.lang.Long">
+    delete from trans_approval_opinion
+    where business_id = #{businessId,jdbcType=BIGINT} 
+  </delete>
+  <select id="selectWorkStateByBusinessId" resultType="java.lang.Byte">
+  	SELECT work_state FROM trans_busi_file WHERE id = #{businessId,jdbcType=BIGINT} 
+    UNION 
+    SELECT work_state FROM trans_busi_data WHERE id = #{businessId,jdbcType=BIGINT} 
+  </select>
+</mapper>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.strategy.mapper.StrategyMailMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.strategy.model.StrategyMail">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="exec_action" jdbcType="TINYINT" property="execAction" />
+    <result column="transfer_proto" jdbcType="VARCHAR" property="transferProto" />
+    <result column="attachment_format_list" jdbcType="VARCHAR" property="attachmentFormatList" />
+    <result column="title_keyword_id" jdbcType="BIGINT" property="titleKeywordId" />
+    <result column="mail_id" jdbcType="BIGINT" property="mailId" />
+    <result column="security_rank" jdbcType="TINYINT" property="securityRank" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, exec_action, transfer_proto, attachment_format_list, title_keyword_id, 
+    mail_id, security_rank, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from strategy_mail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from strategy_mail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.strategy.model.StrategyMail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into strategy_mail (name, transfer_proto, exec_action, attachment_format_list,
+      title_keyword_id, mail_id, security_rank, 
+      gmt_create, gmt_modified)
+    values (#{name,jdbcType=VARCHAR}, #{transferProto,jdbcType=VARCHAR}, #{execAction,jdbcType=TINYINT}, 
+      #{attachmentFormatList,jdbcType=VARCHAR}, #{titleKeywordId,jdbcType=BIGINT}, 
+      #{mailId,jdbcType=BIGINT}, #{securityRank,jdbcType=TINYINT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.strategy.model.StrategyMail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into strategy_mail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="execAction != null">
+        exec_action,
+      </if>
+      <if test="transferProto != null">
+        transfer_proto,
+      </if>
+      <if test="attachmentFormatList != null">
+        attachment_format_list,
+      </if>
+      <if test="titleKeywordId != null">
+        title_keyword_id,
+      </if>
+      <if test="mailId != null">
+        mail_id,
+      </if>
+      <if test="securityRank != null">
+        security_rank,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="execAction != null">
+        #{execAction,jdbcType=TINYINT},
+      </if>
+      <if test="transferProto != null">
+        #{transferProto,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentFormatList != null">
+        #{attachmentFormatList,jdbcType=VARCHAR},
+      </if>
+      <if test="titleKeywordId != null">
+        #{titleKeywordId,jdbcType=BIGINT},
+      </if>
+      <if test="mailId != null">
+        #{mailId,jdbcType=BIGINT},
+      </if>
+      <if test="securityRank != null">
+        #{securityRank,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.strategy.model.StrategyMail">
+    update strategy_mail
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="execAction != null">
+        exec_action = #{execAction,jdbcType=TINYINT},
+      </if>
+      <if test="transferProto != null">
+        transfer_proto = #{transferProto,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentFormatList != null">
+        attachment_format_list = #{attachmentFormatList,jdbcType=VARCHAR},
+      </if>
+      <if test="titleKeywordId != null">
+        title_keyword_id = #{titleKeywordId,jdbcType=BIGINT},
+      </if>
+      <if test="mailId != null">
+        mail_id = #{mailId,jdbcType=BIGINT},
+      </if>
+      <if test="securityRank != null">
+        security_rank = #{securityRank,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.strategy.model.StrategyMail">
+    update strategy_mail
+    set name = #{name,jdbcType=VARCHAR},
+      exec_action = #{execAction,jdbcType=TINYINT},
+      transfer_proto = #{transferProto,jdbcType=VARCHAR},
+      attachment_format_list = #{attachmentFormatList,jdbcType=VARCHAR},
+      title_keyword_id = #{titleKeywordId,jdbcType=BIGINT},
+      mail_id = #{mailId,jdbcType=BIGINT},
+      security_rank = #{securityRank,jdbcType=TINYINT},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from strategy_mail
+  	<trim prefix="where">
+  		<if test="search != null and '' neq search">
+  			name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from strategy_mail
+  	<trim prefix="where">
+  		<if test="search != null and '' neq search">
+  			name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  	</trim>
+  	order by gmt_create desc, id desc
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from strategy_mail where name = #{name,jdbcType=VARCHAR}
+  </select>
+</mapper>

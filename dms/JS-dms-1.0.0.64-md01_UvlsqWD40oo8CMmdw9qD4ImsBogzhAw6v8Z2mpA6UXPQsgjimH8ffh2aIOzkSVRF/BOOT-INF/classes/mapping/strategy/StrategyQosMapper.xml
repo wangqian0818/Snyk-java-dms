@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.strategy.mapper.StrategyQosMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.strategy.model.StrategyQos">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="device_type" jdbcType="TINYINT" property="deviceType" />
+    <result column="location" jdbcType="TINYINT" property="location" />
+    <result column="limit_speed_mode" jdbcType="TINYINT" property="limitSpeedMode" />
+    <result column="work_mode" jdbcType="TINYINT" property="workMode" />
+    <result column="message_type" jdbcType="TINYINT" property="messageType" />
+    <result column="up_value" jdbcType="INTEGER" property="upValue" />
+    <result column="up_unit" jdbcType="VARCHAR" property="upUnit" />
+    <result column="down_value" jdbcType="INTEGER" property="downValue" />
+    <result column="down_unit" jdbcType="VARCHAR" property="downUnit" />
+    <result column="security_rank" jdbcType="TINYINT" property="securityRank" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, device_type, location, limit_speed_mode, work_mode, message_type, up_value, up_unit, down_value, 
+    down_unit, security_rank, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from strategy_qos
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from strategy_qos
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.strategy.model.StrategyQos">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into strategy_qos (name, device_type, location, limit_speed_mode, work_mode, 
+      message_type, up_value, up_unit, down_value, down_unit, security_rank, 
+      gmt_create, gmt_modified)
+    values (#{name,jdbcType=VARCHAR}, #{deviceType,jdbcType=TINYINT}, #{location,jdbcType=TINYINT}, 
+      #{limitSpeedMode,jdbcType=TINYINT}, #{workMode,jdbcType=TINYINT}, 
+      #{messageType,jdbcType=TINYINT}, #{upValue,jdbcType=INTEGER}, #{upUnit,jdbcType=VARCHAR}, 
+      #{downValue,jdbcType=INTEGER}, #{downUnit,jdbcType=VARCHAR}, #{securityRank,jdbcType=TINYINT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertAll">
+    insert into strategy_qos (name, device_type, location, limit_speed_mode, work_mode, 
+      message_type, up_value, up_unit, down_value, down_unit, security_rank, 
+      gmt_create, gmt_modified)
+    values 
+    <foreach collection="records" item="record" separator=",">
+      (#{record.name,jdbcType=VARCHAR}, #{record.deviceType,jdbcType=TINYINT}, #{record.location,jdbcType=TINYINT}, 
+      #{record.limitSpeedMode,jdbcType=TINYINT}, #{record.workMode,jdbcType=TINYINT}, 
+      #{record.messageType,jdbcType=TINYINT}, #{record.upValue,jdbcType=INTEGER}, #{record.upUnit,jdbcType=VARCHAR}, 
+      #{record.downValue,jdbcType=INTEGER}, #{record.downUnit,jdbcType=VARCHAR}, #{record.securityRank,jdbcType=TINYINT}, 
+      #{record.gmtCreate,jdbcType=TIMESTAMP}, #{record.gmtModified,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.strategy.model.StrategyQos">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into strategy_qos
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="deviceType != null">
+        device_type,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="limitSpeedMode != null">
+        limit_speed_mode,
+      </if>
+      <if test="workMode != null">
+        work_mode,
+      </if>
+      <if test="messageType != null">
+        message_type,
+      </if>
+      <if test="upValue != null">
+        up_value,
+      </if>
+      <if test="upUnit != null">
+        up_unit,
+      </if>
+      <if test="downValue != null">
+        down_value,
+      </if>
+      <if test="downUnit != null">
+        down_unit,
+      </if>
+      <if test="securityRank != null">
+        security_rank,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null">
+        #{deviceType,jdbcType=TINYINT},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=TINYINT},
+      </if>
+      <if test="limitSpeedMode != null">
+        #{limitSpeedMode,jdbcType=TINYINT},
+      </if>
+      <if test="workMode != null">
+        #{workMode,jdbcType=TINYINT},
+      </if>
+      <if test="messageType != null">
+        #{messageType,jdbcType=TINYINT},
+      </if>
+      <if test="upValue != null">
+        #{upValue,jdbcType=INTEGER},
+      </if>
+      <if test="upUnit != null">
+        #{upUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="downValue != null">
+        #{downValue,jdbcType=INTEGER},
+      </if>
+      <if test="downUnit != null">
+        #{downUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="securityRank != null">
+        #{securityRank,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.strategy.model.StrategyQos">
+    update strategy_qos
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null">
+        device_type = #{deviceType,jdbcType=TINYINT},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=TINYINT},
+      </if>
+      <if test="limitSpeedMode != null">
+        limit_speed_mode = #{limitSpeedMode,jdbcType=TINYINT},
+      </if>
+      <if test="workMode != null">
+        work_mode = #{workMode,jdbcType=TINYINT},
+      </if>
+      <if test="messageType != null">
+        message_type = #{messageType,jdbcType=TINYINT},
+      </if>
+      <if test="upValue != null">
+        up_value = #{upValue,jdbcType=INTEGER},
+      </if>
+      <if test="upUnit != null">
+        up_unit = #{upUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="downValue != null">
+        down_value = #{downValue,jdbcType=INTEGER},
+      </if>
+      <if test="downUnit != null">
+        down_unit = #{downUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="securityRank != null">
+        security_rank = #{securityRank,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.strategy.model.StrategyQos">
+    update strategy_qos
+    set name = #{name,jdbcType=VARCHAR},
+      device_type = #{deviceType,jdbcType=TINYINT},
+      location = #{location,jdbcType=TINYINT},
+      limit_speed_mode = #{limitSpeedMode,jdbcType=TINYINT},
+      work_mode = #{workMode,jdbcType=TINYINT},
+      message_type = #{messageType,jdbcType=TINYINT},
+      up_value = #{upValue,jdbcType=INTEGER},
+      up_unit = #{upUnit,jdbcType=VARCHAR},
+      down_value = #{downValue,jdbcType=INTEGER},
+      down_unit = #{downUnit,jdbcType=VARCHAR},
+      security_rank = #{securityRank,jdbcType=TINYINT},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from strategy_qos
+  	<trim prefix="where" prefixOverrides="and|or">
+  		<if test="search != null and '' neq search">
+  			and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="name != null and '' neq name">
+  			and name like CONCAT('%', #{name,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="workMode != null">
+  			and work_mode = #{workMode,jdbcType=TINYINT} 
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from strategy_qos
+  	<trim prefix="where" prefixOverrides="and|or">
+  		<if test="search != null and '' neq search">
+  			and name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="name != null and '' neq name">
+  			and name like CONCAT('%', #{name,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="workMode != null">
+  			and work_mode = #{workMode,jdbcType=TINYINT} 
+  		</if>
+  	</trim>
+  	order by gmt_create desc, id desc
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from strategy_qos where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByDeviceType" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from strategy_qos
+  	<trim prefix="where">
+  		<if test="deviceType != null">
+  			device_type = #{deviceType,jdbcType=TINYINT}
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectByChannelInfoId" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from strategy_qos where id in (select strategy_id from business_strategy where channel_info_id = #{channelInfoId,jdbcType=BIGINT} and type = 6)
+  </select>
+</mapper>

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.business.mapper.StudyBrowseMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.business.model.StudyBrowse">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="study_visit_id" jdbcType="BIGINT" property="studyVisitId" />
+    <result column="rule_id" jdbcType="BIGINT" property="ruleId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="command" jdbcType="VARCHAR" property="command" />
+    <result column="params" jdbcType="VARCHAR" property="params" />
+    <result column="exec_action" jdbcType="TINYINT" property="execAction" />
+    <result column="mime_type" jdbcType="VARCHAR" property="mimeType" />
+    <result column="uri_list" jdbcType="VARCHAR" property="uriList" />
+    <result column="work_state" jdbcType="TINYINT" property="workState" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, study_visit_id, rule_id, name, command, params, exec_action, mime_type, 
+    uri_list, work_state, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from study_browse
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from study_browse
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.business.model.StudyBrowse">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into study_browse (study_visit_id, rule_id, name, command, params, exec_action,
+      mime_type, uri_list, work_state, gmt_create, gmt_modified)
+    values (#{studyVisitId,jdbcType=BIGINT}, #{ruleId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{command,jdbcType=VARCHAR}, #{params,jdbcType=VARCHAR}, #{execAction,jdbcType=TINYINT},
+      #{mimeType,jdbcType=VARCHAR}, #{uriList,jdbcType=VARCHAR},#{workState,jdbcType=TINYINT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.business.model.StudyBrowse">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into study_browse
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studyVisitId != null">
+        study_visit_id,
+      </if>
+      <if test="ruleId != null">
+        rule_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="command != null">
+        command,
+      </if>
+      <if test="params != null">
+        params,
+      </if>
+      <if test="execAction != null">
+        exec_action,
+      </if>
+      <if test="mimeType != null">
+        mime_type,
+      </if>
+      <if test="uriList != null">
+        uri_list,
+      </if>
+      <if test="workState != null">
+        work_state,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studyVisitId != null">
+        #{studyVisitId,jdbcType=BIGINT},
+      </if>
+      <if test="ruleId != null">
+        #{ruleId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="command != null">
+        #{command,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null">
+        #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="execAction != null">
+        #{execAction,jdbcType=TINYINT},
+      </if>
+      <if test="mimeType != null">
+        #{mimeType,jdbcType=VARCHAR},
+      </if>
+      <if test="uriList != null">
+        #{uriList,jdbcType=VARCHAR},
+      </if>
+      <if test="workState != null">
+        #{workState,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.business.model.StudyBrowse">
+    update study_browse
+    <set>
+      <if test="studyVisitId != null">
+        study_visit_id = #{studyVisitId,jdbcType=BIGINT},
+      </if>
+      <if test="ruleId != null">
+        rule_id = #{ruleId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="command != null">
+        command = #{command,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null">
+        params = #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="execAction != null">
+        exec_action = #{execAction,jdbcType=TINYINT},
+      </if>
+      <if test="mimeType != null">
+        mime_type = #{mimeType,jdbcType=VARCHAR},
+      </if>
+      <if test="uriList != null">
+        uri_list = #{uriList,jdbcType=VARCHAR},
+      </if>
+      <if test="workState != null">
+        work_state = #{workState,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.business.model.StudyBrowse">
+    update study_browse
+    set study_visit_id = #{studyVisitId,jdbcType=BIGINT},
+      rule_id = #{ruleId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      command = #{command,jdbcType=VARCHAR},
+      params = #{params,jdbcType=VARCHAR},
+      exec_action = #{execAction,jdbcType=TINYINT},
+      mime_type = #{mimeType,jdbcType=VARCHAR},
+      uri_list = #{uriList,jdbcType=VARCHAR},
+      work_state = #{workState,jdbcType=TINYINT},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from study_browse
+  	<trim prefix="where">
+  		<if test="studyVisitId != null">
+  			study_visit_id = #{studyVisitId,jdbcType=BIGINT}
+  		</if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from study_browse
+  	<trim prefix="where">
+  		<if test="studyVisitId != null">
+  			study_visit_id = #{studyVisitId,jdbcType=BIGINT}
+  		</if>
+  	</trim>
+  </select>
+  <delete id="deleteByStudyVisitId" parameterType="java.lang.Long">
+    delete from study_browse
+    where study_visit_id = #{studyVisitId,jdbcType=BIGINT}
+  </delete>
+  <update id="updateByStudyVisitId">
+    update study_browse
+    set work_state = #{workState,jdbcType=TINYINT} 
+    where study_visit_id = #{studyVisitId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByContent" parameterType="com.zx.dms.database.business.model.StudyBrowse" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from study_browse
+    where study_visit_id = #{studyVisitId,jdbcType=BIGINT} and 
+      command = #{command,jdbcType=VARCHAR} and 
+      params = #{params,jdbcType=VARCHAR} and 
+      mime_type = #{mimeType,jdbcType=VARCHAR} and 
+      uri_list = #{uriList,jdbcType=VARCHAR} 
+  </select>
+</mapper>

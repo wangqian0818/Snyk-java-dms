@@ -1,0 +1,114 @@
+server:
+  servlet:
+    register-default-servlet: true
+#   context-path: /dms
+  port: 443
+  ssl:
+    key-store: classpath:config/jusonhttps.keystore  #类路径下的自签证书
+    key-alias: jusonhttps # 证书别名
+    key-store-password: juson1q2w3e #证书密码
+    key-store-type: PKCS12 # 证书类型
+    enabled-protocols: TLSv1.2,TLSv1.3
+    ciphers: TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_256_CBC_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA
+    enabled: true  # 开启证书验证
+  address: jusonMgrIp #部署时去掉注释
+  tomcat:
+    uri-encoding: UTF-8
+    basedir: /juson_file #部署时去掉注释
+    
+logging:   #部署时去掉注释   
+  config: /juson_file/config/log4j2.yml   #部署时去掉注释   
+  
+zx:
+  init: 
+    runModel: jusonMgrType
+    authEnable: true
+    licenseEnable: false
+    kaptchaEnable: true
+    cleanLoginInfo: false
+    initPermission: false
+    tokenLength: 32
+    secureEnable: false
+    swagger:
+      enable: false #swaggerEnable
+      title: 统一设备管理系统 RESTful APIs
+      basePackage: com.zx.dms.web.controller
+    app:
+      description: 统一设备管理系统
+      tokenKey: tfo
+    admin:
+      name: admin
+      password: dc1fd00e3eeeb940ff46f457bf97d66ba7fcc36e0b20802383de142860e76ae6
+      create: false 
+    redis:
+      ttl: 100
+    web:
+#      tokenTtl: 1800
+      retryTimes: 3
+      retryInterval: 240
+      excludeLoginUrls: /login,/kaptcha,/test/*,/unlogin/*,/download/*,/system/license,/device/border-device-backup/getRestoreInfo/*,/dmsCtl/*,/static/*,/css/*,/jsNodeMgr/*,/zxClient/*
+      excludeTokenUrls: /logout,/dmsCtl/*,/static/*,/css/*,/jsNodeMgr/*,/zxClient/*
+    uploadDir: /juson_file/upload   #uploadDir
+    backupDir: /juson_file/backup
+    machine:
+        front: A-
+        end: B-
+
+spring:
+  main:
+    allow-circular-references: true
+  messages:
+    basename: dms,com.zx.common.i18n.messages
+  aop:
+    proxy-target-class: true
+  jmx:
+    #enabled: false
+    default-domain: dms
+  application:
+    name: dms
+  datasource:
+    name: dms
+    url: jdbc:mysql://127.0.0.1:3306/dms?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&allowPublicKeyRetrieval=true
+    username: root
+    password: my2025@juson.tech
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+  servlet:
+    encoding:
+      force: true
+      charset: UTF-8
+    multipart:
+      max-file-size: 2048MB
+      max-request-size: 2048MB    
+    
+mybatis:
+  mapper-locations: classpath*:mapping/**/*.xml
+  type-aliases-package: com.zx.**.database.**.model
+  configLocation: classpath:/mybatis-config.xml
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql  
+      
+
+
+
+
+
+
+

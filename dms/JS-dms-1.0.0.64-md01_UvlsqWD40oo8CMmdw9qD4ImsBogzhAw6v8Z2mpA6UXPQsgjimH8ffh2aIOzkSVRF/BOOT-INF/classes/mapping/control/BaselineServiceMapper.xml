@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.control.mapper.BaselineServiceMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.control.model.BaselineService">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="channel_info_id" jdbcType="BIGINT" property="channelInfoId" />
+    <result column="port" jdbcType="INTEGER" property="port" />
+    <result column="cycle_unit" jdbcType="INTEGER" property="cycleUnit" />
+    <result column="cycle_num" jdbcType="INTEGER" property="cycleNum" />
+    <result column="enable" jdbcType="TINYINT" property="enable" />
+    <result column="white_list" jdbcType="LONGVARCHAR" property="whiteList" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, channel_info_id, port, cycle_unit, cycle_num, enable,
+    white_list, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from baseline_service
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByChannelId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from baseline_service
+    where channel_info_id = #{channelId,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from baseline_service
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.control.model.BaselineService">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into baseline_service (
+        channel_info_id, port,
+        cycle_unit, cycle_num, enable,
+        white_list, gmt_create, gmt_modified)
+    values (
+        #{channelInfoId,jdbcType=BIGINT}, #{port,jdbcType=INTEGER},
+        #{cycleUnit,jdbcType=INTEGER}, #{cycleNum,jdbcType=INTEGER}, #{enable,jdbcType=TINYINT},
+        #{whiteList,jdbcType=LONGVARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.control.model.BaselineService">
+    update baseline_service
+    <set>
+      <if test="channelInfoId != null">
+        channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="port != null">
+        port = #{port,jdbcType=INTEGER},
+      </if>
+      <if test="cycleUnit != null">
+        cycle_unit = #{cycleUnit,jdbcType=INTEGER},
+      </if>
+      <if test="cycleNum != null">
+        cycle_num = #{cycleNum,jdbcType=INTEGER},
+      </if>
+      <if test="enable != null">
+        enable = #{enable,jdbcType=TINYINT},
+      </if>
+      <if test="whiteList != null">
+        white_list = #{whiteList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.control.model.BaselineService">
+    update baseline_service
+    set channel_info_id = #{channelInfoId,jdbcType=BIGINT},
+      port = #{port,jdbcType=INTEGER},
+      cycle_unit = #{cycleUnit,jdbcType=INTEGER},
+      cycle_num = #{cycleNum,jdbcType=INTEGER},
+      enable = #{enable,jdbcType=TINYINT},
+      white_list = #{whiteList,jdbcType=LONGVARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+    select count(0) from baseline_service
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from baseline_service
+    order by gmt_create desc, id desc
+  </select>
+  <delete id="deleteByChannelInfoId" parameterType="java.lang.Long">
+    delete from baseline_service
+    where channel_info_id = #{channelInfoId,jdbcType=BIGINT}
+  </delete>
+</mapper>

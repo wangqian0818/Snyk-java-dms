@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.device.mapper.ChannelInfoExtraMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.device.model.ChannelInfoExtra">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="sn" jdbcType="VARCHAR" property="sn" />
+    <result column="channel_name" jdbcType="VARCHAR" property="channelName" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="abnormal_info" jdbcType="VARCHAR" property="abnormalInfo" />
+    <result column="auth_module_state" jdbcType="TINYINT" property="authModuleState" />
+    <result column="ha_state" jdbcType="TINYINT" property="haState" />
+    <result column="work_load" jdbcType="VARCHAR" property="workLoad" />
+    <result column="waf_version" jdbcType="VARCHAR" property="wafVersion" />
+    <result column="waf_update" jdbcType="TIMESTAMP" property="wafUpdate" />
+    <result column="waf_rule_path" jdbcType="VARCHAR" property="wafRulePath" />
+    <result column="virus_version" jdbcType="VARCHAR" property="virusVersion" />
+    <result column="virus_update" jdbcType="TIMESTAMP" property="virusUpdate" />
+    <result column="virus_factory" jdbcType="VARCHAR" property="virusFactory" />
+    <result column="virus_db_version" jdbcType="VARCHAR" property="virusDbVersion" />
+    <result column="ids_version" jdbcType="VARCHAR" property="idsVersion" />
+    <result column="ids_update" jdbcType="TIMESTAMP" property="idsUpdate" />
+    <result column="ids_rule_path" jdbcType="VARCHAR" property="idsRulePath" />
+    <result column="security_strategies" jdbcType="VARCHAR" property="securityStrategies" />
+    <result column="waf_rules" jdbcType="LONGVARCHAR" property="wafRules" />
+    <result column="waf_action" jdbcType="BIT" property="wafAction" />
+    <result column="waf_block_time" jdbcType="INTEGER" property="wafBlockTime" />
+    <result column="waf_block_unit" jdbcType="VARCHAR" property="wafBlockUnit" />
+	<result column="detection_only" jdbcType="BIT" property="detectionOnly" />
+    <result column="intrusion_rules" jdbcType="LONGVARCHAR" property="intrusionRules" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sn, channel_name, version, abnormal_info, auth_module_state, ha_state, work_load, waf_version, 
+    waf_update, waf_rule_path, virus_version, virus_update, virus_factory, virus_db_version, ids_version, 
+    ids_update, ids_rule_path, security_strategies, waf_rules, waf_action, waf_block_time, waf_block_unit, 
+    detection_only, intrusion_rules
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from channel_info_extra
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from channel_info_extra
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.device.model.ChannelInfoExtra">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_info_extra (sn, channel_name, version, abnormal_info, auth_module_state, ha_state, work_load, 
+      waf_version, waf_update, waf_rule_path, virus_version, virus_update, virus_factory, virus_db_version, 
+      ids_version, ids_update, ids_rule_path, security_strategies, waf_rules, waf_action, waf_block_time, 
+      waf_block_unit, detection_only, intrusion_rules)
+    values (#{sn,jdbcType=VARCHAR}, #{channelName,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, #{abnormalInfo,jdbcType=VARCHAR}, 
+      #{authModuleState,jdbcType=TINYINT}, #{haState,jdbcType=TINYINT}, #{workLoad,jdbcType=VARCHAR}, 
+      #{wafVersion,jdbcType=VARCHAR}, #{wafUpdate,jdbcType=TIMESTAMP}, #{wafRulePath,jdbcType=VARCHAR}, 
+      #{virusVersion,jdbcType=VARCHAR},#{virusUpdate,jdbcType=TIMESTAMP}, #{virusFactory,jdbcType=VARCHAR}, 
+      #{virusDbVersion,jdbcType=VARCHAR}, #{idsVersion,jdbcType=VARCHAR}, #{idsUpdate,jdbcType=TIMESTAMP}, 
+      #{idsRulePath,jdbcType=VARCHAR}, #{securityStrategies,jdbcType=VARCHAR}, #{wafRules,jdbcType=LONGVARCHAR}, 
+      #{wafAction,jdbcType=BIT}, #{wafBlockTime,jdbcType=INTEGER}, #{wafBlockUnit,jdbcType=VARCHAR}, 
+      #{detectionOnly,jdbcType=BIT}, #{intrusionRules,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.device.model.ChannelInfoExtra">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_info_extra
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sn != null">
+        sn,
+      </if>
+      <if test="channelName != null">
+        channel_name,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="abnormalInfo != null">
+        abnormal_info,
+      </if>
+      <if test="authModuleState != null">
+        auth_module_state,
+      </if>
+      <if test="haState != null">
+        ha_state,
+      </if>
+      <if test="workLoad != null">
+        work_load,
+      </if>
+      <if test="wafVersion != null">
+        waf_version,
+      </if>
+      <if test="wafUpdate != null">
+        waf_update,
+      </if>
+      <if test="wafRulePath != null">
+        waf_rule_path,
+      </if>
+      <if test="virusVersion != null">
+        virus_version,
+      </if>
+      <if test="virusUpdate != null">
+        virus_update,
+      </if>
+      <if test="virusFactory != null">
+        virus_factory,
+      </if>
+      <if test="virusDbVersion != null">
+        virus_db_version,
+      </if>
+      <if test="idsVersion != null">
+        ids_version,
+      </if>
+      <if test="idsUpdate != null">
+        ids_update,
+      </if>
+      <if test="idsRulePath != null">
+        ids_rule_path,
+      </if>
+      <if test="securityStrategies != null">
+        security_strategies,
+      </if>
+      <if test="wafRules != null">
+        waf_rules,
+      </if>
+      <if test="wafAction != null">
+        waf_action,
+      </if>
+      <if test="wafBlockTime != null">
+        waf_block_time,
+      </if>
+      <if test="wafBlockUnit != null">
+        waf_block_unit,
+      </if>
+      <if test="detectionOnly != null">
+        detection_only,
+      </if>
+      <if test="intrusionRules != null">
+        intrusion_rules,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sn != null">
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="channelName != null">
+        #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="abnormalInfo != null">
+        #{abnormalInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="authModuleState != null">
+        #{authModuleState,jdbcType=TINYINT},
+      </if>
+      <if test="haState != null">
+        #{haState,jdbcType=TINYINT},
+      </if>
+      <if test="workLoad != null">
+        #{workLoad,jdbcType=VARCHAR},
+      </if>
+      <if test="wafVersion != null">
+        #{wafVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="wafUpdate != null">
+        #{wafUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wafRulePath != null">
+        #{wafRulePath,jdbcType=VARCHAR},
+      </if>
+      <if test="virusVersion != null">
+        #{virusVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="virusUpdate != null">
+        #{virusUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="virusFactory != null">
+        #{virusFactory,jdbcType=VARCHAR},
+      </if>
+      <if test="virusDbVersion != null">
+        #{virusDbVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="idsVersion != null">
+        #{idsVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="idsUpdate != null">
+        #{idsUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="idsRulePath != null">
+        #{idsRulePath,jdbcType=VARCHAR},
+      </if>
+      <if test="securityStrategies != null">
+        #{securityStrategies,jdbcType=VARCHAR},
+      </if>
+      <if test="wafRules != null">
+        #{wafRules,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="wafAction != null">
+        #{wafAction,jdbcType=BIT},
+      </if>
+      <if test="wafBlockTime != null">
+        #{wafBlockTime,jdbcType=INTEGER},
+      </if>
+      <if test="wafBlockUnit != null">
+        #{wafBlockUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="detectionOnly != null">
+        #{detectionOnly,jdbcType=BIT},
+      </if>
+      <if test="intrusionRules != null">
+        #{intrusionRules,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.device.model.ChannelInfoExtra">
+    update channel_info_extra
+    <set>
+      <if test="sn != null">
+        sn = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="channelName != null">
+        channel_name = #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="abnormalInfo != null">
+        abnormal_info = #{abnormalInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="authModuleState != null">
+        auth_module_state = #{authModuleState,jdbcType=TINYINT},
+      </if>
+      <if test="haState != null">
+        ha_state = #{haState,jdbcType=TINYINT},
+      </if>
+      <if test="workLoad != null">
+        work_load = #{workLoad,jdbcType=VARCHAR},
+      </if>
+      <if test="wafVersion != null">
+        waf_version = #{wafVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="wafUpdate != null">
+        waf_update = #{wafUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wafRulePath != null">
+        waf_rule_path = #{wafRulePath,jdbcType=VARCHAR},
+      </if>
+      <if test="virusVersion != null">
+        virus_version = #{virusVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="virusUpdate != null">
+        virus_update = #{virusUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="virusFactory != null">
+        virus_factory = #{virusFactory,jdbcType=VARCHAR},
+      </if>
+      <if test="virusDbVersion != null">
+        virus_db_version = #{virusDbVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="idsVersion != null">
+        ids_version = #{idsVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="idsUpdate != null">
+        ids_update = #{idsUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="idsRulePath != null">
+        ids_rule_path = #{idsRulePath,jdbcType=VARCHAR},
+      </if>
+      <if test="securityStrategies != null">
+        security_strategies = #{securityStrategies,jdbcType=VARCHAR},
+      </if>
+      <if test="wafRules != null">
+        waf_rules = #{wafRules,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="wafRules != null">
+        waf_action = #{wafAction,jdbcType=BIT},
+      </if>
+      <if test="wafRules != null">
+        waf_block_time = #{wafBlockTime,jdbcType=INTEGER},
+      </if>
+      <if test="wafRules != null">
+        waf_block_unit = #{wafBlockUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="detectionOnly != null">
+        detection_only = #{detectionOnly,jdbcType=BIT},
+      </if>
+      <if test="intrusionRules != null">
+        intrusion_rules = #{intrusionRules,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.device.model.ChannelInfoExtra">
+    update channel_info_extra
+    set sn = #{sn,jdbcType=VARCHAR},
+      channel_name = #{channelName,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      abnormal_info = #{abnormalInfo,jdbcType=VARCHAR},
+      auth_module_state = #{authModuleState,jdbcType=TINYINT},
+      ha_state = #{haState,jdbcType=TINYINT},
+      work_load = #{workLoad,jdbcType=VARCHAR},
+      waf_version = #{wafVersion,jdbcType=VARCHAR},
+      waf_update = #{wafUpdate,jdbcType=TIMESTAMP},
+      waf_rule_path = #{wafRulePath,jdbcType=VARCHAR},
+      virus_version = #{virusVersion,jdbcType=VARCHAR},
+      virus_update = #{virusUpdate,jdbcType=TIMESTAMP},
+      virus_factory = #{virusFactory,jdbcType=VARCHAR},
+      virus_db_version = #{virusDbVersion,jdbcType=VARCHAR},
+      ids_version = #{idsVersion,jdbcType=VARCHAR},
+      ids_update = #{idsUpdate,jdbcType=TIMESTAMP},
+      ids_rule_path = #{idsRulePath,jdbcType=VARCHAR},
+      security_strategies = #{securityStrategies,jdbcType=VARCHAR},
+      waf_rules = #{wafRules,jdbcType=LONGVARCHAR},
+      waf_action = #{wafAction,jdbcType=BIT},
+      waf_block_time = #{wafBlockTime,jdbcType=INTEGER},
+      waf_block_unit = #{wafBlockUnit,jdbcType=VARCHAR},
+      detection_only = #{detectionOnly,jdbcType=BIT},
+      intrusion_rules = #{intrusionRules,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectBySnAndChannel" resultMap="BaseResultMap">
+  	select * from channel_info_extra
+  	where sn = #{sn,jdbcType=VARCHAR} 
+      and channel_name = #{channelName,jdbcType=VARCHAR} 
+  </select>
+  <delete id="deleteBySn" parameterType="java.lang.String">
+    delete from channel_info_extra
+    where sn = #{sn,jdbcType=VARCHAR}
+  </delete>
+</mapper>

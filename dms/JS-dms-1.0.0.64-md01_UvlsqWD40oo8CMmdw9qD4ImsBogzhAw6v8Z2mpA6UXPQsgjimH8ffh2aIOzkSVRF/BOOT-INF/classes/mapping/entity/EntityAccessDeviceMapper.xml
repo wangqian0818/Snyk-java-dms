@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.dms.database.entity.mapper.EntityAccessDeviceMapper">
+  <resultMap id="BaseResultMap" type="com.zx.dms.database.entity.model.EntityAccessDevice">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="operate_system" jdbcType="VARCHAR" property="operateSystem" />
+    <result column="org_structure_id" jdbcType="BIGINT" property="orgStructureId" />
+    <result column="org_structure_name" jdbcType="VARCHAR" property="orgStructureName" />
+    <result column="sys_client_id" jdbcType="BIGINT" property="sysClientId" />
+    <result column="confidentiality_level" jdbcType="TINYINT" property="confidentialityLevel" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, ip, operate_system, org_structure_id, org_structure_name, sys_client_id, confidentiality_level, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from entity_access_device
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from entity_access_device
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zx.dms.database.entity.model.EntityAccessDevice">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into entity_access_device (name, ip, operate_system,
+      org_structure_id, org_structure_name, sys_client_id,confidentiality_level,
+      gmt_create, gmt_modified
+    )
+    values (#{name,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR},  #{operateSystem,jdbcType=VARCHAR},
+      #{orgStructureId,jdbcType=VARCHAR}, #{orgStructureName,jdbcType=VARCHAR}, #{sysClientId,jdbcType=BIGINT}, #{confidentialityLevel,jdbcType=TINYINT},
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.dms.database.entity.model.EntityAccessDevice">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into entity_access_device
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="operateSystem != null">
+        operate_system,
+      </if>
+      <if test="orgStructureId != null">
+        org_structure_id,
+      </if>
+      <if test="orgStructureName != null">
+        org_structure_name,
+      </if>
+      <if test="sysClientId != null">
+        sys_client_id,
+      </if>
+      <if test="confidentialityLevel != null">
+        confidentiality_level,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="operateSystem != null">
+        #{operateSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="orgStructureId != null">
+        #{orgStructureId,jdbcType=BIGINT},
+      </if>
+      <if test="orgStructureName != null">
+        #{orgStructureName,jdbcType=VARCHAR},
+      </if>
+      <if test="sysClientId != null">
+        #{sysClientId,jdbcType=BIGINT},
+      </if>
+      <if test="confidentialityLevel != null">
+        #{confidentialityLevel,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.dms.database.entity.model.EntityAccessDevice">
+    update entity_access_device
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="operateSystem != null">
+        operate_system = #{operateSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="orgStructureId != null">
+        org_structure_id = #{orgStructureId,jdbcType=BIGINT},
+      </if>
+      <if test="orgStructureName != null">
+        org_structure_name = #{orgStructureName,jdbcType=VARCHAR},
+      </if>
+      <if test="sysClientId != null">
+        sys_client_id = #{sysClientId,jdbcType=BIGINT},
+      </if>
+      <if test="confidentialityLevel != null">
+        confidentiality_level = #{confidentialityLevel,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.dms.database.entity.model.EntityAccessDevice">
+    update entity_access_device
+    set name = #{name,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      operate_system = #{operateSystem,jdbcType=VARCHAR},
+      org_structure_id = #{orgStructureId,jdbcType=BIGINT},
+      org_structure_name = #{orgStructureName,jdbcType=VARCHAR},
+      sys_client_id = #{sysClientId,jdbcType=BIGINT},
+      confidentiality_level = #{confidentialityLevel,jdbcType=TINYINT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getLength" resultType="java.lang.Long">
+  	select count(0) from entity_access_device
+  	<trim prefix="where" prefixOverrides="and|or">
+  		<if test="search != null and '' neq search">
+  			and ip like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="name != null and '' neq name">
+  			and name like CONCAT('%', #{name,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="ip != null and '' neq ip">
+  			and ip like CONCAT('%', #{ip,jdbcType=VARCHAR}, '%')
+  		</if>
+        <if test="signScope != null and '' neq signScope">
+  			and org_structure_name = #{signScope,jdbcType=VARCHAR}
+  		</if>
+        <if test="confidentialityLevel != null">
+          and confidentiality_level = #{confidentialityLevel,jdbcType=TINYINT}
+        </if>
+  	</trim>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select entity.*
+  	from entity_access_device entity
+    INNER JOIN sys_client_info client ON client.id=entity.sys_client_id
+  	<trim prefix="where" prefixOverrides="and|or">
+  		<if test="search != null and '' neq search">
+  			and entity.name like CONCAT('%', #{search,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="name != null and '' neq name">
+  			and entity.name like CONCAT('%', #{name,jdbcType=VARCHAR}, '%')
+  		</if>
+  		<if test="ip != null and '' neq ip">
+  			and entity.ip like CONCAT('%', #{ip,jdbcType=VARCHAR}, '%')
+  		</if>
+        <if test="signScope != null and '' neq signScope">
+          and entity.org_structure_name = #{signScope,jdbcType=VARCHAR}
+        </if>
+        <if test="confidentialityLevel != null">
+          and confidentiality_level = #{confidentialityLevel,jdbcType=TINYINT}
+        </if>
+  	</trim>
+  	order by entity.gmt_create desc, entity.id desc
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from entity_access_device where name = #{name,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="selectByBusinessIp" resultMap="BaseResultMap">
+    select entity.*
+    from entity_access_device  entity
+    INNER JOIN sys_client_info clientInfo ON clientInfo.id=entity.sys_client_id
+    where entity.ip = #{businessIp,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="selectByUser" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select entity.*
+    from   entity_access_device entity
+    INNER JOIN user_entity_access_device user_entity ON entity.id=user_entity.entity_access_device_id
+    INNER JOIN user u ON u.id=user_entity.user_id
+    where user_entity.user_id = #{userId,jdbcType=BIGINT}
+  </select>
+
+
+
+  <select id="selectByOrgId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from entity_access_device
+    where org_structure_id = #{orgStructureId,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByClientId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from entity_access_device
+    where sys_client_id = #{sysClientId,jdbcType=BIGINT}
+  </select>
+</mapper>

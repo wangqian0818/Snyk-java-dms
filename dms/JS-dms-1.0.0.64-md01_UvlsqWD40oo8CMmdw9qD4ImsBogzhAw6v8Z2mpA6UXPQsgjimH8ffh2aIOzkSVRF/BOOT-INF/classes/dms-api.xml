@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<apiConfig>
+    <!--name——接口名称
+    class——实现类名。如果为空，那就在接口实现里
+    method——实现方法。如果为空，就跟接口同名-->
+    <dms>
+        <api name="demo" invo="com.zx.common.client.vo.DemoInvo" outvo="com.zx.common.client.vo.DemoOutvo"/>
+
+        <api name="demo2" invo="com.zx.common.client.vo.DemoInvo" outvo="com.zx.common.client.vo.DemoOutvo"/>
+    </dms>
+</apiConfig>
