@@ -1,0 +1,1 @@
+INSERT INTO sys_config (idx,name,val,zh_name,gmt_create,gmt_modified) VALUES (0,'zx.init.web.jsp.path','50000-51000','JSP端口范围',NOW(),NOW());
