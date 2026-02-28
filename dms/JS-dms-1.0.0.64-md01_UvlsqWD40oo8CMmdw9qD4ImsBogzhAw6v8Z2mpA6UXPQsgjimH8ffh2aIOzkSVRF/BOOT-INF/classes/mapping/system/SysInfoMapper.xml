@@ -212,7 +212,7 @@
 	INSERT INTO sys_config VALUES (18,0,'syslog.mode','','模式',now(),now());
 	INSERT INTO sys_config VALUES (19,0,'syslog.enable','false','状态',now(),now());
 	INSERT INTO sys_config VALUES (20,0,'audit.log.enable','true','全局审计日志',now(),now());
-	INSERT INTO sys_config VALUES (21,0,'audit.log.access','true','数据同步日志',now(),now());
+	INSERT INTO sys_config VALUES (21,0,'none.audit.log.access','true','数据同步日志',now(),now());
 	INSERT INTO sys_config VALUES (22,0,'audit.log.remote','false','放行的应用安全策略日志',now(),now());
 	INSERT INTO sys_config VALUES (23,0,'audit.limit.time','180','日志存储时长(天)',now(),now());
 	INSERT INTO sys_config VALUES (24,0,'audit.limit.capacity','10','日志存储容量(GB)',now(),now());
